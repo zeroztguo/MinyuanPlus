@@ -54,7 +54,7 @@ public class MoreFragment extends BaseFragment {
 
 
     CommonAdapter mAdapter;
-    private String[] mTitles = {"主题", "设置", "关于"};
+    private String[] mTitles;
     private int[] mIcons = {R.mipmap.theme, R.mipmap.setting, R.mipmap.about};
     private int mThemeIndex;
 
@@ -88,7 +88,7 @@ public class MoreFragment extends BaseFragment {
     }
 
     private void init() {
-
+        mTitles = new String[]{getHoldingActivity().getString(R.string.theme), getHoldingActivity().getString(R.string.setting), getHoldingActivity().getString(R.string.about)};
         mAdapter = new CommonAdapter<String>(getContext(), R.layout.item_more, Arrays.asList(mTitles)) {
             @Override
             protected void convert(ViewHolder viewHolder, String item, int position) {
@@ -177,19 +177,19 @@ public class MoreFragment extends BaseFragment {
         recyclerView.setAdapter(adapter);
 
         android.support.v7.app.AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("主题");
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        builder.setTitle(getHoldingActivity().getString(R.string.theme));
+        builder.setPositiveButton(getHoldingActivity().getString(R.string.confirm), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 SettingConfig.setThemeIndex(mThemeIndex);
-                ToastUtil.show("主题设置成功");
+                ToastUtil.show(getHoldingActivity().getString(R.string.theme_setting_success));
                 //重启Activity
                 getHoldingActivity().recreate();
             }
         });
         builder.setView(recyclerView);
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getHoldingActivity().getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

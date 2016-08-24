@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+
 import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.model.Setting;
 import com.csmy.minyuanplus.support.DataCleanManager;
@@ -36,7 +37,7 @@ import java.util.List;
 
 import butterknife.Bind;
 
-public class SettingActivity extends BaseActivity implements BaseToolbarView{
+public class SettingActivity extends BaseActivity implements BaseToolbarView {
     @Bind(R.id.id_setting_preference_rv)
     RecyclerView mPrefRecyclerView;
     @Bind(R.id.id_setting_basic_rv)
@@ -53,10 +54,10 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView{
 
     List<Setting> mBasicDatas;
 
-    String[] mPrefTitles = {"语言", "头像"};
+    String[] mPrefTitles;
 
-    String[] mBasicTitles = {"省流量模式", "清空缓存"};
-    String[] mBasicSubTitles = {"仅在WI-FI环境下才会自动加载课余页面图片和视频", "清理民院+的缓存"};
+    String[] mBasicTitles;
+    String[] mBasicSubTitles;
     boolean[] mIsSwitchArray = {true, false};
     AlertDialog mUserIconDialog;
     int mUserIconIndex;
@@ -64,16 +65,18 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView{
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        mPrefTitles = new String[]{getString(R.string.language), getString(R.string.head)};
+        mBasicTitles = new String[]{getString(R.string.save_flow_mode), getString(R.string.clear_cache)};
+        mBasicSubTitles = new String[]{getString(R.string.only_wifi), getString(R.string.clear_app_cache)};
         initToolbar();
         initPreferenceRecyclerView();
         initBasicRecyclerView();
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
@@ -84,11 +87,11 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView{
         mPrefRecyclerView.setLayoutManager(mPrefLayoutManager);
         mPrefRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
 
-        mPrefAdapter = new CommonAdapter<String>(this,R.layout.item_setting_text, Arrays.asList(mPrefTitles)) {
+        mPrefAdapter = new CommonAdapter<String>(this, R.layout.item_setting_text, Arrays.asList(mPrefTitles)) {
             @Override
             protected void convert(ViewHolder holder, String s, int position) {
                 holder.setText(R.id.id_setting_text_title_actv, s);
-                holder.setVisible(R.id.id_setting_text_subtitle_actv,false);
+                holder.setVisible(R.id.id_setting_text_subtitle_actv, false);
             }
 
             @Override
@@ -101,7 +104,7 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView{
         mPrefAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
-                switch (position){
+                switch (position) {
                     case 1:
                         showSetUserIconDialog();
                         break;
@@ -116,23 +119,23 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView{
         mPrefRecyclerView.setAdapter(mPrefAdapter);
     }
 
-    private void showSetUserIconDialog(){
+    private void showSetUserIconDialog() {
         final List<CustomImageView> customImageViews = new ArrayList<>();
 
         final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
-        builder.setTitle("头像");
+        builder.setTitle(R.string.head);
 
         RecyclerView recyclerView = (RecyclerView) LayoutInflater.from(this).inflate(R.layout.item_setting_head, (ViewGroup) findViewById(R.id.id_setting_user_icon_rv));
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,4);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
         recyclerView.setLayoutManager(gridLayoutManager);
         final Integer[] imgs = SettingConfig.getUserIconArray();
         mUserIconIndex = SettingConfig.getUserIconIndex();
-        CommonAdapter<Integer> adapter = new CommonAdapter<Integer>(this,R.layout.item_setting_user_icon,Arrays.asList(imgs)) {
+        CommonAdapter<Integer> adapter = new CommonAdapter<Integer>(this, R.layout.item_setting_user_icon, Arrays.asList(imgs)) {
             @Override
             protected void convert(ViewHolder holder, Integer integer, final int position) {
                 final CustomImageView imageView = holder.getView(R.id.id_setting_user_icon_iv);
-                imageView.setSrc(BitmapFactory.decodeResource(getResources(),integer.intValue()));
-                if(mUserIconIndex == position){
+                imageView.setSrc(BitmapFactory.decodeResource(getResources(), integer.intValue()));
+                if (mUserIconIndex == position) {
                     imageView.setDrawRight(true);
                 }
                 imageView.setOnClickListener(new View.OnClickListener() {
@@ -153,12 +156,12 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView{
         recyclerView.setAdapter(adapter);
 
         builder.setView(recyclerView);
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 SettingConfig.setUserIconIndex(mUserIconIndex);
                 dialog.dismiss();
-                SnackbarUtil.showWithNoAction(mBasicRecyclerView,"头像设置成功");
+                SnackbarUtil.showWithNoAction(mBasicRecyclerView, getString(R.string.head_setting_success));
             }
         });
 
@@ -195,14 +198,14 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView{
             @Override
             public void convert(ViewHolder holder, Setting setting, int position) {
                 AppCompatTextView titleTextView = holder.getView(R.id.id_setting_text_title_actv);
-                titleTextView.setText(setting.getTitle() );
+                titleTextView.setText(setting.getTitle());
 
                 AppCompatTextView subtitleTextView = holder.getView(R.id.id_setting_text_subtitle_actv);
-                subtitleTextView.setText(setting.getSubTitle() );
+                subtitleTextView.setText(setting.getSubTitle());
 
-                switch (position){
+                switch (position) {
                     case 1:
-                        subtitleTextView.setText(subtitleTextView.getText()+"   "+ DataCleanManager.getCacheSize(getBaseContext()));
+                        subtitleTextView.setText(subtitleTextView.getText() + "   " + DataCleanManager.getCacheSize(getBaseContext()));
                         break;
                 }
             }
@@ -221,13 +224,13 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView{
             @Override
             public void convert(ViewHolder holder, Setting setting, int position) {
                 AppCompatTextView titleTextView = holder.getView(R.id.id_setting_text_switch_title_actv);
-                titleTextView.setText(setting.getTitle() );
+                titleTextView.setText(setting.getTitle());
 
                 AppCompatTextView subtitleTextView = holder.getView(R.id.id_setting_text_switch_subtitle_actv);
-                subtitleTextView.setText(setting.getSubTitle() );
+                subtitleTextView.setText(setting.getSubTitle());
 
                 SwitchCompat switchButton = holder.getView(R.id.id_setting_text_switch_switch);
-                switch (position){
+                switch (position) {
                     case 0:
                         switchButton.setChecked(SettingConfig.isSaveFlow());
                         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -247,10 +250,10 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView{
         mBasicAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
-                switch (position){
+                switch (position) {
                     case 1:
                         DataCleanManager.cleanAllCache(getBaseContext());
-                        SnackbarUtil.showWithNoAction(mBasicRecyclerView,"清除缓存成功");
+                        SnackbarUtil.showWithNoAction(mBasicRecyclerView, getString(R.string.clear_cache_success));
                         mBasicAdapter.notifyItemChanged(1);
                         break;
                 }
@@ -278,7 +281,7 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView{
     public void initToolbar() {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("设置");
+        getSupportActionBar().setTitle(getString(R.string.setting));
     }
 
     private class SettingAdapter extends MultiItemTypeAdapter<Setting> {

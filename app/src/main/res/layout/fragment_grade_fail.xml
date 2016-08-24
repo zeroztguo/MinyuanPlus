@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/card_elevation"
-        android:text="查询至今未通过课程成绩" />
+        android:text="@string/query_grade_fail" />
     <com.loopeer.cardstack.CardStackView
         android:id="@+id/id_grade_fail_csv"
         android:layout_width="match_parent"

@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="44px"
-                android:text="民院+"
+                android:text="@string/app_name"
                 android:textColor="?attr/colorPrimaryDark"
                 android:textSize="50px" />
 
@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="44px"
-                android:text="作者"
+                android:text="@string/author"
                 android:textColor="?attr/colorPrimaryDark"
                 android:textSize="50px" />
 
@@ -73,8 +73,8 @@
                     <android.support.v7.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="移动1432 郭泽涛"
                         android:textColor="?attr/textPrimary"
+                        android:text="@string/zero"
                         android:textSize="50px" />
 
                     <android.support.v7.widget.AppCompatTextView
@@ -91,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="44px"
-                android:text="版权"
+                android:text="@string/copyright"
                 android:textColor="?attr/colorPrimaryDark"
                 android:textSize="50px" />
 

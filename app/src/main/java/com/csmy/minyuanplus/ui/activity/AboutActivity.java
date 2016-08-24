@@ -49,12 +49,12 @@ public class AboutActivity extends BaseActivity {
 
     LinearLayoutManager mCollegePlusLayoutManager;
     private CommonAdapter<String> mCollegePlusAdapter;
-    private String[] mCollegePlusTitles = {"应用简介", "检查更新", "意见反馈", "分享民院+"};
-
     LinearLayoutManager mCopyrightLayoutManager;
+
     private CommonAdapter<String> mCopyrightAdapter;
-    private String[] mCopyrightTitles = {"教务系统和校闻数据", "课余页面数据", "开源协议"};
-    private String[] mCopyrightContents = {"抓取自民政学院教务系统和官网，版权归学校所有", "数据来自于网上api，版权归原作者所有", ""};
+    private String[] mCollegePlusTitles;
+    private String[] mCopyrightTitles;
+    private String[] mCopyrightContents;
     private String mVersionCode;
     private String mLatestVersionUrl;
     private String mUpdateMessage;
@@ -72,6 +72,11 @@ public class AboutActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
+        mCollegePlusTitles = new String[]{getString(R.string.app_introduce), getString(R.string.check_update)
+                , getString(R.string.feedback), getString(R.string.share_application)};
+        mCopyrightTitles = new String[]{getString(R.string.education_news_data), getString(R.string.after_class_data)
+                , getString(R.string.open_source)};
+        mCopyrightContents = new String[]{getString(R.string.from_college), getString(R.string.from_net), ""};
         initToolbar();
         initCollegePlusRecyclerView();
         initCopyrightRecyclerView();
@@ -95,7 +100,7 @@ public class AboutActivity extends BaseActivity {
     private void initToolbar() {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("关于");
+        getSupportActionBar().setTitle(getString(R.string.about));
     }
 
     private void initCollegePlusRecyclerView() {
@@ -154,10 +159,10 @@ public class AboutActivity extends BaseActivity {
      */
     private void feedback() {
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
-        builder.setTitle("意见反馈");
-        builder.setMessage("民院+现在属于初期版本，用起来不爽，数据获取失败，发现bug，或者有好的idea，都欢迎给作者提供建议。\n \n 方式：\n 1.email:zeroztguo@163.com \n 2.在作者大学城空间留言建议");
+        builder.setTitle(getString(R.string.feedback));
+        builder.setMessage(getString(R.string.feedback_message));
 
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -172,8 +177,8 @@ public class AboutActivity extends BaseActivity {
     private void shareApp() {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "欢迎使用【民院+】，它是一款民院师生专属的应用。它集课表、成绩查询，民院新闻，课外新闻，校园信息等功能于一体，希望它能给你的民院生活，带来些许便利。你可以到~~~下载");
-        startActivity(Intent.createChooser(shareIntent, "分享至"));
+        shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_app_message));
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_to)));
     }
 
     private void checkUpdate() {
@@ -186,7 +191,7 @@ public class AboutActivity extends BaseActivity {
                     @Override
                     public void onError(Call call, Exception e) {
                         dismissWaitDialog();
-                        ToastUtil.show("获取更新信息失败");
+                        ToastUtil.show(getString(R.string.obtain_update_message_fail));
                     }
 
                     @Override
@@ -202,7 +207,7 @@ public class AboutActivity extends BaseActivity {
 
                         if (Integer.parseInt(mVersionCode) > Util.getVersionCode()) {
                         } else {
-                            ToastUtil.show("当前已是最新版本");
+                            ToastUtil.show(getString(R.string.already_latest_version));
                         }
                     }
                 });
@@ -216,15 +221,15 @@ public class AboutActivity extends BaseActivity {
      */
     private void showUpdateDialog(final String updateUrl) {
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
-        builder.setTitle("提示");
+        builder.setTitle(getString(R.string.prompt));
         builder.setMessage(mUpdateMessage);
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
         });
-        builder.setPositiveButton("立即下载", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.immediately_download), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(AboutActivity.this, DownloadService.class);
@@ -240,7 +245,7 @@ public class AboutActivity extends BaseActivity {
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         Notification notification = builder
-                .setContentTitle("正在下载民院+")
+                .setContentTitle(getString(R.string.downloading_app))
 //                .setContent(remoteViews)
                 .setSmallIcon(R.mipmap.notification)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.icon))

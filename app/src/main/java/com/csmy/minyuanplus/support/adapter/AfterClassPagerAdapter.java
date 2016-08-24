@@ -1,18 +1,22 @@
 package com.csmy.minyuanplus.support.adapter;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.ui.fragment.afterclass.DailyFragment;
 import com.csmy.minyuanplus.ui.fragment.afterclass.GuokrFragment;
+
+import org.litepal.LitePalApplication;
 
 /**
  * Created by Zero on 16/7/15.
  */
 public class AfterClassPagerAdapter extends FragmentStatePagerAdapter{
     public static final int COUNT = 2;
-    private String[] titles = new String[]{"知乎日报","果壳"};
+    private Context context = LitePalApplication.getContext();
 
     private DailyFragment mDailyFragment;
     private GuokrFragment mGuokrFragmnet;
@@ -117,6 +121,12 @@ public class AfterClassPagerAdapter extends FragmentStatePagerAdapter{
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return titles[position];
+        switch (position) {
+            case 0:
+                return context.getString(R.string.zhihu);
+            case 1:
+                return context.getString(R.string.guokr);
+        }
+        return "";
     }
 }

@@ -27,7 +27,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="10dp"
-            android:text="民院+"
+            android:text="@string/app_name"
             android:textColor="?attr/textPrimary"
             android:textSize="55px" />
     </android.support.design.widget.AppBarLayout>
@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="44px"
-                android:text="偏好设置"
+                android:text="@string/preference_setting"
                 android:textColor="?attr/colorPrimaryDark"
                 android:textSize="50px" />
 
@@ -61,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="44px"
-                android:text="基本设置"
+                android:text="@string/basic_setting"
                 android:textColor="?attr/colorPrimaryDark"
                 android:textSize="50px" />
 

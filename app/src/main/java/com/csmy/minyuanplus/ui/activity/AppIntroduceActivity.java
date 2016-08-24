@@ -66,7 +66,7 @@ public class AppIntroduceActivity extends BaseActivity implements BaseToolbarVie
     public void initToolbar() {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("应用简介");
+        getSupportActionBar().setTitle(getString(R.string.app_introduce));
     }
 
     @Override

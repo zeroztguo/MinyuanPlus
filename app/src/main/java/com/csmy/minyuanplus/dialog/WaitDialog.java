@@ -19,6 +19,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.Window;
 
+import com.csmy.minyuanplus.R;
+
 
 public class WaitDialog extends ProgressDialog {
 
@@ -27,7 +29,7 @@ public class WaitDialog extends ProgressDialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setCanceledOnTouchOutside(false);
         setProgressStyle(STYLE_SPINNER);
-        setMessage("正在请求，请稍候…");
+        setMessage(context.getString(R.string.requesting));
     }
 
 }

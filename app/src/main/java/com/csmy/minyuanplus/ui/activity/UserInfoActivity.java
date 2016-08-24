@@ -32,7 +32,7 @@ public class UserInfoActivity extends BaseActivity {
     private LinearLayoutManager mLinearLayoutManager;
     private CommonAdapter<Map<String,String>> mAdapter;
     private List<Map<String,String>> mDatas;
-    private String[] mTitles ={"姓名","性别","民族","政治面貌","来源地区","来源省","学院","专业名称","行政班"};
+    private String[] mTitles ;
     private String[] mContents;
 
     private static final String KEY_TITLE = "title";
@@ -59,7 +59,7 @@ public class UserInfoActivity extends BaseActivity {
     private void initToolbar(){
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("个人信息");
+        getSupportActionBar().setTitle(R.string.personal_info);
     }
 
     @Override
@@ -94,6 +94,11 @@ public class UserInfoActivity extends BaseActivity {
     }
 
     private void initData() {
+        mTitles =new String[]{getString(R.string.name),getString(R.string.sex)
+                ,getString(R.string.nation),getString(R.string.political_status)
+                ,getString(R.string.origin_area),getString(R.string.origin_province)
+                ,getString(R.string.college),getString(R.string.major),getString(R.string.class_info)};
+
         PersonalInfo pi = DataSupport.findFirst(PersonalInfo.class);
         mContents = new String[]{pi.getName(),pi.getSex()
                 ,pi.getNation(),pi.getPoliticalStatus(),pi.getOriginArea()
