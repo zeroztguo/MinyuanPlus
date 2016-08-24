@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorPrimaryBg"
+    android:orientation="vertical">
+
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/id_grade_statistical_btn"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/grade_statistical" />
+
+    <com.loopeer.cardstack.CardStackView
+        android:id="@+id/id_grade_statistical_csv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingLeft="40px"
+        android:paddingRight="40px"
+        android:paddingTop="40px" />
+
+
+</LinearLayout>

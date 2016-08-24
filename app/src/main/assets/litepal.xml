@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="college_plus"></dbname>
+
+    <version value="14"></version>
+
+    <list>
+        <mapping class="com.csmy.minyuanplus.model.education.Course"></mapping>
+        <mapping class="com.csmy.minyuanplus.model.education.PersonalInfo"></mapping>
+        <mapping class="com.csmy.minyuanplus.model.education.AcademicYear"></mapping>
+        <mapping class="com.csmy.minyuanplus.model.collegenews.CollegeNews"></mapping>
+        <mapping class="com.csmy.minyuanplus.model.collegenews.CollegeDynamic"></mapping>
+        <mapping class="com.csmy.minyuanplus.model.collegenews.HotLine"></mapping>
+        <mapping class="com.csmy.minyuanplus.model.collegenews.CollegeBooth"></mapping>
+        <mapping class="com.csmy.minyuanplus.model.collegenews.Job"></mapping>
+        <mapping class="com.csmy.minyuanplus.model.collegenews.CollegeCulture"></mapping>
+        <mapping class="com.csmy.minyuanplus.model.afterclass.Daily"></mapping>
+        <mapping class="com.csmy.minyuanplus.model.afterclass.PsychologyStories"></mapping>
+        <mapping class="com.csmy.minyuanplus.model.afterclass.NoBoringStories"></mapping>
+        <mapping class="com.csmy.minyuanplus.model.afterclass.SportStories"></mapping>
+        <mapping class="com.csmy.minyuanplus.model.afterclass.MusicStories"></mapping>
+        <mapping class="com.csmy.minyuanplus.model.afterclass.CartoonStories"></mapping>
+        <mapping class="com.csmy.minyuanplus.model.afterclass.GameStories"></mapping>
+        <mapping class="com.csmy.minyuanplus.model.afterclass.GuokrHeader"></mapping>
+
+    </list>
+
+</litepal>

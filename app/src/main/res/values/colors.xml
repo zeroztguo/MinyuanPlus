@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 默认主题-->
+    <color name="colorPrimary">#1E8AE8</color>
+    <color name="colorPrimaryDark">#176EB9</color>
+    <color name="colorPrimaryLight">#4BA1ED</color>
+    <color name="textOrIcon">#FFFFFF</color>
+    <color name="colorAccent">#FFCA28</color>
+    <color name="textPrimary">#212121</color>
+    <color name="textSecond">#787878</color>
+    <color name="colorPrimaryBg">#EAEEF4</color>
+    <color name="colorCardBg">#FFFFFF</color>
+    <color name="textTab">#6DADF1</color>
+    <color name="textBottomTab">#D4D4D4</color>
+    <color name="textBottomTabSelected">#0F88EB</color>
+
+    <!-- RED主题-->
+    <color name="colorRed">#F44336</color>
+    <color name="colorRedDark">#D32F2F</color>
+    <color name="colorRedLight">#FFCDD2</color>
+    <color name="colorRedAccent">#FF9800</color>
+
+    <!-- pink主题-->
+    <color name="colorPink">#E91E63</color>
+    <color name="colorPinkDark">#C2185B</color>
+    <color name="colorPinkLight">#F8BBD0</color>
+    <color name="colorPinkAccent">#FF5722</color>
+
+    <!-- Purple主题-->
+    <color name="colorPurple">#9C27B0</color>
+    <color name="colorPurpleDark">#7B1FA2</color>
+    <color name="colorPurpleLight">#E1BEE7</color>
+    <color name="colorPurpleAccent">#9E9E9E</color>
+
+    <!-- DeepPurple主题-->
+    <color name="colorDeepPurple">#673AB7</color>
+    <color name="colorDeepPurpleDark">#512DA8</color>
+    <color name="colorDeepPurpleLight">#D1C4E9</color>
+    <color name="colorDeepPurpleAccent">#607D8B</color>
+
+    <!-- Indigo主题-->
+    <color name="colorIndigo">#3F51B5</color>
+    <color name="colorIndigoDark">#303F9F</color>
+    <color name="colorIndigoLight">#C5CAE9</color>
+    <color name="colorIndigoAccent">#4CAF50</color>
+
+    <!-- Cyan主题-->
+    <color name="colorCyan">#00BCD4</color>
+    <color name="colorCyanDark">#0097A7</color>
+    <color name="colorCyanLight">#B2EBF2</color>
+    <color name="colorCyanAccent">#FFEB3B</color>
+
+
+    <!-- Teal主题-->
+    <color name="colorTeal">#009688</color>
+    <color name="colorTealDark">#00796B</color>
+    <color name="colorTealLight">#B2DFDB</color>
+    <color name="colorTealAccent">#FFC107</color>
+
+    <!-- Green主题-->
+    <color name="colorGreen">#4CAF50</color>
+    <color name="colorGreenDark">#388E3C</color>
+    <color name="colorGreenLight">#C8E6C9</color>
+    <color name="colorGreenAccent">#536DFE</color>
+
+    <!-- LightGreen主题-->
+    <color name="colorLightGreen">#8BC34A</color>
+    <color name="colorLightGreenDark">#689F38</color>
+    <color name="colorLightGreenLight">#DCEDC8</color>
+    <color name="colorLightGreenAccent">#448AFF</color>
+
+    <!-- Lime主题-->
+    <color name="colorLime">#CDDC39</color>
+    <color name="colorLimeDark">#AFB42B</color>
+    <color name="colorLimeLight">#F0F4C3</color>
+    <color name="colorLimeAccent">#03A9F4</color>
+
+    <!-- Yellow主题-->
+    <color name="colorYellow">#FFEB3B</color>
+    <color name="colorYellowDark">#FBC02D</color>
+    <color name="colorYellowLight">#FFF9C4</color>
+    <color name="colorYellowAccent">#00BCD4</color>
+
+    <!-- Amber主题-->
+    <color name="colorAmber">#FFC107</color>
+    <color name="colorAmberDark">#FFA000</color>
+    <color name="colorAmberLight">#FFECB3</color>
+    <color name="colorAmberAccent">#009688</color>
+
+    <!-- Orange主题-->
+    <color name="colorOrange">#FF9800</color>
+    <color name="colorOrangeDark">#F57C00</color>
+    <color name="colorOrangeLight">#FFE0B2</color>
+    <color name="colorOrangeAccent">#FF5252</color>
+
+    <!-- DeepOrange主题-->
+    <color name="colorDeepOrange">#FF5722</color>
+    <color name="colorDeepOrangeDark">#E64A19</color>
+    <color name="colorDeepOrangeLight">#FFCCBC</color>
+    <color name="colorDeepOrangeAccent">#FF4081</color>
+
+    <!-- Brown主题-->
+    <color name="colorBrown">#795548</color>
+    <color name="colorBrownDark">#5D4037</color>
+    <color name="colorBrownLight">#D7CCC8</color>
+    <color name="colorBrownAccent">#FF4081</color>
+
+    <!-- Grey主题-->
+    <color name="colorGrey">#9E9E9E</color>
+    <color name="colorGreyDark">#616161</color>
+    <color name="colorGreyLight">#F5F5F5</color>
+    <color name="colorGreyAccent">#E040FB</color>
+
+    <!-- BlueGrey主题-->
+    <color name="colorBlueGrey">#607D8B</color>
+    <color name="colorBlueGreyDark">#455A64</color>
+    <color name="colorBlueGreyLight">#CFD8DC</color>
+    <color name="colorBlueGreyAccent">#7C4DFF</color>
+
+
+    <!--<array name="chinese_style">-->
+    <color name="qiuxiangse">#b9b612</color>
+    <color name="feise">#ed5736</color>
+    <color name="aiqing">#a3e2c5</color>
+    <color name="dianqing">#177cb0</color>
+    <color name="chi">#c3272b</color>
+    <color name="zhuqing">#789262</color>
+    <color name="yabai">#efdeb0</color>
+    <color name="yan">#ff3300</color>
+    <color name="dai">#494166</color>
+    <color name="tuose">#a88462</color>
+    <color name="chabai">#f3f8f1</color>
+    <color name="yaqing">#424b50</color>
+    <color name="yanzhi">#9D2932</color>
+    <color name="wan">#a98175</color>
+    <color name="shuilv">#d4f2e8</color>
+    <color name="li">#76664d</color>
+    <color name="dailan">#415065</color>
+    <color name="tan">#b36d61</color>
+    <color name="yuebai">#d7ecf1</color>
+
+    <!--</array>-->
+
+    <!--<array name="material_design_style">-->
+    <color name="red">#e51c23</color>
+    <color name="pink">#e91e63</color>
+    <color name="purple">#9c27b0</color>
+    <color name="deep_purple">#673ab7</color>
+    <color name="indigo">#3f51b5</color>
+    <color name="blue">#5677fc</color>
+    <color name="light_blue">#03a9f4</color>
+    <color name="cyan">#00bcd4</color>
+    <color name="teal">#009688</color>
+    <color name="green">#259b24</color>
+    <color name="light_green">#8bc34a</color>
+    <color name="lime">#cddc39</color>
+    <color name="yellow">#ffeb3b</color>
+    <color name="amber">#ffc107</color>
+    <color name="orange">#ff9800</color>
+    <color name="deep_orange">#ff5722</color>
+    <color name="brown">#795548</color>
+    <color name="blue_grey">#607d8b</color>
+
+    <!--</array>-->
+
+    <color name="color_1">#EF9A9A</color>
+    <color name="color_2">#E53935</color>
+    <color name="color_3">#F8BBD0</color>
+    <color name="color_4">#D81B60</color>
+    <color name="color_5">#880E4F</color>
+    <color name="color_6">#CE93D8</color>
+    <color name="color_7">#8E24AA</color>
+    <color name="color_8">#4A148C</color>
+    <color name="color_9">#B39DDB</color>
+    <color name="color_10">#673AB7</color>
+    <color name="color_11">#311B92</color>
+    <color name="color_12">#3D5AFE</color>
+    <color name="color_13">#29B6F6</color>
+    <color name="color_14">#26C6DA</color>
+    <color name="color_15">#26A69A</color>
+    <color name="color_16">#4CAF50</color>
+    <color name="color_17">#8BC34A</color>
+    <color name="color_18">#CDDC39</color>
+    <color name="color_19">#FFEB3B</color>
+    <color name="color_20">#FFC107</color>
+    <color name="color_21">#FF9800</color>
+    <color name="color_22">#FF5722</color>
+    <color name="color_23">#795548</color>
+    <color name="color_24">#9E9E9E</color>
+    <color name="color_25">#607D8B</color>
+    <color name="color_26">#000000</color>
+</resources>

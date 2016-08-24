@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="borderRadius" format="dimension" />
+    <attr name="type">
+        <enum name="circle" value="0" />
+        <enum name="round" value="1" />
+    </attr>
+    <attr name="src" format="reference" />
+
+    <declare-styleable name="CustomImageView">
+        <attr name="borderRadius" />
+        <attr name="type" />
+        <attr name="src" />
+    </declare-styleable>
+
+    <attr name="circleColor" format="color" />
+    <declare-styleable name="CustomColorView">
+        <attr name="circleColor" />
+    </declare-styleable>
+
+
+    <attr name="colorCardBg" format="color" />
+    <attr name="colorPrimaryBg" format="color" />
+    <attr name="colorPrimaryLight" format="color" />
+    <attr name="textBottomTabSelected" format="color" />
+    <attr name="textBottomTab" format="color" />
+    <attr name="textOrIcon" format="color" />
+    <attr name="textPrimary" format="color" />
+    <attr name="textSecond" format="color" />
+    <attr name="textTab" format="color" />
+    <attr name="textSpinner" format="color" />
+
+
+</resources>

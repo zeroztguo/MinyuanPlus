@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/id_dialog_course"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        >
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="@dimen/spinner_padding"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/course"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:text="名称"
+            android:textStyle="bold"
+            android:textSize="@dimen/dialog_text_size_plus"
+            android:gravity="center"
+            />
+        <TextView
+            android:id="@+id/id_dialog_course_name"
+            android:layout_width="0dp"
+            android:layout_weight="7"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:maxLines="1"
+            android:textSize="@dimen/dialog_text_size"
+
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+
+        >
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="@dimen/spinner_padding"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/classroom"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:text="教室"
+            android:textStyle="bold"
+            android:textSize="@dimen/dialog_text_size_plus"
+            android:gravity="center"
+            />
+        <TextView
+            android:id="@+id/id_dialog_course_classroom"
+            android:layout_width="0dp"
+            android:layout_weight="7"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dialog_text_size"
+
+            android:gravity="left|center_vertical"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+
+        >
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="@dimen/spinner_padding"
+
+            android:layout_gravity="center_vertical"
+
+            android:src="@mipmap/teacher"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:text="老师"
+            android:textStyle="bold"
+            android:textSize="@dimen/dialog_text_size_plus"
+            android:gravity="center"
+            />
+        <TextView
+            android:id="@+id/id_dialog_course_teacher"
+            android:layout_width="0dp"
+            android:layout_weight="7"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dialog_text_size"
+            android:gravity="left|center_vertical"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+
+        >
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="@dimen/spinner_padding"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/class_num"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:text="节数"
+            android:textStyle="bold"
+            android:textSize="@dimen/dialog_text_size_plus"
+            android:gravity="center"
+            />
+        <TextView
+            android:id="@+id/id_dialog_course_class_num"
+            android:layout_width="0dp"
+            android:layout_weight="7"
+            android:textSize="@dimen/dialog_text_size"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            />
+    </LinearLayout>
+
+</LinearLayout>

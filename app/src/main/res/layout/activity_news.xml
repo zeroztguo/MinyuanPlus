@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/id_news_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorPrimaryBg"
+    android:fitsSystemWindows="true">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/id_news_app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/id_after_class_news_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:minHeight="?attr/actionBarSize"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:statusBarScrim="@android:color/transparent">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/id_news_content_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:fitsSystemWindows="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="1">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/id_news_content_title_actv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="48px"
+                    android:layout_marginRight="48px"
+                    android:layout_marginTop="8px"
+                    android:fitsSystemWindows="true"
+                    android:text="这是我校从2013年开始，连续4年组织开展的教学质量目标测。学校通过全面实施教学质量目标测试，来提高人才培养质量。"
+                    android:textColor="?attr/textOrIcon"
+                    android:textSize="68px" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/id_news_content_author_time__actv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="22px"
+                    android:layout_marginLeft="48px"
+                    android:layout_marginRight="48px"
+                    android:layout_marginTop="12px"
+                    android:fitsSystemWindows="true"
+                    android:text="1321312"
+                    android:textColor="?attr/textOrIcon"
+                    android:textSize="40px" />
+
+            </LinearLayout>
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <!--<android.support.v4.widget.NestedScrollView-->
+    <!--android:id="@+id/id_after_class_scroll_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:scrollbars="vertical"-->
+    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+    <!--&gt;-->
+
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/id_news_ll"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="?attr/white"-->
+    <!--android:orientation="vertical">-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/id_news_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <com.github.rahatarmanahmed.cpv.CircularProgressView
+        android:id="@+id/id_news_content_progress_view"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        app:cpv_animAutostart="false"
+        app:cpv_color="?attr/colorPrimary"
+        app:cpv_indeterminate="true" />
+    <!--</LinearLayout>-->
+
+    <!--</android.support.v4.widget.NestedScrollView>-->
+
+
+</android.support.design.widget.CoordinatorLayout>

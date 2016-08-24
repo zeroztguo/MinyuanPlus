@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="chinese_style_color">
+        <item>@color/wan</item>
+        <item>@color/feise</item>
+        <item>@color/aiqing</item>
+        <item>@color/dianqing</item>
+        <item>@color/chi</item>
+        <item>@color/yabai</item>
+        <item>@color/qiuxiangse</item>
+        <item>@color/zhuqing</item>
+        <item>@color/yan</item>
+        <item>@color/dai</item>
+        <item>@color/tan</item>
+        <item>@color/chabai</item>
+        <item>@color/yaqing</item>
+        <item>@color/yanzhi</item>
+        <item>@color/tuose</item>
+        <item>@color/shuilv</item>
+        <item>@color/dailan</item>
+        <item>@color/li</item>
+        <item>@color/dailan</item>
+        <item>@color/yuebai</item>
+    </array>
+
+    <array name="material_design_color">
+        <item>@color/red</item>
+        <item>@color/pink</item>
+        <item>@color/purple</item>
+        <item>@color/deep_purple</item>
+        <item>@color/indigo</item>
+        <item>@color/blue</item>
+        <item>@color/light_blue</item>
+        <item>@color/cyan</item>
+        <item>@color/teal</item>
+        <item>@color/green</item>
+        <item>@color/light_green</item>
+        <item>@color/lime</item>
+        <item>@color/yellow</item>
+        <item>@color/amber</item>
+        <item>@color/orange</item>
+        <item>@color/deep_orange</item>
+        <item>@color/brown</item>
+        <item>@color/blue_grey</item>
+    </array>
+
+    <string-array name="week">
+        <item>日</item>
+        <item>一</item>
+        <item>二</item>
+        <item>三</item>
+        <item>四</item>
+        <item>五</item>
+        <item>六</item>
+    </string-array>
+
+    <string-array name="languages">
+        <item>c语言</item>
+        <item>java </item>
+        <item>php</item>
+        <item>xml</item>
+        <item>html</item>
+    </string-array>
+
+    <string-array name="weeks">
+        <item>第1周</item>
+        <item>第2周 </item>
+        <item>第3周</item>
+        <item>第4周</item>
+        <item>第5周</item>
+        <item>第6周</item>
+        <item>第7周</item>
+        <item>第8周</item>
+        <item>第9周</item>
+        <item>第10周</item>
+        <item>第11周</item>
+        <item>第12周</item>
+        <item>第13周</item>
+        <item>第14周</item>
+        <item>第15周</item>
+        <item>第16周</item>
+        <item>第17周</item>
+        <item>第18周</item>
+        <item>第19周</item>
+    </string-array>
+</resources>

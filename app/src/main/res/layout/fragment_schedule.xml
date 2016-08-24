@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/id_schedule_toolbar_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            >
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/id_home_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/id_schedule_week_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:ms_background_color="?attr/colorPrimaryLight"
+                    app:ms_text_color="?attr/textSpinner" />
+
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/id_schedule_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_below="@+id/id_schedule_toolbar_ll"
+        android:layout_marginBottom="1px"
+        android:background="?attr/colorPrimaryBg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <include layout="@layout/item_schedule_head" />
+
+            <include layout="@layout/item_schedule_horizontal" />
+
+            <include layout="@layout/item_schedule_horizontal" />
+
+            <include layout="@layout/item_schedule_horizontal" />
+
+            <include layout="@layout/item_schedule_horizontal" />
+
+            <include layout="@layout/item_schedule_horizontal" />
+
+            <include layout="@layout/item_schedule_horizontal" />
+
+            <include layout="@layout/item_schedule_horizontal" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/id_schedule_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/id_schedule_horizontal"
+        android:background="?attr/colorPrimaryBg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="130px"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <include layout="@layout/item_schedule_vertical" />
+
+                <include layout="@layout/item_schedule_vertical" />
+
+                <include layout="@layout/item_schedule_vertical" />
+
+                <include layout="@layout/item_schedule_vertical" />
+
+                <include layout="@layout/item_schedule_vertical" />
+
+                <include layout="@layout/item_schedule_vertical" />
+
+                <include layout="@layout/item_schedule_vertical" />
+
+                <include layout="@layout/item_schedule_vertical" />
+
+                <include layout="@layout/item_schedule_vertical" />
+
+                <include layout="@layout/item_schedule_vertical" />
+            </LinearLayout>
+
+            <com.csmy.minyuanplus.ui.view.CourseLayout
+                android:id="@+id/id_course_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
