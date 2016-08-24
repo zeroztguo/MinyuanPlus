@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.AppCompatTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_news_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="50px"
+    android:layout_marginRight="50px"
+    android:layout_marginTop="50px"
+    android:textColor="?attr/textPrimary"
+    android:textSize="54px" />

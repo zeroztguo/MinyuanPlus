@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zero="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="?attr/colorPrimaryBg"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar" />
+
+    <com.csmy.minyuanplus.ui.view.CustomImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        zero:src="@mipmap/icon" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="44px"
+                android:text="民院+"
+                android:textColor="?attr/colorPrimaryDark"
+                android:textSize="50px" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/id_about_college_plus_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="44px"
+                android:text="作者"
+                android:textColor="?attr/colorPrimaryDark"
+                android:textSize="50px" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="44px"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.csmy.minyuanplus.ui.view.CustomImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    zero:src="@mipmap/zero_head" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50px"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="移动1432 郭泽涛"
+                        android:textColor="?attr/textPrimary"
+                        android:textSize="50px" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/textSecond"
+                        android:text="email:zeroztguo@163.com"
+                        android:textSize="36px" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="44px"
+                android:text="版权"
+                android:textColor="?attr/colorPrimaryDark"
+                android:textSize="50px" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/id_about_copyright_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

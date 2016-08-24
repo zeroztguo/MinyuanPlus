@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="66px">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/id_more_small_icon_iv"
+        android:layout_width="60px"
+        android:layout_height="60px" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/id_more_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="36px"
+        android:text="主题"
+        android:textSize="44px" />
+
+
+</LinearLayout>
