@@ -9,14 +9,17 @@ import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.model.afterclass.Dailies;
 import com.csmy.minyuanplus.model.afterclass.Daily;
 import com.csmy.minyuanplus.model.afterclass.Stories;
+import com.csmy.minyuanplus.support.API;
 import com.csmy.minyuanplus.support.util.ToastUtil;
+import com.csmy.minyuanplus.support.util.Util;
 import com.csmy.minyuanplus.ui.activity.DailyActivity;
-import com.csmy.minyuanplus.ui.fragment.collegenews.SwipeRereshFragment;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
+import com.zhy.adapter.recyclerview.base.ItemViewDelegate;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
+import com.zhy.autolayout.utils.AutoUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -32,17 +35,11 @@ import okhttp3.Call;
 /**
  * Created by Zero on 16/7/23.
  */
-public class DailyFragment extends SwipeRereshFragment<Daily> {
-
-
-    private int mPage;
+public class DailyFragment extends AfterClassSwipeRereshFragment<Daily> {
 
     public static DailyFragment newInstance() {
         return new DailyFragment();
     }
-
-
-    public static final String DAILY_LIST = "http://news-at.zhihu.com/api/4/news/latest";
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -50,17 +47,76 @@ public class DailyFragment extends SwipeRereshFragment<Daily> {
 
     }
 
+    @Override
+    protected ItemViewDelegate<Daily> getFirstItemViewDelegate() {
+        ItemViewDelegate<Daily> firstItemViewDelegate = new ItemViewDelegate<Daily>() {
+            @Override
+            public int getItemViewLayoutId() {
+                return R.layout.item_daily_text_image;
+            }
+
+            @Override
+            public boolean isForViewType(Daily item, int position) {
+                return !Util.isStringNull(item.getImage());
+            }
+
+            @Override
+            public void convert(ViewHolder holder, Daily daily, int position) {
+                /*
+                设置标题
+                 */
+                AppCompatTextView textView = holder.getView(R.id.id_daily_title);
+                textView.setText(daily.getTitle());
+
+                /*
+                设置小图片
+                 */
+                SimpleDraweeView draweeView = holder.getView(R.id.id_daily_image);
+                Uri uri = Uri.parse(daily.getImage());
+                draweeView.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.FIT_CENTER);
+                draweeView.setImageURI(uri);
+            }
+        };
+        return firstItemViewDelegate;
+    }
+
+    @Override
+    protected ItemViewDelegate<Daily> getSecondItemViewDelegate() {
+        ItemViewDelegate<Daily> secondItemViewDelegate = new ItemViewDelegate<Daily>() {
+            @Override
+            public int getItemViewLayoutId() {
+                return R.layout.item_daily_text;
+            }
+
+            @Override
+            public boolean isForViewType(Daily item, int position) {
+                return Util.isStringNull(item.getImage());
+            }
+
+            @Override
+            public void convert(ViewHolder holder, Daily daily, int position) {
+                /*
+                设置标题
+                 */
+                AppCompatTextView textView = holder.getView(R.id.id_daily_text_title);
+                AutoUtils.autoTextSize(textView);
+                textView.setText(daily.getTitle());
+            }
+        };
+        return secondItemViewDelegate;
+    }
+
     private void obtainDailyList() {
 
         Logger.d("请求ing...");
         OkHttpUtils
                 .get()
-                .url(DAILY_LIST)
+                .url(API.ZHIHU_DAILY_LIST)
                 .build()
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e) {
-                        ToastUtil.show("获取日报失败" + e.getMessage());
+                        ToastUtil.show(getString(R.string.zhihu_daily_load_fail));
                         setRefresh();
                     }
 
@@ -69,29 +125,18 @@ public class DailyFragment extends SwipeRereshFragment<Daily> {
                         Gson gson = new Gson();
                         Dailies dailies = gson.fromJson(response, Dailies.class);
                         List<Stories> storiesList = dailies.getStories();
-//                        List<TopStories> topStoriesList = dailies.getTop_stories();
 
-                        List<Daily> dailyList = new ArrayList<Daily>();
+                        List<Daily> dailyList = new ArrayList<>();
                         for (Stories stories : storiesList) {
                             Daily daily = new Daily();
                             daily.setImage(stories.getImages().get(0))
-                            .setId(stories.getId())
-                            .setId_str(stories.getId()+"")
-                            .setTitle(stories.getTitle())
-                            .setType(stories.getType())
-                            .setGa_prefix(stories.getGa_prefix());
+                                    .setId(stories.getId())
+                                    .setId_str(stories.getId() + "")
+                                    .setTitle(stories.getTitle())
+                                    .setType(stories.getType())
+                                    .setGa_prefix(stories.getGa_prefix());
                             dailyList.add(daily);
                         }
-//                        for (TopStories topStories : topStoriesList) {
-//                            Daily daily = new Daily();
-//                            daily.setImage(topStories.getImage())
-//                                    .setId(topStories.getId())
-//                                    .setId_str(topStories.getId()+"")
-//                                    .setTitle(topStories.getTitle())
-//                                    .setType(topStories.getType())
-//                                    .setGa_prefix(topStories.getGa_prefix());
-//                            dailyList.add(daily);
-//                        }
 
 
                         DataSupport.deleteAll(Daily.class);
@@ -102,18 +147,10 @@ public class DailyFragment extends SwipeRereshFragment<Daily> {
 //
                         addAllData(dailyList);
                         setRefresh();
-                        mPage = 1;
                     }
                 });
     }
 
-
-
-
-    @Override
-    protected int getItemId() {
-        return R.layout.item_daily_text_image;
-    }
 
     @Override
     protected void loadFromDatabase() {
@@ -121,17 +158,6 @@ public class DailyFragment extends SwipeRereshFragment<Daily> {
         addAllData(dailyList);
     }
 
-    @Override
-    protected void setItem(ViewHolder holder, Daily daily, int position) {
-        Logger.d(daily.toString());
-        AppCompatTextView textView = holder.getView(R.id.id_daily_title);
-        textView.setText(daily.getTitle());
-
-        SimpleDraweeView draweeView = holder.getView(R.id.id_daily_image);
-        Uri uri = Uri.parse(daily.getImage());
-        draweeView.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.FIT_CENTER);
-        draweeView.setImageURI(uri);
-    }
 
     @Override
     protected void setOnItemClick(Daily daily) {
@@ -143,14 +169,8 @@ public class DailyFragment extends SwipeRereshFragment<Daily> {
     @Override
     protected void refresh() {
         setRefresh();
-        mPage = 1;
         obtainDailyList();
     }
 
-    @Override
-    protected void loadMore() {
-//        mPage++;
-//        loadMoreDailyList(mPage);
-    }
 
 }

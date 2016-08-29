@@ -9,13 +9,14 @@
 
     <include layout="@layout/tool_bar" />
 
-    <com.csmy.minyuanplus.ui.view.CustomImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
-        zero:src="@mipmap/icon" />
+        android:layout_marginBottom="20dp"
+        zero:placeholderImage="@mipmap/icon" />
+
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -25,13 +26,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:orientation="vertical">
 
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="44px"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:text="@string/app_name"
                 android:textColor="?attr/colorPrimaryDark"
                 android:textSize="50px" />
@@ -45,7 +49,8 @@
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="44px"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:text="@string/author"
                 android:textColor="?attr/colorPrimaryDark"
                 android:textSize="50px" />
@@ -53,21 +58,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="44px"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <com.csmy.minyuanplus.ui.view.CustomImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
-                    zero:src="@mipmap/zero_head" />
+                    zero:roundAsCircle="true"
+                    zero:placeholderImage="@mipmap/zero_head"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50px"
                     android:gravity="center"
+                    android:layout_marginLeft="20dp"
                     android:orientation="vertical">
 
                     <android.support.v7.widget.AppCompatTextView
@@ -81,8 +86,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="?attr/textSecond"
-                        android:text="email:zeroztguo@163.com"
-                        android:textSize="36px" />
+                        android:text="email：zeroztguo@163.com"
+                        android:textSize="45px" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -90,7 +95,8 @@
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="44px"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:text="@string/copyright"
                 android:textColor="?attr/colorPrimaryDark"
                 android:textSize="50px" />

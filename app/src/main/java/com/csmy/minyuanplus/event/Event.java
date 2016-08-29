@@ -46,8 +46,8 @@ public class Event {
     public static final int EDUCATION_QUERY_GRADE_FAIL_FAIL = 21;
     //切换到登录界面
     public static final int SWITCH_LOGIN_PAGE=22;
-    //切换到登录界面
-    public static final int DOWNLOAD_PROGRESS_UPDATE=23;
+    //新消息
+    public static final int NOTIFY_UPDATE=23;
 
     public static void sendEmptyMessage(int event){
         EventBus.getDefault().post(new EventModel<String>(event));

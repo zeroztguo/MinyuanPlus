@@ -1,4 +1,4 @@
-package com.csmy.minyuanplus.education;
+package com.csmy.minyuanplus.support.education;
 
 import java.util.Map;
 

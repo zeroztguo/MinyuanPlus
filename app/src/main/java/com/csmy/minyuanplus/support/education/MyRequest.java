@@ -1,4 +1,4 @@
-package com.csmy.minyuanplus.education;
+package com.csmy.minyuanplus.support.education;
 
 import com.kymjs.rxvolley.RxVolley;
 import com.kymjs.rxvolley.client.HttpCallback;

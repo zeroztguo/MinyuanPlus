@@ -8,11 +8,21 @@ import com.csmy.minyuanplus.support.util.SPUtil;
  */
 public class SettingConfig {
     //是否省流量
-    public static final String IS_SAVE_FLOW = "is_save_flow";
+    private static final String IS_SAVE_FLOW = "is_save_flow";
     //头像下标
-    public static final String USER_ICON_INDEX = "user_icon_index";
+    private static final String USER_ICON_INDEX = "user_icon_index";
     //主题下标
-    public static final String THEME_INDEX = "theme_index";
+    private static final String THEME_INDEX = "theme_index";
+
+    //语言
+    public static final String LANGUAGE = "language";
+    //中文简体
+    public static final String ZH_SIMPLE = "zh_simple";
+    //中文繁体
+    public static final String ZH_TW = "zh_tw";
+    //英文
+    public static final String EN = "en";
+
 
     /**
      * 头像
@@ -89,6 +99,18 @@ public class SettingConfig {
 
     public static int getThemeIndex() {
         return (int) SPUtil.get(THEME_INDEX, 0);
+    }
+
+    /**
+     * 设置语言
+     * @param language
+     */
+    public static void setLanguage(String language){
+        SPUtil.put(LANGUAGE,language);
+    }
+
+    public static String getLanguage(){
+        return (String) SPUtil.get(LANGUAGE,ZH_SIMPLE);
     }
 
 }

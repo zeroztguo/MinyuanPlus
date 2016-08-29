@@ -14,8 +14,10 @@
     </declare-styleable>
 
     <attr name="circleColor" format="color" />
+    <attr name="textSize" format="dimension" />
     <declare-styleable name="CustomColorView">
         <attr name="circleColor" />
+        <attr name="textSize" />
     </declare-styleable>
 
 

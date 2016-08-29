@@ -6,7 +6,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 
 import com.csmy.minyuanplus.R;
@@ -21,6 +23,14 @@ public class CustomColorView extends View {
      */
     private int mColor;
     /**
+     * 字体大小
+     */
+    private int mTextSize;
+    /**
+     * 要画的数字
+     */
+    private int mTextInt;
+    /**
      * 控件的宽度
      */
     private int mWidth;
@@ -34,6 +44,10 @@ public class CustomColorView extends View {
      * 是否画对勾
      */
     private boolean mIsDrawRight = false;
+    /**
+     * 是否画数字
+     */
+    private boolean mIsDrawText = false;
 
     public CustomColorView(Context context) {
         this(context, null);
@@ -60,6 +74,11 @@ public class CustomColorView extends View {
             switch (attr) {
                 case R.styleable.CustomColorView_circleColor:
                     mColor = a.getColor(0, 0xffffff);
+                    break;
+                case R.styleable.CustomColorView_textSize:
+                    mTextSize = a.getDimensionPixelSize(attr,
+                            (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f
+                                    , getResources().getDisplayMetrics()));
                     break;
             }
         }
@@ -91,9 +110,8 @@ public class CustomColorView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-
         int min = Math.min(mWidth, mHeight);
-        /**
+        /*
          * 长度如果不一致，按小的值进行压缩
          */
         Paint paint = new Paint();
@@ -101,8 +119,8 @@ public class CustomColorView extends View {
         paint.setColor(mColor);
         canvas.drawCircle(min / 2, min / 2, min / 2, paint);
         if (mIsDrawRight) {
-            /**
-             * 绘制对勾
+            /*
+             *绘制对勾
              */
             Paint linePaint = new Paint();
             linePaint.setAntiAlias(true);
@@ -115,6 +133,24 @@ public class CustomColorView extends View {
             path.lineTo(min * 3 / 4, min / 4);
             canvas.drawPath(path, linePaint);
         }
+        if (mIsDrawText) {
+            /*
+            绘制数字
+             */
+            String num = mTextInt + "";
+            Paint numPaint = new Paint();
+            numPaint.setStrokeWidth(3);
+            numPaint.setTextSize(mTextSize);
+            numPaint.setColor(Color.WHITE);
+            numPaint.setTextAlign(Paint.Align.LEFT);
+            Rect bounds = new Rect();
+            numPaint.getTextBounds(num, 0, num.length(), bounds);
+            Paint.FontMetricsInt fontMetrics = numPaint.getFontMetricsInt();
+            int baseLine = (getMeasuredHeight() - fontMetrics.bottom + fontMetrics.top) / 2 - fontMetrics.top;
+            canvas.drawText(num, getMeasuredWidth() / 2 - bounds.width() / 2, baseLine, numPaint);
+//            canvas.drawText(num, getMeasuredWidth() / 2 - bounds.width(), baseLine, numPaint);
+
+        }
     }
 
 
@@ -126,6 +162,12 @@ public class CustomColorView extends View {
     public void setDrawRight(boolean drawRight) {
         this.mIsDrawRight = drawRight;
         invalidate();
+    }
+
+    public void setTextInt(int i) {
+            mIsDrawText = true;
+            mTextInt = i;
+            invalidate();
     }
 
 }

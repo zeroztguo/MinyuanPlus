@@ -59,12 +59,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
         }
     }
 
-//    @Override
-//    protected void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        Logger.d("BaseActivity~~~~~~");
-//
-//    }
 
     //移除Fragment
     public void removeFragment() {

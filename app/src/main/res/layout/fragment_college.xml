@@ -18,7 +18,7 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:tabBackground="?attr/colorPrimary"
             app:tabIndicatorColor="?attr/textOrIcon"
-            app:tabSelectedTextColor="?attr/textTab"
+            app:tabSelectedTextColor="?attr/textOrIcon"
             app:tabTextColor="?attr/textTab" />
 
     </android.support.design.widget.AppBarLayout>

@@ -2,23 +2,21 @@ package com.csmy.minyuanplus.ui.fragment.education;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.csmy.minyuanplus.R;
-import com.csmy.minyuanplus.education.EduGrade;
-import com.csmy.minyuanplus.education.EduInfo;
-import com.csmy.minyuanplus.education.EduRxVolley;
 import com.csmy.minyuanplus.event.Event;
 import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.event.EventTag;
 import com.csmy.minyuanplus.model.education.AcademicYear;
 import com.csmy.minyuanplus.model.education.Grade;
 import com.csmy.minyuanplus.support.adapter.GradeAdapter;
-import com.csmy.minyuanplus.ui.fragment.BaseFragment;
+import com.csmy.minyuanplus.support.education.EduGrade;
+import com.csmy.minyuanplus.support.education.EduInfo;
+import com.csmy.minyuanplus.support.education.EduRxVolley;
 import com.csmy.minyuanplus.support.util.ToastUtil;
+import com.csmy.minyuanplus.ui.fragment.BaseFragment;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.loopeer.cardstack.CardStackView;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -30,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
-import butterknife.BindColor;
 import butterknife.OnClick;
 
 /**
@@ -39,13 +36,10 @@ import butterknife.OnClick;
 public class GradeFragment extends BaseFragment {
     @Bind(R.id.id_grade_csv)
     CardStackView mCardStackView;
-    @Bind(R.id.id_grade_ll)
-    LinearLayout mGradeLayout;
     @Bind(R.id.id_grade_spinner)
     MaterialSpinner mSpinner;
     GradeAdapter mStackAdapter;
-    @BindColor(R.color.white)
-    int colorWhite;
+
 
     private List<Map<String, String>> mDatas;
 

@@ -3,6 +3,7 @@ package com.csmy.minyuanplus.ui.activity;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.model.afterclass.GuokrContent;
 import com.csmy.minyuanplus.model.afterclass.GuokrContentDetail;
 import com.csmy.minyuanplus.support.util.ToastUtil;
@@ -26,21 +27,19 @@ public class GuokrActivity extends BaseAfterClassActivity {
     protected void loadData() {
         OkHttpUtils.get()
                 .url(url)
-                .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                .tag(this)
                 .build()
                 .execute(new StringCallback() {
 
-
                     @Override
                     public void onError(Call call, Exception e) {
-                        ToastUtil.show("果壳新闻加载失败...");
+                        ToastUtil.show(getString(R.string.guokr_news_load_fail));
                     }
 
                     @Override
                     public void onResponse(String response) {
                         try {
                             Gson gson = new Gson();
-//                            String s = URLEncoder.encode(response, "utf-8");
                             JSONObject jsonObj = new JSONObject(response);
                             GuokrContent guokrContent = gson.fromJson(jsonObj.toString(), GuokrContent.class);
                             guokrContentDetail = guokrContent.getResult();
@@ -62,7 +61,7 @@ public class GuokrActivity extends BaseAfterClassActivity {
 
     @Override
     protected String getShareMessage() {
-        return "【"+guokrContentDetail.getTitle()+"】："+guokrContentDetail.getUrl()+"(分享至民院+)";
+        return "【" + guokrContentDetail.getTitle() + "】：" + guokrContentDetail.getUrl() + "(分享至民院+)";
     }
 
     @Override
@@ -73,4 +72,9 @@ public class GuokrActivity extends BaseAfterClassActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        OkHttpUtils.getInstance().cancelTag(this);
+    }
 }

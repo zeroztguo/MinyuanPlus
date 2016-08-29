@@ -3,6 +3,7 @@ package com.csmy.minyuanplus.ui.fragment.education;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,18 +14,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.csmy.minyuanplus.R;
-import com.csmy.minyuanplus.education.EduInfo;
-import com.csmy.minyuanplus.education.EduLogin;
-import com.csmy.minyuanplus.education.EduRxVolley;
-import com.csmy.minyuanplus.education.EduSchedule;
 import com.csmy.minyuanplus.event.Event;
 import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.event.EventTag;
 import com.csmy.minyuanplus.model.education.AcademicYear;
 import com.csmy.minyuanplus.model.education.Course;
-import com.csmy.minyuanplus.model.education.PersonalInfo;
+import com.csmy.minyuanplus.support.BadgeActionProvider;
+import com.csmy.minyuanplus.support.Notification;
+import com.csmy.minyuanplus.support.education.EduInfo;
+import com.csmy.minyuanplus.support.education.EduRxVolley;
+import com.csmy.minyuanplus.support.education.EduSchedule;
 import com.csmy.minyuanplus.support.util.ToastUtil;
 import com.csmy.minyuanplus.ui.activity.GradeActivity;
+import com.csmy.minyuanplus.ui.activity.NotifyActivity;
 import com.csmy.minyuanplus.ui.fragment.BaseFragment;
 import com.csmy.minyuanplus.ui.view.CourseLayout;
 import com.csmy.minyuanplus.ui.view.CourseView;
@@ -45,7 +47,7 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.BindString;
 
-public class ScheduleFragment extends BaseFragment{
+public class ScheduleFragment extends BaseFragment {
     @Bind(R.id.id_schedule_horizontal)
     LinearLayout mScheduleHorzLayout;
     @Bind(R.id.id_course_layout)
@@ -71,10 +73,11 @@ public class ScheduleFragment extends BaseFragment{
     @BindString(R.string.obtain_schedule_fail)
     String obtainScheduleFail;
 
-
+    private BadgeActionProvider mBadgeActionProvider;
     private String mAcademicYear;
     private String mTerm;
-
+    private int mSelectedWeek;
+    private boolean mIsInit = true;
 
     private static final String SQL_WHERE = "beginWeek <= ? and ? <= endWeek and academicYear = ? and term = ?";
 
@@ -94,8 +97,8 @@ public class ScheduleFragment extends BaseFragment{
 //        initCurrentWeek();q
         initSpinner();
         initSchedule(EduSchedule.getScheduleWeek());
-
     }
+
 
     /**
      * 跳转到成绩查询
@@ -139,11 +142,11 @@ public class ScheduleFragment extends BaseFragment{
                     case R.id.action_grade:
                         intentGrade();
                         break;
-                    case R.id.action_quit_account:
-                        quitAccount();
-                        break;
                     case R.id.action_switch_term:
                         showSetCurrentTermDialog();
+                        break;
+                    case R.id.action_timetable:
+                        showSetTimetable();
                         break;
                 }
                 return true;
@@ -151,19 +154,6 @@ public class ScheduleFragment extends BaseFragment{
         });
     }
 
-    /**
-     * 退出帐号
-     */
-    private void quitAccount(){
-        DataSupport.deleteAll(AcademicYear.class);
-        DataSupport.deleteAll(Course.class);
-        DataSupport.deleteAll(PersonalInfo.class);
-        EduLogin.setEducationLogin(false);
-        /*
-        重启应用
-         */
-        getHoldingActivity().recreate();
-    }
 
     private void initSpinner() {
         int curtWeek = EduSchedule.getScheduleWeek();
@@ -182,7 +172,6 @@ public class ScheduleFragment extends BaseFragment{
 
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-//                view.setBackgroundColor(colorPrimary);
                 initSchedule(position + 1);
             }
         });
@@ -196,10 +185,22 @@ public class ScheduleFragment extends BaseFragment{
      * @param week 周数
      */
     public void initSchedule(int week) {
+        mSelectedWeek = week;
+
         List<Course> courses = DataSupport.where(SQL_WHERE, String.valueOf(week), String.valueOf(week), mAcademicYear, mTerm)
                 .find(Course.class);
+
+        int dayHaveClass = EduSchedule.DEFAULT_DAYS_HAVE_CLASS;
+        int numOfClass = EduSchedule.DEFAULT_NUM_OF_CLASS;
+        for (Course course : courses) {
+            if (course.getDay() > dayHaveClass) {
+                dayHaveClass = course.getDay();
+            }
+            if (course.getEndClass() / 2 > numOfClass) {
+                numOfClass = course.getEndClass() / 2;
+            }
+        }
         List<CourseView> courseViews = new ArrayList<CourseView>();
-        int numOfClass = EduSchedule.getNumOfClass();
         for (Course course : courses) {
             CourseView courseView = new CourseView(getHoldingActivity());
             String courseName = course.getCourseName();
@@ -211,12 +212,12 @@ public class ScheduleFragment extends BaseFragment{
             int beginWeek = course.getBeginWeek();
             int endWeek = course.getEndWeek();
 
-            if (day >= EduSchedule.DEFAULT_DAYS_HAVE_CLASS) {
-                EduSchedule.saveDaysHaveClass(day);
-            }
-            if ((endClass / 2) > numOfClass) {
-                EduSchedule.saveNumOfClass(endClass / 2);
-            }
+//            if (day >= EduSchedule.DEFAULT_DAYS_HAVE_CLASS) {
+//                EduSchedule.saveDaysHaveClass(day);
+//            }
+//            if ((endClass / 2) > numOfClass) {
+//                EduSchedule.saveNumOfClass(endClass / 2);
+//            }
             courseView.setCourseName(courseName);
             courseView.setClassroom(classroom);
             courseView.setTeacher(teacher);
@@ -254,27 +255,30 @@ public class ScheduleFragment extends BaseFragment{
             }
         }
 
-        initWeek();
-        initClassNum();
+        initWeek(dayHaveClass, week);
+        initClassNum(numOfClass);
 
-        mCourseLayout.addCourseViews(courseViews);
+        mCourseLayout.addCourseViews(courseViews, dayHaveClass, numOfClass);
     }
 
 
     /**
      * 初始化星期数
+     *
+     * @param dayHaveClass 有课的天数，周六周日没课则隐藏
+     * @param selectedWeek 选择的周数
      */
-    private void initWeek() {
+    private void initWeek(int dayHaveClass, int selectedWeek) {
         LinearLayout horzLayout = (LinearLayout) mScheduleHorzLayout.getChildAt(0);
         for (int i = 0; i < horzLayout.getChildCount(); i++) {
             TextView tv = (TextView) horzLayout.getChildAt(i);
             if (i == 0) {
-                tv.setText(EduSchedule.getScheduleWeek() + week);
+                tv.setText(selectedWeek + week);
             } else {
                 tv.setText(week + EduSchedule.weekIntToString(i));
             }
             //星期六星期日没有课则隐藏
-            if (i > EduSchedule.getDaysHaveClass()) {
+            if (i > dayHaveClass) {
                 tv.setVisibility(View.GONE);
             } else {
                 tv.setVisibility(View.VISIBLE);
@@ -284,19 +288,29 @@ public class ScheduleFragment extends BaseFragment{
 
     /**
      * 初始化节次
+     *
+     * @param maxClassNum 本周有课的最大节次，9.10节没课则隐藏
      */
-    private void initClassNum() {
-        LinearLayout layout = (LinearLayout) ((LinearLayout) mScheduleVertLayout.getChildAt(0)).getChildAt(0);
-
+    private void initClassNum(int maxClassNum) {
+        LinearLayout layout = ((LinearLayout) ((LinearLayout) mScheduleVertLayout.getChildAt(0)).getChildAt(0));
+        String[] time;
+        if (EduSchedule.isSummerTimetable()) {
+            time = EduSchedule.SUMMMER_TIME;
+        } else {
+            time = EduSchedule.WINTER_TIME;
+        }
         for (int i = 0; i < layout.getChildCount(); i++) {
-            TextView tv = (TextView) layout.getChildAt(i);
+            LinearLayout item = (LinearLayout) layout.getChildAt(i);
+            TextView classNum = (TextView) (item.getChildAt(0));
+            TextView when = (TextView) (item.getChildAt(1));
 
-            tv.setText(i + 1 + "");
-//            if ((i+ 1) > EduSchedule.getDaysHaveClass()*2) {
-//                tv.setVisibility(View.GONE);
-//            } else {
-//                tv.setVisibility(View.VISIBLE);
-//            }
+            classNum.setText(i + 1 + "");
+            when.setText(time[i]);
+            if ((i + 1) > maxClassNum * 2) {
+                item.setVisibility(View.GONE);
+            } else {
+                item.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -317,14 +331,80 @@ public class ScheduleFragment extends BaseFragment{
                 ToastUtil.show(obtainScheduleFail);
                 Logger.d("切换课表失败");
                 break;
+            case Event.NOTIFY_UPDATE:
+                Logger.d("收到 通知：" + Notification.getLatestNotifyCode());
+                mBadgeActionProvider.setTextInt(BadgeActionProvider.getUnreadCount());
+                break;
+        }
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Logger.d("on resume~~~");
+
+        if (!mIsInit) {
+            Logger.d("on resume~~~~~~~~~~~~not init");
+            mBadgeActionProvider.setTextInt(BadgeActionProvider.getUnreadCount());
+        } else {
+            mIsInit = !mIsInit;
+            Logger.d("on resume~~~~~~~~~~~~is init");
         }
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_schedule, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+        MenuItem menuItem = menu.findItem(R.id.action_notification);
+        mBadgeActionProvider = (BadgeActionProvider) MenuItemCompat.getActionProvider(menuItem);
+        mBadgeActionProvider.setOnClickListener(0, new BadgeActionProvider.OnClickListener() {
+            @Override
+            public void onClick(int what) {
+                Intent intent = new Intent(getHoldingActivity(), NotifyActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    /**
+     * 设置作息时间
+     */
+    private void showSetTimetable() {
+        final int[] select = new int[1];
+        final int choose;
+        if (EduSchedule.isSummerTimetable()) {
+            choose = 0;
+        } else {
+            choose = 1;
+        }
+        String[] timetables = {getString(R.string.summer), getString(R.string.winter)};
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getContext());
+        builder.setTitle(getString(R.string.timetable));
+        builder.setSingleChoiceItems(timetables,
+                choose,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        select[0] = which;
+                    }
+                });
+        builder.setPositiveButton(confirm, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (select[0] == 0) {
+                    EduSchedule.setSummerTimebable(true);
+                } else {
+                    EduSchedule.setSummerTimebable(false);
+                }
+                if (choose != select[0]) {
+                    initSchedule(mSelectedWeek);
+                }
+                ToastUtil.show(getString(R.string.timetable_setting_success));
+                dialog.dismiss();
+            }
+        });
+
+        builder.create().show();
     }
 
 
@@ -349,7 +429,6 @@ public class ScheduleFragment extends BaseFragment{
                 EduSchedule.saveScheduleWeek(select[0]);
                 dialog.dismiss();
                 Toast.makeText(getContext(), setSuccess, Toast.LENGTH_SHORT).show();
-//                SnackbarUtil.showWithNoAction(mCourseLayout,setSuccess);
                 initSpinner();
                 initSchedule(EduSchedule.getScheduleWeek());
             }
@@ -432,5 +511,6 @@ public class ScheduleFragment extends BaseFragment{
         });
         builder.create().show();
     }
+
 
 }

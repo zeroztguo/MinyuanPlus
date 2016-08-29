@@ -1,4 +1,4 @@
-package com.csmy.minyuanplus.education;
+package com.csmy.minyuanplus.support.education;
 
 import com.csmy.minyuanplus.event.Event;
 import com.csmy.minyuanplus.event.EventModel;
@@ -21,9 +21,7 @@ import java.util.Map;
  * Created by Zero on 16/8/2.
  */
 public class EduRxVolley {
-    private static final String TAG = "EduOkHttp";
     public static final String CSMY_EDUCATION = "http://jw3.csmzxy.com:8088";
-    public static final String CSMY_CONTENT_TYPE = "application/x-www-form-urlencoded";
     public static final String CSMY_EDUCATION_HOME = "http://jw3.csmzxy.com:8088/default3.aspx";
     public static final String CSMY_BASE_URL_XH = "http://jw3.csmzxy.com:8088/xs_main.aspx?xh=";
     public static final String CSMY_BASE_URL_SCHEDULE_PART_ONE = "http://jw3.csmzxy.com:8088/xskbcx.aspx?xh=";
@@ -32,13 +30,9 @@ public class EduRxVolley {
     public static final String CSMY_BASE_URL_PERSONAL_INFO_PART_TWO = "&xm=%B9%F9%D4%F3%CC%CE&gnmkdm=N121501";
     public static final String CSMY_BASE_URL_GRADE_HOME_PART_ONE = "http://jw3.csmzxy.com:8088/xscjcx.aspx?xh=";
     public static final String CSMY_BASE_URL_GRADE_HOME_PART_TWO = "&xm=%B9%F9%D4%F3%CC%CE&gnmkdm=N121605";
-    public static String CSMY_REFERER_URL = "http://jw3.csmzxy.com:8088/xs_main.aspx?xh=";
-    public static final String COLLEGE_NEWS = "http://web.csmzxy.com/netCourse/readData";
     public static final String COOKIE = "Cookie";
     public static final String REFERER = "Referer";
-    public static final String ORIGIN = "Origin";
-    public static final String CONTENT_TYPE = "Content-Type";
-    public static final String CONTENT_LENGTH = "Content-Length";
+
     public static final String NOT_COMMON = "你还没有进行本学期的教学质量评价";
 
 
@@ -51,6 +45,7 @@ public class EduRxVolley {
                     @Override
                     public void onFailure(int errorNo, String strMsg) {
                         super.onFailure(errorNo, strMsg);
+                        Event.sendEmptyMessage(Event.EDUCATION_LOGIN_FAIL);
                     }
 
                     @Override
@@ -102,6 +97,7 @@ public class EduRxVolley {
                     @Override
                     public void onFailure(int errorNo, String strMsg) {
                         Logger.d("登录失败,code:" + errorNo);
+                        Event.sendEmptyMessage(Event.EDUCATION_LOGIN_FAIL);
 
                     }
                 })
@@ -198,7 +194,7 @@ public class EduRxVolley {
                     Logger.d("获取课表成功:" + body);
                     //保存课表html
                     EduSchedule.saveScheduleHtml(body);
-                    EventBus.getDefault().post(new EventModel<String>(Event.EDUCATION_OBTAIN_SCHEDULE_SUCCESS));
+                    Event.sendEmptyMessage(Event.EDUCATION_OBTAIN_SCHEDULE_SUCCESS);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
@@ -207,6 +203,7 @@ public class EduRxVolley {
             @Override
             public void onFailure(int errorNo, String strMsg) {
                 Logger.d("获取课表失败,code is:" + errorNo);
+                Event.sendEmptyMessage(Event.EDUCATION_LOGIN_FAIL);
             }
         };
 
@@ -240,8 +237,8 @@ public class EduRxVolley {
 
             @Override
             public void onFailure(int errorNo, String strMsg) {
+                Event.sendEmptyMessage(Event.EDUCATION_LOGIN_FAIL);
                 Logger.d("获取个人信息失败,code is:" + errorNo);
-                Event.sendEmptyMessage(Event.EDUCATION_OBTAIN_PERSONAL_INFO_FAIL);
             }
         };
 

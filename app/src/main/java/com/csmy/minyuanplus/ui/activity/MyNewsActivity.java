@@ -2,9 +2,7 @@ package com.csmy.minyuanplus.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.AppCompatTextView;
@@ -19,6 +17,7 @@ import android.view.ViewGroup;
 import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.model.collegenews.NewsBean;
 import com.csmy.minyuanplus.model.collegenews.NewsDetail;
+import com.csmy.minyuanplus.support.API;
 import com.csmy.minyuanplus.support.util.Util;
 import com.csmy.minyuanplus.ui.BaseView;
 import com.facebook.drawee.drawable.ScalingUtils;
@@ -78,7 +77,6 @@ public class MyNewsActivity extends BaseActivity implements BaseView {
     ItemViewDelegate<NewsDetail> mImageDelegate;
 
 
-    public static final String COLLEGE_NEWS = "http://web.csmzxy.com/netCourse/readData";
     /**
      * 新闻内容数据
      */
@@ -185,15 +183,20 @@ public class MyNewsActivity extends BaseActivity implements BaseView {
     }
 
 
-
     public void showProgress() {
-        mProgressView.setVisibility(View.VISIBLE);
-        mProgressView.startAnimation();
+        if (mProgressView != null) {
+            mProgressView.setVisibility(View.VISIBLE);
+            mProgressView.startAnimation();
+        }
+
     }
 
     public void hideProgress() {
-        mProgressView.stopAnimation();
-        mProgressView.setVisibility(View.GONE);
+        if (mProgressView != null) {
+            mProgressView.stopAnimation();
+            mProgressView.setVisibility(View.GONE);
+        }
+
     }
 
 
@@ -203,15 +206,16 @@ public class MyNewsActivity extends BaseActivity implements BaseView {
         mDatas.clear();
         OkHttpUtils
                 .get()
-                .url(COLLEGE_NEWS)
+                .url(API.COLLEGE_NEWS)
                 .addParams("cmd", "9")
                 .addParams("v1", id)
                 .addParams("tempData", new Date().toString())
+                .tag(this)
                 .build()
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e) {
-                        Logger.d("获取新闻内容失败:" + e.getMessage());
+                        Logger.d(getString(R.string.minyuan_news_load_fail));
                         hideProgress();
                     }
 
@@ -297,4 +301,9 @@ public class MyNewsActivity extends BaseActivity implements BaseView {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        OkHttpUtils.getInstance().cancelTag(this);
+    }
 }

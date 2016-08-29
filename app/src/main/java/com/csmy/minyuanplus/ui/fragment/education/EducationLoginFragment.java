@@ -1,20 +1,30 @@
 package com.csmy.minyuanplus.ui.fragment.education;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+
 import com.csmy.minyuanplus.R;
-import com.csmy.minyuanplus.education.EduInfo;
-import com.csmy.minyuanplus.education.EduLogin;
-import com.csmy.minyuanplus.education.EduRxVolley;
-import com.csmy.minyuanplus.education.EduSchedule;
+import com.csmy.minyuanplus.support.BadgeActionProvider;
+import com.csmy.minyuanplus.support.Notification;
+import com.csmy.minyuanplus.support.education.EduInfo;
+import com.csmy.minyuanplus.support.education.EduLogin;
+import com.csmy.minyuanplus.support.education.EduRxVolley;
+import com.csmy.minyuanplus.support.education.EduSchedule;
 import com.csmy.minyuanplus.event.Event;
 import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.event.EventTag;
@@ -23,6 +33,7 @@ import com.csmy.minyuanplus.model.education.Course;
 import com.csmy.minyuanplus.model.education.PersonalInfo;
 import com.csmy.minyuanplus.support.util.ToastUtil;
 import com.csmy.minyuanplus.ui.BaseToolbarView;
+import com.csmy.minyuanplus.ui.activity.NotifyActivity;
 import com.csmy.minyuanplus.ui.fragment.BaseFragment;
 import com.orhanobut.logger.Logger;
 
@@ -48,25 +59,17 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
     @Bind(R.id.id_base_tool_bar)
     Toolbar mLoginToolbar;
 
-    @BindString(R.string.try_again_later)
-    String tryAgainLater;
-    @BindString(R.string.psw_error)
-    String pswError;
-    @BindString(R.string.obtain_schedule_fail)
-    String obtainScheduleFail;
     @BindString(R.string.input_complete_info)
     String inputCompleteInfo;
-    @BindString(R.string.not_common)
-    String notCommon;
-    @BindString(R.string.need_common)
-    String needCommon;
-    @BindString(R.string.login_education)
-    String loginEducation;
 
+
+    private BadgeActionProvider mBadgeActionProvider;
     private AppCompatEditText mUserNameET;
     private AppCompatEditText mPswET;
     private String mUserName;
     private String mPsw;
+    private boolean mIsInit = true;
+
 
     private ScheduleFragment mScheduleFragment = ScheduleFragment.newInstance();
 
@@ -125,6 +128,34 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
         checkLoginInfo();
     }
 
+    @OnClick(R.id.id_login_cannot_login)
+    void cannotLogin() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(getString(R.string.prompt));
+        builder.setMessage(getString(R.string.login_prompt));
+        builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_login, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_login_notification);
+        mBadgeActionProvider = (BadgeActionProvider) MenuItemCompat.getActionProvider(menuItem);
+        mBadgeActionProvider.setOnClickListener(0, new BadgeActionProvider.OnClickListener() {
+            @Override
+            public void onClick(int what) {
+                Intent intent = new Intent(getHoldingActivity(), NotifyActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
 
     /**
      * 检查登录信息
@@ -138,10 +169,7 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
             EduInfo.saveEducationUserName(mUserName);
             EduInfo.saveEducationPassword(mPsw);
             EventTag.saveCurrentTag(EventTag.LOGIN_EDUCATION);
-            //-------------
             EduRxVolley.enterEducationHome();
-            //-------------
-//            EduRxVolley.enterEducationHome();
             showWaitDialog();
         }
     }
@@ -161,7 +189,7 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
         switch (eventModel.getEventCode()) {
             case Event.EDUCATION_LOGIN_FAIL:
                 dismissWaitDialog();
-                ToastUtil.show("登录失败...");
+                ToastUtil.show(getString(R.string.login_fail));
                 break;
             case Event.EDUCATION_OBTAIN_SCHEDULE_SUCCESS:
                 dismissWaitDialog();
@@ -173,9 +201,8 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
 
                 StringBuilder sb = new StringBuilder();
                 for (Course course : courses) {
-                    sb.append(course.getAcademicYear() + " " + course.getTerm() + "学期" + course.getCourseName() + " " + "周" + course.getDay() + "第" + course.getBeginClass() + "," + course.getEndClass() + "节" + " " + "第" + course.getBeginWeek() + "," + course.getEndWeek() + "周" + "\n");
+                    Logger.d(course.toString());
                 }
-                Logger.d(sb.toString());
 
                 EduLogin.setEducationLogin(true);
 
@@ -187,11 +214,11 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
                 }
 
                 break;
-            case Event.EDUCATION_OBTAIN_SCHEDULE_FAIL:
-                ToastUtil.show(obtainScheduleFail);
-                Logger.d("获取课表html失败");
-                dismissWaitDialog();
-                break;
+//            case Event.EDUCATION_OBTAIN_SCHEDULE_FAIL:
+//                ToastUtil.show(obtainScheduleFail);
+//                Logger.d("获取课表html失败");
+//                dismissWaitDialog();
+//                break;
             case Event.EDUCATION_OBTAIN_PERSONAL_INFO_SUCCESS:
                 PersonalInfo pi = EduLogin.getPersonalInfo();
                 pi.save();
@@ -204,18 +231,28 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
                     ay.save();
                 }
 
-                List<AcademicYear> academicYearList = DataSupport.findAll(AcademicYear.class);
-                for (AcademicYear ay : academicYearList) {
-                    String ayStr = ay.getAcademicYear();
-                    Log.i(TAG, "ay: " + ayStr);
-                }
-                Logger.d("获取个人信息成功: " + "姓名:" + pi.getName() + " 性别:" + pi.getSex() + " 班级:" + pi.getClassInfo() + " 专业:" + pi.getMajor() + pi.getGrade());
                 EduRxVolley.obtainSchedule();
                 break;
-            case Event.EDUCATION_OBTAIN_PERSONAL_INFO_FAIL:
-                Logger.d("获取个人信息失败:" + eventModel.getData().toString());
+//            case Event.EDUCATION_OBTAIN_PERSONAL_INFO_FAIL:
+//                Logger.d("获取个人信息失败:" + eventModel.getData().toString());
+//                break;
+            case Event.NOTIFY_UPDATE:
+                Logger.d("收到 通知：" + Notification.getLatestNotifyCode());
+                mBadgeActionProvider.setTextInt(BadgeActionProvider.getUnreadCount());
                 break;
 
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!mIsInit) {
+            if (mBadgeActionProvider != null) {
+                mBadgeActionProvider.setTextInt(BadgeActionProvider.getUnreadCount());
+            }
+        } else {
+            mIsInit = !mIsInit;
         }
     }
 
@@ -234,6 +271,6 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
     @Override
     public void initToolbar() {
         getHoldingActivity().setSupportActionBar(mLoginToolbar);
-        getHoldingActivity().getSupportActionBar().setTitle("登录教务系统");
+        getHoldingActivity().getSupportActionBar().setTitle(getString(R.string.login));
     }
 }

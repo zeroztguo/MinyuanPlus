@@ -19,8 +19,8 @@
             android:background="?attr/colorPrimary"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingBottom="111px"
-            android:paddingTop="111px">
+            android:paddingBottom="25dp"
+            android:paddingTop="40dp">
 
 
             <com.facebook.drawee.view.SimpleDraweeView
@@ -35,7 +35,7 @@
                 android:id="@+id/id_more_user_name_actv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50px"
+                android:layout_marginTop="15dp"
                 android:text="登录教务系统"
                 android:textColor="?attr/textOrIcon"
                 android:textSize="66px" />

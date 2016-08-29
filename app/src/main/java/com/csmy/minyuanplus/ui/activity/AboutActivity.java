@@ -1,12 +1,8 @@
 package com.csmy.minyuanplus.ui.activity;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.csmy.minyuanplus.R;
-import com.csmy.minyuanplus.event.Event;
 import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.model.VersionInfo;
 import com.csmy.minyuanplus.support.adapter.DividerItemDecoration;
@@ -241,17 +236,6 @@ public class AboutActivity extends BaseActivity {
         builder.create().show();
     }
 
-    private void downloadApk() {
-        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        Notification notification = builder
-                .setContentTitle(getString(R.string.downloading_app))
-//                .setContent(remoteViews)
-                .setSmallIcon(R.mipmap.notification)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.icon))
-                .build();
-        manager.notify(1, notification);
-    }
 
     private void initCopyrightRecyclerView() {
         mCopyrightLayoutManager = new LinearLayoutManager(this);
@@ -276,8 +260,5 @@ public class AboutActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUserEvent(EventModel eventModel) {
-        if (eventModel.getEventCode() == Event.DOWNLOAD_PROGRESS_UPDATE) {
-            ToastUtil.show("进度更新啦~~~~:" + eventModel.getData().toString());
-        }
     }
 }

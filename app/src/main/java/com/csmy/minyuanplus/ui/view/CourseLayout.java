@@ -3,14 +3,12 @@ package com.csmy.minyuanplus.ui.view;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.csmy.minyuanplus.R;
-import com.csmy.minyuanplus.education.EduSchedule;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,13 +60,14 @@ public class CourseLayout extends ViewGroup {
         setMeasuredDimension(width,height);
     }
 
-    public void addCourseViews(List<CourseView> courseViews){
+    public void addCourseViews(List<CourseView> courseViews,int dayHaveClass,int numOfClass){
         removeAllViews();
         Collections.shuffle(mColors);
-        week_days_num = EduSchedule.getDaysHaveClass();
-        sum_class_num = EduSchedule.getNumOfClass();
+//        week_days_num = EduSchedule.getDaysHaveClass();
+//        sum_class_num = EduSchedule.getNumOfClass();
+        week_days_num = dayHaveClass;
+        sum_class_num = numOfClass;
         for(CourseView cv:courseViews){
-            Log.i(TAG, "addCourseViews,name:"+cv.getCourseName()+" id:"+cv.getId());
             final String name = cv.getCourseName();
             final String classroom = cv.getClassroom();
             final String teacher = cv.getTeacher();
@@ -139,9 +138,9 @@ public class CourseLayout extends ViewGroup {
 
 
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(mContext);
-        builder.setTitle("课程信息");
+        builder.setTitle(getContext().getString(R.string.course_info));
         builder.setView(dialog);
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getContext().getString(R.string.confirm), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

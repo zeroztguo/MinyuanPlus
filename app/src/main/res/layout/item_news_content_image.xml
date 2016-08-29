@@ -5,9 +5,8 @@
     android:id="@+id/id_news_image"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="25dp"
     fresco:failureImage="@mipmap/failure"
-    android:layout_marginTop="50px"
-    fresco:progressBarAutoRotateInterval="1000"
+    fresco:progressBarAutoRotateInterval="3000"
     fresco:progressBarImage="@mipmap/progress_bar"
-    fresco:viewAspectRatio="1.33"
-    />
+    fresco:viewAspectRatio="1.33" />

@@ -51,6 +51,7 @@ public class DataCleanManager {
     public static void cleanExternalCache(Context context) {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             deleteFilesByDirectory(context.getExternalCacheDir());
+//            deleteFilesByDirectory(Environment.getExternalStorageDirectory().getAbsoluteFile());
         }
     }
 

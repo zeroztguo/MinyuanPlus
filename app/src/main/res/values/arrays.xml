@@ -54,13 +54,6 @@
         <item>六</item>
     </string-array>
 
-    <string-array name="languages">
-        <item>c语言</item>
-        <item>java </item>
-        <item>php</item>
-        <item>xml</item>
-        <item>html</item>
-    </string-array>
 
     <string-array name="weeks">
         <item>第1周</item>

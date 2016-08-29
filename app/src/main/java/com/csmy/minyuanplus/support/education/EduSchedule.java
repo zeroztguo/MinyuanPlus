@@ -1,4 +1,4 @@
-package com.csmy.minyuanplus.education;
+package com.csmy.minyuanplus.support.education;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -27,14 +27,32 @@ public class EduSchedule extends Util {
     public static final String SCHEDULE_WEEK = "schedule_week";
     public static final String DAYS_HAVE_CLASS = "days_have_class";
     public static final String NUM_OF_CLASS = "num_of_class";
-
     public static final String CURRENT_MONDAY_OF_WEEK_FORMAT_DATE = "current_monday_week_format_date";
-
+    //是否夏季作息时间
+    public static final String IS_SUMMMER_TIMETABLE = "is_summer_timetable";
+    //课表默认周数
     private static final int DEFAULT_SCHEDULE_WEEK = 2;
+    //课表默认有课的天数，最少显示到星期五
     public static final int DEFAULT_DAYS_HAVE_CLASS = 5;
-    public static final int DEFAULT_NUM_OF_CLASS = 5;
-
+    //课表默认的最大节次，最少显示到8节
+    public static final int DEFAULT_NUM_OF_CLASS = 4;
     private static final String TAG = "ScheduleUtil";
+    //夏季作息，上课时间
+    public static final String[] SUMMMER_TIME = {"8:10","9:05","10:15","11:10","14:40","15:35","16:40","17:35","7.30","20:25"};
+    //冬季作息，上课时间
+    public static final String[] WINTER_TIME = {"8:10","9:05","10:15","11:10","14:10","15:05","16:10","17:05","7.30","20:25"};
+
+
+    public static void setSummerTimebable(boolean flag){
+        SPUtil.put(IS_SUMMMER_TIMETABLE,flag);
+    }
+
+    /**
+     * @return 是否夏季作息时间
+     */
+    public static boolean isSummerTimetable(){
+        return (boolean) SPUtil.get(IS_SUMMMER_TIMETABLE,true);
+    }
 
 
     /**
@@ -222,33 +240,33 @@ public class EduSchedule extends Util {
         return Integer.valueOf(week.split("第")[1].split("周")[0]);
     }
 
-    /**
-     * @param days 课上到周几
-     */
-    public static void saveDaysHaveClass(int days) {
-        SPUtil.put(DAYS_HAVE_CLASS, days);
-    }
-
-    /**
-     * @return 课上到周几
-     */
-    public static int getDaysHaveClass() {
-        return (int) SPUtil.get(DAYS_HAVE_CLASS, DEFAULT_DAYS_HAVE_CLASS);
-    }
-
-    /**
-     * @param classNum 有课的节次
-     */
-    public static void saveNumOfClass(int classNum) {
-        SPUtil.put(NUM_OF_CLASS, classNum);
-    }
-
-    /**
-     * @return 有课的节次
-     */
-    public static int getNumOfClass() {
-        return (int) SPUtil.get(NUM_OF_CLASS, DEFAULT_NUM_OF_CLASS);
-    }
+//    /**
+//     * @param days 课上到周几
+//     */
+//    public static void saveDaysHaveClass(int days) {
+//        SPUtil.put(DAYS_HAVE_CLASS, days);
+//    }
+//
+//    /**
+//     * @return 课上到周几
+//     */
+//    public static int getDaysHaveClass() {
+//        return (int) SPUtil.get(DAYS_HAVE_CLASS, DEFAULT_DAYS_HAVE_CLASS);
+//    }
+//
+//    /**
+//     * @param classNum 有课的节次
+//     */
+//    public static void saveNumOfClass(int classNum) {
+//        SPUtil.put(NUM_OF_CLASS, classNum);
+//    }
+//
+//    /**
+//     * @return 有课的节次
+//     */
+//    public static int getNumOfClass() {
+//        return (int) SPUtil.get(NUM_OF_CLASS, DEFAULT_NUM_OF_CLASS);
+//    }
 
 
 }

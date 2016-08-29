@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.csmy.minyuanplus.ui.view.AutoCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="1dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="false">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="26px">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/id_notify_title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:maxLines="2"
+            android:text="蒋晓明参加全国高职高专院校思想政治理论课建设联盟会议"
+            android:textColor="?attr/textPrimary"
+            android:textSize="54px" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/id_notify_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/id_notify_title_tv"
+            android:layout_marginTop="50px"
+            android:text="教务处 易希平 梁奇伟"
+            android:textColor="?attr/textSecond"
+            android:textSize="34px" />
+
+        <com.csmy.minyuanplus.ui.view.CustomColorView
+            android:id="@+id/id_notify_is_read_color_view"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/id_notify_title_tv"
+            app:circleColor="@color/red"
+            android:layout_marginTop="50px" />
+    </RelativeLayout>
+</com.csmy.minyuanplus.ui.view.AutoCardView>

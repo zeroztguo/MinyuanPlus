@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="66px">
+    android:padding="16dp">
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/id_more_small_icon_iv"
@@ -16,7 +16,7 @@
         android:id="@+id/id_more_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="36px"
+        android:layout_marginLeft="10dp"
         android:text="主题"
         android:textSize="44px" />
 

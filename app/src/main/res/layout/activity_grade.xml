@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:fillViewport="false"
             app:layout_collapseMode="pin"
+            app:layout_behavior="saulmm.myapplication.AvatarImageBehavior"
             app:tabIndicatorColor="?attr/textOrIcon"
             app:tabSelectedTextColor="?attr/textOrIcon"
             app:tabTextColor="?attr/textTab"/>

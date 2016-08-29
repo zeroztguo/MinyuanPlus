@@ -2,6 +2,9 @@ package com.csmy.minyuanplus.ui.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,11 +22,16 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 
 import com.csmy.minyuanplus.R;
+import com.csmy.minyuanplus.support.education.EduLogin;
 import com.csmy.minyuanplus.model.Setting;
+import com.csmy.minyuanplus.model.education.AcademicYear;
+import com.csmy.minyuanplus.model.education.Course;
+import com.csmy.minyuanplus.model.education.PersonalInfo;
 import com.csmy.minyuanplus.support.DataCleanManager;
 import com.csmy.minyuanplus.support.SettingConfig;
 import com.csmy.minyuanplus.support.adapter.DividerItemDecoration;
 import com.csmy.minyuanplus.support.util.SnackbarUtil;
+import com.csmy.minyuanplus.support.util.ToastUtil;
 import com.csmy.minyuanplus.ui.BaseToolbarView;
 import com.csmy.minyuanplus.ui.view.CustomImageView;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -31,11 +40,15 @@ import com.zhy.adapter.recyclerview.base.ItemViewDelegate;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 import com.zhy.autolayout.utils.AutoUtils;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 public class SettingActivity extends BaseActivity implements BaseToolbarView {
     @Bind(R.id.id_setting_preference_rv)
@@ -44,6 +57,8 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
     RecyclerView mBasicRecyclerView;
     @Bind(R.id.id_base_tool_bar)
     Toolbar mToolbar;
+    @Bind(R.id.id_setting_quit_account_tv)
+    AppCompatTextView mQuitAccountTextView;
 
     MultiItemTypeAdapter<Setting> mBasicAdapter;
     ItemViewDelegate<Setting> mTextDelegate;
@@ -55,9 +70,9 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
     List<Setting> mBasicDatas;
 
     String[] mPrefTitles;
-
     String[] mBasicTitles;
     String[] mBasicSubTitles;
+    String[] mLanguages;
     boolean[] mIsSwitchArray = {true, false};
     AlertDialog mUserIconDialog;
     int mUserIconIndex;
@@ -68,9 +83,32 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
         mPrefTitles = new String[]{getString(R.string.language), getString(R.string.head)};
         mBasicTitles = new String[]{getString(R.string.save_flow_mode), getString(R.string.clear_cache)};
         mBasicSubTitles = new String[]{getString(R.string.only_wifi), getString(R.string.clear_app_cache)};
+        mLanguages = new String[]{getString(R.string.zh_simple), getString(R.string.zh_tw), getString(R.string.en)};
+        if(EduLogin.isEducationLogined()){
+            mQuitAccountTextView.setVisibility(View.VISIBLE);
+        }else{
+            mQuitAccountTextView.setVisibility(View.GONE);
+        }
         initToolbar();
         initPreferenceRecyclerView();
         initBasicRecyclerView();
+    }
+
+    /**
+     * 退出帐号
+     */
+    @OnClick(R.id.id_setting_quit_account_tv)
+    void quitAccount() {
+        DataSupport.deleteAll(AcademicYear.class);
+        DataSupport.deleteAll(Course.class);
+        DataSupport.deleteAll(PersonalInfo.class);
+        EduLogin.setEducationLogin(false);
+
+        finish();
+        Intent it = new Intent(SettingActivity.this, MainActivity.class);
+        //清空任务栈确保当前打开activity为前台任务栈栈顶
+        it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(it);
     }
 
 
@@ -105,6 +143,9 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
                 switch (position) {
+                    case 0:
+                        showSwitchLanguageDialog();
+                        break;
                     case 1:
                         showSetUserIconDialog();
                         break;
@@ -118,6 +159,80 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
         });
         mPrefRecyclerView.setAdapter(mPrefAdapter);
     }
+
+
+    private void showSwitchLanguageDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.language));
+        final int[] selected = new int[1];
+        builder.setSingleChoiceItems(mLanguages, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selected[0] = which;
+            }
+        });
+        builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (selected[0]) {
+                    case 0:
+                        switchLanguage(SettingConfig.ZH_SIMPLE);
+                        break;
+                    case 1:
+                        switchLanguage(SettingConfig.ZH_TW);
+                        break;
+                    case 2:
+                        switchLanguage(SettingConfig.EN);
+                        break;
+                }
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.create().show();
+
+    }
+
+    /**
+     * 选择语言
+     *
+     * @param language
+     */
+    private void switchLanguage(String language) {
+        Resources resources = getResources();
+        Configuration config = resources.getConfiguration();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        if (language.equals(SettingConfig.ZH_SIMPLE)) {
+            config.locale = Locale.SIMPLIFIED_CHINESE;
+        } else if (language.equals(SettingConfig.ZH_TW)) {
+            config.locale = Locale.TRADITIONAL_CHINESE;
+        } else if (language.equals(SettingConfig.EN)) {
+            config.locale = Locale.ENGLISH;
+        } else {
+            config.locale = Locale.getDefault();
+        }
+        resources.updateConfiguration(config, dm);
+
+        SettingConfig.setLanguage(language);
+
+        ToastUtil.show(getString(R.string.language_setting_success));
+        finish();
+
+        Intent it = new Intent(SettingActivity.this, MainActivity.class);
+
+        //清空任务栈确保当前打开activity为前台任务栈栈顶
+
+        it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        startActivity(it);
+    }
+
 
     private void showSetUserIconDialog() {
         final List<CustomImageView> customImageViews = new ArrayList<>();
@@ -156,6 +271,12 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
         recyclerView.setAdapter(adapter);
 
         builder.setView(recyclerView);
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
         builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

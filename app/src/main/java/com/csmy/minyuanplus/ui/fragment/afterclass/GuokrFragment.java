@@ -8,13 +8,13 @@ import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.model.afterclass.Guokr;
 import com.csmy.minyuanplus.model.afterclass.GuokrHeader;
-import com.csmy.minyuanplus.ui.activity.GuokrActivity;
+import com.csmy.minyuanplus.support.API;
 import com.csmy.minyuanplus.support.util.ToastUtil;
 import com.csmy.minyuanplus.support.util.Util;
+import com.csmy.minyuanplus.ui.activity.GuokrActivity;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
-import com.orhanobut.logger.Logger;
 import com.zhy.adapter.recyclerview.base.ItemViewDelegate;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 import com.zhy.autolayout.utils.AutoUtils;
@@ -40,9 +40,6 @@ public class GuokrFragment extends AfterClassSwipeRereshFragment<GuokrHeader> {
     }
 
 
-    public static final String GUOKE = "http://www.guokr.com/apis/minisite/article.json?retrieve_type=by_channel&channel_key=hot";
-
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUserEvent(EventModel eventModel) {
 
@@ -62,18 +59,18 @@ public class GuokrFragment extends AfterClassSwipeRereshFragment<GuokrHeader> {
             }
 
             @Override
-            public void convert(ViewHolder holder, GuokrHeader GuokeHeader, int position) {
+            public void convert(ViewHolder holder, GuokrHeader guokrHeader, int position) {
                 /*
                 设置标题
                  */
                 AppCompatTextView textView = holder.getView(R.id.id_daily_title);
-                textView.setText(GuokeHeader.getTitle());
+                textView.setText(guokrHeader.getTitle());
 
                 /*
                 设置小图片
                  */
                 SimpleDraweeView draweeView = holder.getView(R.id.id_daily_image);
-                Uri uri = Uri.parse(GuokeHeader.getSmall_image());
+                Uri uri = Uri.parse(guokrHeader.getSmall_image());
                 draweeView.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.FIT_CENTER);
                 draweeView.setImageURI(uri);
             }
@@ -95,29 +92,29 @@ public class GuokrFragment extends AfterClassSwipeRereshFragment<GuokrHeader> {
             }
 
             @Override
-            public void convert(ViewHolder holder, GuokrHeader GuokeHeader, int position) {
+            public void convert(ViewHolder holder, GuokrHeader guokrHeader, int position) {
                 /*
                 设置标题
                  */
                 AppCompatTextView textView = holder.getView(R.id.id_daily_text_title);
                 AutoUtils.autoTextSize(textView);
-                textView.setText(GuokeHeader.getTitle());
+                textView.setText(guokrHeader.getTitle());
             }
         };
         return secondItemViewDelegate;
     }
 
 
-    private void obtainGuokeHeaderList() {
+    private void obtainguokrHeaderList() {
 
         OkHttpUtils
                 .get()
-                .url(GUOKE)
+                .url(API.GUOKE_LIST)
                 .build()
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e) {
-                        ToastUtil.show("获取果壳失败" + e.getMessage());
+                        ToastUtil.show(getString(R.string.guokr_news_load_fail));
                         setRefresh();
                     }
 
@@ -127,13 +124,9 @@ public class GuokrFragment extends AfterClassSwipeRereshFragment<GuokrHeader> {
                         Guokr guoke = gson.fromJson(response, Guokr.class);
                         List<GuokrHeader> guokrHeaderList = guoke.getResult();
 
-
                         DataSupport.deleteAll(GuokrHeader.class);
                         DataSupport.saveAll(guokrHeaderList);
 
-
-                        Logger.d("果壳有：" + guokrHeaderList.size());
-//
                         addAllData(guokrHeaderList);
                         setRefresh();
                     }
@@ -158,7 +151,7 @@ public class GuokrFragment extends AfterClassSwipeRereshFragment<GuokrHeader> {
     @Override
     protected void refresh() {
         setRefresh();
-        obtainGuokeHeaderList();
+        obtainguokrHeaderList();
     }
 
 

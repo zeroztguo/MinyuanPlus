@@ -1,4 +1,4 @@
-package com.csmy.minyuanplus.education;
+package com.csmy.minyuanplus.support.education;
 
 import com.csmy.minyuanplus.model.education.PersonalInfo;
 import com.csmy.minyuanplus.support.util.SPUtil;

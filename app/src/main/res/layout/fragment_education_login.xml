@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorPrimaryBg"
     android:fitsSystemWindows="true">
 
 
@@ -29,7 +30,7 @@
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="登录民政学院教务系统"
+                android:text="@string/login_minyan_education"
                 android:textColor="?attr/textPrimary"
                 android:textSize="@dimen/spinner_text_size" />
 
@@ -77,11 +78,12 @@
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/id_login_cannot_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spinner_padding"
-                    android:text="无法登录？"
-                    android:textColor="?attr/textSecond"
+                    android:text="@string/cannot_login"
+                    android:textColor="?attr/textPrimary"
                     android:textSize="14sp" />
 
                 <android.support.v7.widget.AppCompatTextView
@@ -91,7 +93,7 @@
                     android:layout_marginTop="@dimen/spinner_padding"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="登录"
+                    android:text="@string/login"
                     android:textColor="?attr/colorPrimary"
                     android:textSize="@dimen/dialog_text_size_plus" />
 

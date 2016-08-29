@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="26px">
+        android:padding="14dp">
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/id_college_news_title_actv"
@@ -31,8 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/id_college_news_title_actv"
-            android:layout_marginTop="50px"
-
+            android:layout_marginTop="18dp"
             android:text="教务处 易希平 梁奇伟"
             android:textColor="?attr/textSecond"
             android:textSize="34px" />
@@ -43,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/id_college_news_title_actv"
-            android:layout_marginTop="50px"
+            android:layout_marginTop="18dp"
             android:text="2016-7-8"
             android:textColor="?attr/textSecond"
             android:textSize="34px" />

@@ -5,7 +5,7 @@
     android:id="@+id/id_setting_user_icon_rv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="66px"
+    android:layout_margin="28dp"
     android:textColor="?attr/colorPrimaryDark">
 
 

@@ -15,7 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.csmy.minyuanplus.R;
-import com.csmy.minyuanplus.education.EduLogin;
+import com.csmy.minyuanplus.support.education.EduLogin;
 import com.csmy.minyuanplus.event.Event;
 import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.model.education.PersonalInfo;

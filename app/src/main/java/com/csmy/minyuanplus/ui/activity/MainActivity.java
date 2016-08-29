@@ -6,33 +6,44 @@ import android.util.TypedValue;
 import android.view.KeyEvent;
 
 import com.csmy.minyuanplus.R;
-import com.csmy.minyuanplus.education.EduLogin;
 import com.csmy.minyuanplus.event.Event;
 import com.csmy.minyuanplus.event.EventModel;
+import com.csmy.minyuanplus.model.Notify;
+import com.csmy.minyuanplus.model.NotifyContent;
+import com.csmy.minyuanplus.support.Notification;
+import com.csmy.minyuanplus.support.education.EduLogin;
 import com.csmy.minyuanplus.support.util.SnackbarUtil;
-import com.csmy.minyuanplus.ui.fragment.afterclass.AfterClassFragment;
 import com.csmy.minyuanplus.ui.fragment.MoreFragment;
+import com.csmy.minyuanplus.ui.fragment.afterclass.AfterClassFragment;
+import com.csmy.minyuanplus.ui.fragment.college.CollegeFragment;
 import com.csmy.minyuanplus.ui.fragment.collegenews.NewsFragment;
 import com.csmy.minyuanplus.ui.fragment.education.EducationLoginFragment;
 import com.csmy.minyuanplus.ui.fragment.education.ScheduleFragment;
+import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.List;
+
 import butterknife.Bind;
 import me.majiajie.pagerbottomtabstrip.Controller;
 import me.majiajie.pagerbottomtabstrip.PagerBottomTabLayout;
 import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectListener;
+import okhttp3.Call;
 
 public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
 
     @Bind(R.id.tab)
     PagerBottomTabLayout mBottomTabLayout;
-//    @BindColor(R.attr.tabSelectedTextColor)
+    //    @BindColor(R.attr.tabSelectedTextColor)
     int textBottomTabSelected;
-//    @BindColor(R.color.textBottomTab)
+    //    @BindColor(R.color.textBottomTab)
     int colorTabText;
 
     Controller controller;
@@ -41,6 +52,7 @@ public class MainActivity extends BaseActivity {
     private EducationLoginFragment mEducationLoginFragment;
     private NewsFragment mNewsFragment;
     private AfterClassFragment mAfterClassFragment;
+    private CollegeFragment mCollegeFragment;
     private MoreFragment mMoreFragment;
     private long mExitTime;
 
@@ -54,11 +66,11 @@ public class MainActivity extends BaseActivity {
         获取自定的颜色属性
          */
         TypedValue typedValue = new TypedValue();
-        getTheme().resolveAttribute(R.attr.textBottomTabSelected,typedValue,true);
-        textBottomTabSelected= typedValue.data;
+        getTheme().resolveAttribute(R.attr.textBottomTabSelected, typedValue, true);
+        textBottomTabSelected = typedValue.data;
         TypedValue typedValue2 = new TypedValue();
-        getTheme().resolveAttribute(R.attr.textBottomTab,typedValue2,true);
-        colorTabText= typedValue2.data;
+        getTheme().resolveAttribute(R.attr.textBottomTab, typedValue2, true);
+        colorTabText = typedValue2.data;
 
 
         controller = mBottomTabLayout.builder()
@@ -127,6 +139,16 @@ public class MainActivity extends BaseActivity {
                             switchFragemnt(mAfterClassFragment);
                         }
                         break;
+                    case 3:
+                        if (mCollegeFragment == null) {
+
+                            mCollegeFragment = CollegeFragment.newInstance();
+                            addFragment(mCollegeFragment);
+                        } else {
+
+                            switchFragemnt(mCollegeFragment);
+                        }
+                        break;
                     case 4:
 
                         if (mMoreFragment == null) {
@@ -149,7 +171,48 @@ public class MainActivity extends BaseActivity {
 
 
         controller.addTabItemClickListener(onTabItemSelectListener);
+        initNotify();
     }
+
+    private void initNotify() {
+        Logger.d("init notify~~~~~~");
+        OkHttpUtils
+                .get()
+                .url("https://coding.net/u/zeroztguo/p/CollegePlus/git/raw/master/notification.txt")
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+                        Gson gson = new Gson();
+                        Notify notify = gson.fromJson(response, Notify.class);
+                        int latestNotifyCode = Integer.valueOf(notify.getLatestNotifyCode());
+                        int localLatestNotifyCode = Notification.getLatestNotifyCode();
+
+                        if (localLatestNotifyCode < latestNotifyCode) {
+                            List<NotifyContent> notifyList = notify.getNotifyList();
+                            /*
+                            只保存本地没有的消息
+                             */
+                            for (NotifyContent notifyContent : notifyList) {
+                                if(Integer.valueOf(notifyContent.getNotifyCode()) >localLatestNotifyCode){
+                                    notifyContent.setRead(false);
+                                    notifyContent.save();
+                                }
+                            }
+//                            int unread = Notification.getUnreadNotify() + latestNotifyCode - localLatestNotifyCode;
+//                            Notification.setUnreadNotify(unread);
+                            Notification.setLatestNotifyCode(latestNotifyCode);
+                            Event.sendEmptyMessage(Event.NOTIFY_UPDATE);
+                        }
+                    }
+                });
+    }
+
 
     @Override
     protected int getContentViewId() {

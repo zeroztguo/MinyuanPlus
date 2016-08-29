@@ -4,15 +4,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.csmy.minyuanplus.ui.fragment.college.ATMFragment;
+
 /**
  * Created by Zero on 16/7/15.
  */
 public class CollegePagerAdapter extends FragmentStatePagerAdapter{
     public static final int COUNT = 2;
-    private String[] titles = new String[]{"快递","ATM"};
+    private String[] titles = new String[]{"ATM","快递"};
 
-//    private DailyFragment mDailyFragment;
-//    private GuokrFragment mGuokrFragmnet;
+    private ATMFragment mATMFragment;
 
 
 
@@ -26,11 +27,11 @@ public class CollegePagerAdapter extends FragmentStatePagerAdapter{
     @Override
     public Fragment getItem(int position) {
         switch (position){
-//            case 0:
-//                if(mDailyFragment == null){
-//                    mDailyFragment = DailyFragment.newInstance();
-//                }
-//                return mDailyFragment;
+            case 0:
+                if(mATMFragment == null){
+                    mATMFragment = ATMFragment.newInstance();
+                }
+                return mATMFragment;
 //            case 1:
 //                if(mGuokrFragmnet == null){
 //                    mGuokrFragmnet = GuokrFragment.newInstance();

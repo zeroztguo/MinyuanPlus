@@ -5,8 +5,8 @@ import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 
 import com.csmy.minyuanplus.R;
-import com.csmy.minyuanplus.education.EduGrade;
-import com.csmy.minyuanplus.education.EduRxVolley;
+import com.csmy.minyuanplus.support.education.EduGrade;
+import com.csmy.minyuanplus.support.education.EduRxVolley;
 import com.csmy.minyuanplus.event.Event;
 import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.event.EventTag;

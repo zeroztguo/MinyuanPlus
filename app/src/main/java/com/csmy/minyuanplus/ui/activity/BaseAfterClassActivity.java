@@ -1,6 +1,7 @@
 package com.csmy.minyuanplus.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -49,16 +50,18 @@ public abstract class BaseAfterClassActivity extends BaseActivity implements Bas
 
     @Override
     public void showProgress() {
-        mProgressView.startAnimation();
-        mProgressView.setVisibility(View.VISIBLE);
+        if (mProgressView != null) {
+            mProgressView.startAnimation();
+            mProgressView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void hideProgress() {
-//        Progressive.hideProgress(mContentLayout);
-
-        mProgressView.stopAnimation();
-        mProgressView.setVisibility(View.GONE);
+        if (mProgressView != null) {
+            mProgressView.stopAnimation();
+            mProgressView.setVisibility(View.GONE);
+        }
     }
 
     private void init() {
@@ -87,10 +90,10 @@ public abstract class BaseAfterClassActivity extends BaseActivity implements Bas
      */
     private void initStatuBar() {
         //只有5.0以上以上系统才支持
-        if(Build.VERSION.SDK_INT >= 21){
+        if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
             int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    |View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             decorView.setSystemUiVisibility(option);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
@@ -101,10 +104,14 @@ public abstract class BaseAfterClassActivity extends BaseActivity implements Bas
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                hideProgress();
+            }
+
+            @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                //加载完成
-                hideProgress();
             }
 
             @Override
@@ -114,14 +121,7 @@ public abstract class BaseAfterClassActivity extends BaseActivity implements Bas
             }
 
             @Override
-            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                super.onReceivedError(view, errorCode, description, failingUrl);
-                hideProgress();
-            }
-
-            @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                hideProgress();
                 mWebView.loadUrl(url);
                 return false;
             }

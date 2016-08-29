@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:stackHeaderHeight="100dp">
+
+    <com.csmy.minyuanplus.ui.view.AutoCardView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:cardBackgroundColor="?attr/colorCardBg"
+        android:orientation="vertical"
+        app:cardUseCompatPadding="false">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/id_atm_info_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="44px"
+            android:textColor="?attr/textPrimary"
+            android:textSize="54px"
+            android:layout_gravity="center"
+            tools:text="12" />
+    </com.csmy.minyuanplus.ui.view.AutoCardView>
+
+    <LinearLayout
+        android:id="@+id/id_atm_container_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/id_atm_img_sdv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:placeholderImage="@mipmap/zero_head"
+            app:viewAspectRatio="1.33" />
+
+        <!--<TextView-->
+        <!--android:id="@+id/text_list_card_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="44px"-->
+        <!--android:textSize="50px"-->
+        <!--android:text="Every corner must (initially) be provided a corner radius greater than 1, or else no corners are rounded. If you want specific corners to not be rounded, a work-around is to use android:radius to set a default corner radius greater than 1, but then override each and every corner with the values you really want, providing zero (0dp) where you don't want rounded corners."-->
+        <!--/>-->
+    </LinearLayout>
+
+</LinearLayout>

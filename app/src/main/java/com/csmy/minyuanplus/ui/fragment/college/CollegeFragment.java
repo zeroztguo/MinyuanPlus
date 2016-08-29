@@ -1,4 +1,4 @@
-package com.csmy.minyuanplus.ui.fragment;
+package com.csmy.minyuanplus.ui.fragment.college;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -8,6 +8,7 @@ import android.view.View;
 import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.support.adapter.CollegePagerAdapter;
+import com.csmy.minyuanplus.ui.fragment.BaseFragment;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -24,6 +25,7 @@ public class CollegeFragment extends BaseFragment {
     ViewPager mViewPager;
 
     private CollegePagerAdapter mCollegeagerAdapter;
+
 
     public static CollegeFragment newInstance(){return new CollegeFragment();}
 

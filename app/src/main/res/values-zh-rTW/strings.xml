@@ -93,5 +93,22 @@
     <string name="copyright">版權</string>
     <string name="zero">移動1432 郭澤濤</string>
     <string name="requesting">正在请求，请稍候…</string>
+    <string name="zh_simple">中文簡體</string>
+    <string name="zh_tw">中文繁體</string>
+    <string name="en">英文</string>
+    <string name="language_setting_success">語言設置成功</string>
+    <string name="course_info">課程信息</string>
+    <string name="timetable">作息時間</string>
+    <string name="summer">夏季</string>
+    <string name="winter">冬季</string>
+    <string name="timetable_setting_success">作息設置成功</string>
+    <string name="notify_list">消息列表</string>
+    <string name="guokr_news_load_fail">果殼新聞加載失敗...</string>
+    <string name="minyuan_news_load_fail">民院新聞加載失敗...</string>
+    <string name="zhihu_daily_load_fail">知乎日報加載失敗...</string>
+    <string name="login_minyan_education">登录民政学院教务系统</string>
+    <string name="login">登录</string>
+    <string name="cannot_login">无法登录？</string>
+    <string name="login_prompt">登录帐号为学号，密码为教务系统密码，如忘记密码，请联系辅导员。</string>
 
 </resources>
