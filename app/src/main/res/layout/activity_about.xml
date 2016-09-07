@@ -62,8 +62,8 @@
                 android:orientation="horizontal">
 
                 <com.facebook.drawee.view.SimpleDraweeView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     zero:roundAsCircle="true"
                     zero:placeholderImage="@mipmap/zero_head"/>

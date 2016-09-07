@@ -23,8 +23,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.BaseActivity" />
-        <activity android:name=".ui.AppActivity" />
+
+        <!-- <activity android:name=".ui.activity.BaseActivity" /> -->
+        <!-- <activity android:name=".ui.AppActivity" /> -->
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -40,10 +41,10 @@
             android:name=".ui.activity.DailyActivity"
             android:label="@string/title_activity_after_class_news"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".ui.activity.BaseAfterClassActivity"
-            android:label="@string/title_activity_after_class_news"
-            android:theme="@style/AppTheme" />
+        <!-- <activity -->
+        <!-- android:name=".ui.activity.BaseAfterClassActivity" -->
+        <!-- android:label="@string/title_activity_after_class_news" -->
+        <!-- android:theme="@style/AppTheme" /> -->
         <activity
             android:name=".ui.activity.MyNewsActivity"
             android:label="@string/title_activity_news"
@@ -84,7 +85,10 @@
         </receiver>
 
         <activity android:name=".ui.activity.NotifyActivity" />
-        <activity android:name=".ui.activity.NotifyContentActivity"></activity>
+        <activity android:name=".ui.activity.NotifyContentActivity" />
+        <activity android:name=".ui.activity.MapActivity" />
+        <activity android:name=".ui.activity.BaseWebViewActivity" />
+        <activity android:name=".ui.activity.WeixinActivity"></activity>
     </application>
 
 </manifest>

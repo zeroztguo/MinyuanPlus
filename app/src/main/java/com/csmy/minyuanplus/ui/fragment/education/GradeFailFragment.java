@@ -90,7 +90,7 @@ public class GradeFailFragment extends BaseFragment{
                 break;
             case Event.EDUCATION_QUERY_GRADE_FAIL_FAIL:
                 dismissWaitDialog();
-                ToastUtil.show("查询未通过成绩失败，请再试一次...");
+                ToastUtil.showShort(getContext(),"查询未通过成绩失败，请再试一次...");
                 break;
         }
     }

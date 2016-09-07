@@ -91,7 +91,7 @@ public class GradeFragment extends BaseFragment {
                 break;
             case Event.EDUCATION_QUERY_GRADE_FAIL:
                 dismissWaitDialog();
-                ToastUtil.show(getHoldingActivity().getString(R.string.query_grade_fail_try_again));
+                ToastUtil.showShort(getContext(),getHoldingActivity().getString(R.string.query_grade_fail_try_again));
                 break;
         }
     }

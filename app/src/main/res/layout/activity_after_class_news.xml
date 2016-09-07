@@ -22,7 +22,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
+            app:collapsedTitleTextAppearance="@style/AppBarLayoutText"
             app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@style/AppBarLayoutText"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
 
@@ -52,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:layout_scrollFlags="enterAlways" />
+                app:layout_scrollFlags="scroll|enterAlways" />
 
             <!--</LinearLayout>-->
 

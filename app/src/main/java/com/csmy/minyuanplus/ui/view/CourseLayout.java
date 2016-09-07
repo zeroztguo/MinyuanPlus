@@ -2,13 +2,16 @@ package com.csmy.minyuanplus.ui.view;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.csmy.minyuanplus.R;
+import com.csmy.minyuanplus.ui.activity.MapActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,10 +31,8 @@ public class CourseLayout extends ViewGroup {
     private Context mContext;
     private LayoutInflater mInflater;
 
-    private static final String TAG = "CourseLayout";
-//    private int weekDaysNum = 0;
-    private static  int week_days_num = 7;
-    private static  int sum_class_num = 5;
+    private static int week_days_num = 7;
+    private static int sum_class_num = 5;
 
     public CourseLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -40,43 +41,41 @@ public class CourseLayout extends ViewGroup {
 
         mColors = new ArrayList<Integer>();
 
-        for(int i = 0;i<mColorArray.length;i++){
+        for (int i = 0; i < mColorArray.length; i++) {
             mColors.add(mColorArray[i]);
         }
     }
 
     public CourseLayout(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public CourseLayout(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         width = MeasureSpec.getSize(widthMeasureSpec);
         height = MeasureSpec.getSize(heightMeasureSpec);
-        setMeasuredDimension(width,height);
+        setMeasuredDimension(width, height);
     }
 
-    public void addCourseViews(List<CourseView> courseViews,int dayHaveClass,int numOfClass){
+    public void addCourseViews(List<CourseView> courseViews, int dayHaveClass, int numOfClass) {
         removeAllViews();
         Collections.shuffle(mColors);
-//        week_days_num = EduSchedule.getDaysHaveClass();
-//        sum_class_num = EduSchedule.getNumOfClass();
         week_days_num = dayHaveClass;
         sum_class_num = numOfClass;
-        for(CourseView cv:courseViews){
+        for (CourseView cv : courseViews) {
             final String name = cv.getCourseName();
             final String classroom = cv.getClassroom();
             final String teacher = cv.getTeacher();
-            final String classInfo = cv.getBeginClass()+"-"+cv.getEndClass()+"节"+"("+cv.getBeginWeek()+"-"+cv.getEndWeek()+"周)";
+            final String classInfo = cv.getBeginClass() + "-" + cv.getEndClass() + "节" + "(" + cv.getBeginWeek() + "-" + cv.getEndWeek() + "周)";
 
             cv.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showCourseInfoDialog(name,classroom,teacher,classInfo);
+                    showCourseInfoDialog(name, classroom, teacher, classInfo);
                 }
             });
             addView(cv);
@@ -86,10 +85,9 @@ public class CourseLayout extends ViewGroup {
     }
 
 
-
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        for(int i = 0;i<getChildCount();i++){
+        for (int i = 0; i < getChildCount(); i++) {
             CourseView child = (CourseView) this.getChildAt(i);
 
             String courseName = child.getCourseName();
@@ -99,23 +97,27 @@ public class CourseLayout extends ViewGroup {
             int endClass = child.getEndClass();
             int id = child.getId();
 
-            int cl = width*(day-1)/week_days_num;
-            int ct = height*((beginClass-1)/2)/sum_class_num;
-            int cr = width*day/week_days_num;
-            int cb = height*endClass/2/sum_class_num;
-            child.layout(cl,ct,cr,cb);
+            int cl = width * (day - 1) / week_days_num;
+            int ct = height * ((beginClass - 1) / 2) / sum_class_num;
+            int cr = width * day / week_days_num;
+            int cb = height * endClass / 2 / sum_class_num;
+            child.layout(cl, ct, cr, cb);
 
             float maxCardElevation = child.getMaxCardElevation();
             double cos45 = Math.cos(Math.toRadians(45));
             float cornerRadius = child.getRadius();
-            int paddingLR = (int) (maxCardElevation+ (1-cos45)*cornerRadius);
-            int paddingTB = (int) (maxCardElevation*1.5+(1-cos45)*cornerRadius);
+            int paddingLR = (int) (maxCardElevation + (1 - cos45) * cornerRadius);
+            int paddingTB = (int) (maxCardElevation * 1.5 + (1 - cos45) * cornerRadius);
 
-            TextView tv  = new TextView(mContext);
-            tv.setTextColor(getResources().getColor(R.color.white));
-            tv.setText(courseName+"\n"+"@"+classroom);
-            tv.layout(paddingLR,paddingTB,cr-paddingLR,cb-paddingTB);
-            tv.layout(paddingLR,paddingTB,cr-cl,cb-ct);
+            TextView tv = new TextView(mContext);
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+            int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,2
+                    ,mContext.getResources().getDisplayMetrics());
+            tv.setPadding(padding,padding,padding,padding);
+            tv.setTextColor(mContext.getResources().getColor(R.color.white));
+            tv.setText(courseName + "\n" + "@" + classroom);
+            tv.layout(paddingLR, paddingTB, cr - paddingLR, cb - paddingTB);
+            tv.layout(paddingLR, paddingTB, cr - cl, cb - ct);
 
             child.addView(tv);
 //            child.setContentPadding(paddingLR,paddingTB,paddingLR,paddingTB);
@@ -124,8 +126,8 @@ public class CourseLayout extends ViewGroup {
 
     }
 
-    private void showCourseInfoDialog(String courseName,String classroom,String teacher,String classNum){
-        View dialog = mInflater.inflate(R.layout.dialog_course,(ViewGroup) findViewById(R.id.id_dialog_course));
+    private void showCourseInfoDialog(String courseName, String classroom, String teacher, String classNum) {
+        View dialog = mInflater.inflate(R.layout.dialog_course, (ViewGroup) findViewById(R.id.id_dialog_course));
         TextView nameTV = (TextView) dialog.findViewById(R.id.id_dialog_course_name);
         TextView classroomTV = (TextView) dialog.findViewById(R.id.id_dialog_course_classroom);
         TextView teacherTV = (TextView) dialog.findViewById(R.id.id_dialog_course_teacher);
@@ -139,6 +141,13 @@ public class CourseLayout extends ViewGroup {
 
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(mContext);
         builder.setTitle(getContext().getString(R.string.course_info));
+        builder.setNeutralButton(mContext.getString(R.string.map), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(mContext, MapActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
         builder.setView(dialog);
         builder.setPositiveButton(getContext().getString(R.string.confirm), new DialogInterface.OnClickListener() {
             @Override

@@ -12,94 +12,79 @@
         android:id="@+id/id_news_app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:fitsSystemWindows="true">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/id_after_class_news_toolbar_layout"
+        <!--<android.support.design.widget.CollapsingToolbarLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:fitsSystemWindows="true"-->
+        <!--app:contentScrim="?attr/colorPrimary"-->
+        <!--app:layout_scrollFlags="scroll|exitUntilCollapsed">-->
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/id_news_content_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            android:minHeight="?attr/actionBarSize"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:statusBarScrim="@android:color/transparent">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/id_news_content_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay"/>
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/Theme.ToolBar.College" />
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
-                android:fitsSystemWindows="true"
-                android:gravity="center"
-                android:orientation="vertical"
-                app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier="1">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/id_news_content_title_actv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="22dp"
-                    android:layout_marginRight="22dp"
-                    android:layout_marginTop="8px"
-                    android:fitsSystemWindows="true"
-                    android:text="这是我校从2013年开始，连续4年组织开展的教学质量目标测。学校通过全面实施教学质量目标测试，来提高人才培养质量。"
-                    android:textColor="?attr/textOrIcon"
-                    android:textSize="68px" />
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/id_news_content_author_time__actv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="22dp"
-                    android:layout_marginRight="22dp"
-                    android:layout_marginTop="10dp"
-                    android:fitsSystemWindows="true"
-                    android:text="1321312"
-                    android:textColor="?attr/textOrIcon"
-                    android:textSize="40px" />
-
-            </LinearLayout>
-
-
-        </android.support.design.widget.CollapsingToolbarLayout>
+        <!--</android.support.design.widget.CollapsingToolbarLayout>-->
 
     </android.support.design.widget.AppBarLayout>
 
-
-    <!--<android.support.v4.widget.NestedScrollView-->
-    <!--android:id="@+id/id_after_class_scroll_view"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:scrollbars="vertical"-->
-    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-    <!--&gt;-->
+    <!--app:layout_collapseMode="parallax"-->
+    <!--app:layout_collapseParallaxMultiplier="1"-->
 
 
-    <!--<LinearLayout-->
-    <!--android:id="@+id/id_news_ll"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:background="?attr/white"-->
-    <!--android:orientation="vertical">-->
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/id_news_rv"
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/id_news_nsv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </android.support.v7.widget.RecyclerView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/id_news_content_title_actv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="?attr/colorPrimary"
+                android:paddingLeft="22dp"
+                android:paddingRight="22dp"
+                android:paddingTop="14dp"
+                android:text="这是我校从2013年开始，连续4年组织开展的教学质量目标测。学校通过全面实施教学质量目标测试，来提高人才培养质量。"
+                android:textColor="?attr/textOrIcon"
+                android:textSize="68px" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/id_news_content_author_time_actv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:paddingBottom="14dp"
+                android:paddingLeft="22dp"
+                android:paddingRight="22dp"
+                android:paddingTop="14dp"
+                android:textColor="?attr/textOrIcon"
+                android:textSize="50px" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/id_news_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
 
     <com.github.rahatarmanahmed.cpv.CircularProgressView
         android:id="@+id/id_news_content_progress_view"
@@ -108,11 +93,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         app:cpv_animAutostart="false"
-        app:cpv_color="?attr/colorPrimary"
+        app:cpv_color="?attr/colorAccent"
         app:cpv_indeterminate="true" />
-    <!--</LinearLayout>-->
-
-    <!--</android.support.v4.widget.NestedScrollView>-->
 
 
 </android.support.design.widget.CoordinatorLayout>

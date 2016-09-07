@@ -49,6 +49,7 @@ public class CustomColorView extends View {
      */
     private boolean mIsDrawText = false;
 
+
     public CustomColorView(Context context) {
         this(context, null);
     }
@@ -149,8 +150,8 @@ public class CustomColorView extends View {
             int baseLine = (getMeasuredHeight() - fontMetrics.bottom + fontMetrics.top) / 2 - fontMetrics.top;
             canvas.drawText(num, getMeasuredWidth() / 2 - bounds.width() / 2, baseLine, numPaint);
 //            canvas.drawText(num, getMeasuredWidth() / 2 - bounds.width(), baseLine, numPaint);
-
         }
+
     }
 
 
@@ -165,9 +166,9 @@ public class CustomColorView extends View {
     }
 
     public void setTextInt(int i) {
-            mIsDrawText = true;
-            mTextInt = i;
-            invalidate();
+        mIsDrawText = true;
+        mTextInt = i;
+        invalidate();
     }
 
 }

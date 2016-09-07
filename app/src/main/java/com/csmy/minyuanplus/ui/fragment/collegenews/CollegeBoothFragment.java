@@ -6,8 +6,10 @@ import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.model.collegenews.CollegeBooth;
 import com.csmy.minyuanplus.model.collegenews.NewsBean;
+import com.csmy.minyuanplus.support.API;
 import com.csmy.minyuanplus.support.util.ToastUtil;
 import com.csmy.minyuanplus.ui.activity.MyNewsActivity;
+import com.csmy.minyuanplus.ui.fragment.SwipeRereshFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.orhanobut.logger.Logger;
@@ -29,10 +31,7 @@ import okhttp3.Call;
  * Created by Zero on 16/7/23.
  */
 public class CollegeBoothFragment extends SwipeRereshFragment<CollegeBooth> {
-//    @Bind(R.id.id_college_booth_rv)
-//    RecyclerView mCollegeBoothRecyclerView;
-//    @Bind(R.id.id_college_booth_srl)
-//    SwipeRefreshLayout mSwipeRefreshLayout;
+
 
     private int mPage;
 
@@ -41,10 +40,8 @@ public class CollegeBoothFragment extends SwipeRereshFragment<CollegeBooth> {
     }
 
 
-    public static final String COLLEGE_NEWS = "http://web.csmzxy.com/netCourse/readData";
 
     private static final String SHARE_URL = "http://www.csmzxy.com/xb/zhantai.html?content,";
-
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUserEvent(EventModel eventModel) {
@@ -55,7 +52,7 @@ public class CollegeBoothFragment extends SwipeRereshFragment<CollegeBooth> {
         Logger.d("请求ing...");
         OkHttpUtils
                 .get()
-                .url(COLLEGE_NEWS)
+                .url(API.COLLEGE_NEWS)
                 .addParams("cmd", "7")
                 .addParams("v1", "32907")
                 .addParams("v2", "1")
@@ -66,7 +63,7 @@ public class CollegeBoothFragment extends SwipeRereshFragment<CollegeBooth> {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e) {
-                        ToastUtil.show("获取院部动态失败" + e.getMessage());
+                        ToastUtil.showShort(getContext(),getString(R.string.minyuan_news_load_fail));
                         OkHttpUtils.getInstance().cancelTag(this);
                         setRefresh();
                     }
@@ -94,7 +91,7 @@ public class CollegeBoothFragment extends SwipeRereshFragment<CollegeBooth> {
         Logger.d("加载更多ing...");
         OkHttpUtils
                 .get()
-                .url(COLLEGE_NEWS)
+                .url(API.COLLEGE_NEWS)
                 .addParams("cmd", "7")
                 .addParams("v1", "32907")
                 .addParams("v2", page + "")
@@ -105,7 +102,7 @@ public class CollegeBoothFragment extends SwipeRereshFragment<CollegeBooth> {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e) {
-                        ToastUtil.show("获取院部动态失败" + e.getMessage());
+                        ToastUtil.showShort(getContext(),getString(R.string.minyuan_news_load_fail));
                         OkHttpUtils.getInstance().cancelTag(this);
                     }
 

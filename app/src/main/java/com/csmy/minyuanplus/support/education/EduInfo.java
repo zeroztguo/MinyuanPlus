@@ -2,6 +2,7 @@ package com.csmy.minyuanplus.support.education;
 
 import com.csmy.minyuanplus.model.education.PersonalInfo;
 import com.csmy.minyuanplus.support.util.SPUtil;
+import com.csmy.minyuanplus.support.util.Util;
 import com.orhanobut.logger.Logger;
 
 import org.litepal.crud.DataSupport;
@@ -22,15 +23,13 @@ public class EduInfo {
     public static final String CURRENT_TERM = "current_term";
 
 
-
-
-    public static String getSchoolYear(String academicYear){
+    public static String getSchoolYear(String academicYear) {
         PersonalInfo pi = DataSupport.findAll(PersonalInfo.class).get(0);
         int ay = Integer.valueOf(academicYear.split("-")[0]);
         int grade = Integer.valueOf(pi.getGrade());
-        if(ay == grade){
+        if (ay == grade) {
             return "大一";
-        }else if(ay == grade+1){
+        } else if (ay == grade + 1) {
             return "大二";
         }
         return "大三";
@@ -39,11 +38,11 @@ public class EduInfo {
     /**
      * @return cookie是否可用
      */
-    public static boolean isCookieAvaliable(){
-        if(getCookie().equals(COOKIE)){
+    public static boolean isCookieAvaliable() {
+        if (getCookie().equals(COOKIE)) {
             Logger.d("cookie不可用");
             return false;
-        }else{
+        } else {
             SimpleDateFormat dfs = new SimpleDateFormat("yyyy-MM-dd hh:mm");
             long between = 0;
             try {
@@ -60,7 +59,7 @@ public class EduInfo {
 //            long ms = (between - day * 24 * 60 * 60 * 1000 - hour * 60 * 60 * 1000
 //                    - min * 60 * 1000 - s * 1000);
             Logger.d(min);
-            if(min >5){
+            if (min > 5) {
                 return false;
             }
         }
@@ -68,78 +67,76 @@ public class EduInfo {
         return true;
     }
 
-    public static void saveObtainCookieDate(){
-            Calendar dateBegin=Calendar.getInstance();
-            dateBegin.setTime(new Date());
-            String bdStr = dateBegin.get(Calendar.YEAR)+"-"+String.valueOf(dateBegin.get(Calendar.MONTH)+1)+"-"+dateBegin.get(Calendar.DAY_OF_MONTH)+" "+dateBegin.get(Calendar.HOUR)+":"+dateBegin.get(Calendar.MINUTE);
-            SPUtil.put(SAVE_COOKIE_DATE,bdStr);
+    public static void saveObtainCookieDate() {
+        Calendar dateBegin = Calendar.getInstance();
+        dateBegin.setTime(new Date());
+        String bdStr = dateBegin.get(Calendar.YEAR) + "-" + String.valueOf(dateBegin.get(Calendar.MONTH) + 1) + "-" + dateBegin.get(Calendar.DAY_OF_MONTH) + " " + dateBegin.get(Calendar.HOUR) + ":" + dateBegin.get(Calendar.MINUTE);
+        SPUtil.put(SAVE_COOKIE_DATE, bdStr);
     }
 
-    public static String getObtainCookieDate(){
-        return SPUtil.get(SAVE_COOKIE_DATE,"1970-1-1 00:00").toString();
+    public static String getObtainCookieDate() {
+        return SPUtil.get(SAVE_COOKIE_DATE, "1970-1-1 00:00").toString();
     }
-
-
-
 
 
     /**
      * 保存操作教务系统所需要的cookie
+     *
      * @param cookie
      */
-    public static void saveCookie(String cookie){
-        SPUtil.put(COOKIE,cookie);
+    public static void saveCookie(String cookie) {
+        SPUtil.put(COOKIE, cookie);
         saveObtainCookieDate();
     }
 
     /**
      * 获取操作教务系统所需要的cookie
      */
-    public static String getCookie(){
-        return SPUtil.get(COOKIE,COOKIE).toString();
+    public static String getCookie() {
+        return SPUtil.get(COOKIE, COOKIE).toString();
     }
 
-    public static void saveEducationUserName(String username){
-        SPUtil.put(EDUCATION_USER_NAME,username);
+    public static void saveEducationUserName(String username) {
+        SPUtil.put(EDUCATION_USER_NAME, Util.encryptmd5(username));
     }
 
-    public static String getEducationUserName(){
-        return (String) SPUtil.get(EDUCATION_USER_NAME,"");
+    public static String getEducationUserName() {
+        return Util.encryptmd5((String) SPUtil.get(EDUCATION_USER_NAME, ""));
     }
 
-    public static void saveEducationPassword(String password){
-        SPUtil.put(EDUCATION_PASSWORD,password);
+    public static void saveEducationPassword(String password) {
+        SPUtil.put(EDUCATION_PASSWORD, Util.encryptmd5(password));
     }
 
-    public static String getEducationPassword(){
-        return (String) SPUtil.get(EDUCATION_PASSWORD,"");
+    public static String getEducationPassword() {
+        return Util.encryptmd5((String) SPUtil.get(EDUCATION_PASSWORD, ""));
     }
 
     /**
      * @param currentAcademicYear 当前学年
      */
-    public static void saveCurrentAcademicYear(String currentAcademicYear){
-        SPUtil.put(CURRENT_ACADEMIC_YEAR,currentAcademicYear);
+    public static void saveCurrentAcademicYear(String currentAcademicYear) {
+        SPUtil.put(CURRENT_ACADEMIC_YEAR, currentAcademicYear);
     }
 
     /**
      * @return 当前学年
      */
-    public static String getCurrentAcademicYear(){
-        return (String) SPUtil.get(CURRENT_ACADEMIC_YEAR,"");
+    public static String getCurrentAcademicYear() {
+        return (String) SPUtil.get(CURRENT_ACADEMIC_YEAR, "");
     }
 
     /**
      * @param currentTerm 当前学期
      */
-    public static void saveCurrentTerm(String currentTerm){
-        SPUtil.put(CURRENT_TERM,currentTerm);
+    public static void saveCurrentTerm(String currentTerm) {
+        SPUtil.put(CURRENT_TERM, currentTerm);
     }
 
     /**
      * @return 当前学期
      */
-    public static String getCurrentTerm(){
-        return (String) SPUtil.get(CURRENT_TERM,"1");
+    public static String getCurrentTerm() {
+        return (String) SPUtil.get(CURRENT_TERM, "1");
     }
 }

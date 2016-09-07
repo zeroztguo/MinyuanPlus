@@ -91,6 +91,8 @@ public class MainActivity extends BaseActivity {
             manager.popBackStackImmediate(null, 1);
         }
 
+
+
         OnTabItemSelectListener onTabItemSelectListener = new OnTabItemSelectListener() {
             @Override
             public void onSelected(int index, Object tag) {

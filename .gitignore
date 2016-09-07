@@ -39,4 +39,4 @@ Thumbs.db
 
 #NDK
 obj/
-app/src/main/res/menu/
+#app/src/main/res/menu/

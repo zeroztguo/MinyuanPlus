@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorPrimaryBg"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar" />
+
+
+    <com.csmy.minyuanplus.ui.view.AutoCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="?attr/colorCardBg"
+        app:cardUseCompatPadding="false">
+
+        <com.csmy.minyuanplus.ui.view.PinchImageView
+            android:id="@+id/id_map_piv"
+            android:src="@mipmap/minyuan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             />
+    </com.csmy.minyuanplus.ui.view.AutoCardView>
+
+</LinearLayout>

@@ -8,6 +8,7 @@ import com.csmy.minyuanplus.model.afterclass.GuokrContent;
 import com.csmy.minyuanplus.model.afterclass.GuokrContentDetail;
 import com.csmy.minyuanplus.support.util.ToastUtil;
 import com.csmy.minyuanplus.support.util.Util;
+import com.csmy.minyuanplus.ui.fragment.afterclass.GuokrFragment;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -33,7 +34,7 @@ public class GuokrActivity extends BaseAfterClassActivity {
 
                     @Override
                     public void onError(Call call, Exception e) {
-                        ToastUtil.show(getString(R.string.guokr_news_load_fail));
+                        ToastUtil.showShort(GuokrActivity.this, getString(R.string.guokr_news_load_fail));
                     }
 
                     @Override
@@ -44,7 +45,8 @@ public class GuokrActivity extends BaseAfterClassActivity {
                             GuokrContent guokrContent = gson.fromJson(jsonObj.toString(), GuokrContent.class);
                             guokrContentDetail = guokrContent.getResult();
 
-                            mTiTleTextView.setText(guokrContentDetail.getTitle());
+//                            mTiTleTextView.setText(guokrContentDetail.getTitle());
+                            setTitle(guokrContentDetail.getTitle());
                             mWebView.loadDataWithBaseURL("file:///android_asset/", "<link rel=\"stylesheet\" type=\"text/css\" href=\"guokr.css\" />" + guokrContentDetail.getContent(), "text/html", "utf-8", null);
 //
                             if (!Util.isStringNull(guokrContentDetail.getSmall_image())) {
@@ -67,7 +69,7 @@ public class GuokrActivity extends BaseAfterClassActivity {
     @Override
     protected void handleIntent(Intent intent) {
         if (null != intent) {
-            url = intent.getStringExtra("guokr");
+            url = intent.getStringExtra(GuokrFragment.class.getSimpleName());
             loadData();
         }
     }
@@ -77,4 +79,5 @@ public class GuokrActivity extends BaseAfterClassActivity {
         super.onDestroy();
         OkHttpUtils.getInstance().cancelTag(this);
     }
+
 }

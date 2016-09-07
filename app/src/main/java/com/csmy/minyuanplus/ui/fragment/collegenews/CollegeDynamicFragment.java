@@ -6,8 +6,10 @@ import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.model.collegenews.CollegeDynamic;
 import com.csmy.minyuanplus.model.collegenews.NewsBean;
+import com.csmy.minyuanplus.support.API;
 import com.csmy.minyuanplus.support.util.ToastUtil;
 import com.csmy.minyuanplus.ui.activity.MyNewsActivity;
+import com.csmy.minyuanplus.ui.fragment.SwipeRereshFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.orhanobut.logger.Logger;
@@ -38,7 +40,6 @@ public class CollegeDynamicFragment extends SwipeRereshFragment<CollegeDynamic> 
     }
 
 
-    public static final String COLLEGE_NEWS = "http://web.csmzxy.com/netCourse/readData";
     private static final String SHARE_URL = "http://www.csmzxy.com/sub2.html?content,";
 
 
@@ -52,7 +53,7 @@ public class CollegeDynamicFragment extends SwipeRereshFragment<CollegeDynamic> 
         Logger.d("请求ing...");
         OkHttpUtils
                 .get()
-                .url(COLLEGE_NEWS)
+                .url(API.COLLEGE_NEWS)
                 .addParams("cmd", "7")
                 .addParams("v1", "275")
                 .addParams("v2", "1")
@@ -63,7 +64,7 @@ public class CollegeDynamicFragment extends SwipeRereshFragment<CollegeDynamic> 
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e) {
-                        ToastUtil.show("获取院部动态失败" + e.getMessage());
+                        ToastUtil.showShort(getContext(),getString(R.string.minyuan_news_load_fail));
                         OkHttpUtils.getInstance().cancelTag(this);
                         setRefresh();
                     }
@@ -91,7 +92,7 @@ public class CollegeDynamicFragment extends SwipeRereshFragment<CollegeDynamic> 
         Logger.d("加载更多ing...");
         OkHttpUtils
                 .get()
-                .url(COLLEGE_NEWS)
+                .url(API.COLLEGE_NEWS)
                 .addParams("cmd", "7")
                 .addParams("v1", "275")
                 .addParams("v2", page + "")
@@ -102,7 +103,7 @@ public class CollegeDynamicFragment extends SwipeRereshFragment<CollegeDynamic> 
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e) {
-                        ToastUtil.show("获取院部动态失败" + e.getMessage());
+                        ToastUtil.showShort(getContext(),getString(R.string.minyuan_news_load_fail));
                         OkHttpUtils.getInstance().cancelTag(this);
                     }
 
@@ -148,6 +149,8 @@ public class CollegeDynamicFragment extends SwipeRereshFragment<CollegeDynamic> 
         holder.setText(R.id.id_college_news_title_actv, cd.getContentTitle());
         holder.setText(R.id.id_college_news_author_actv, cd.getContentAuthor());
         holder.setText(R.id.id_college_news_date_actv, cd.getSubmitTime());
+        holder.setVisible(R.id.id_college_news_head_tv, true);
+        holder.setText(R.id.id_college_news_head_tv,cd.getContentAuthor().substring(0,1));
     }
 
     @Override

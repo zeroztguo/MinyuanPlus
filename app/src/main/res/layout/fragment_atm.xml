@@ -5,9 +5,14 @@
     android:background="?attr/colorPrimaryBg"
     android:orientation="vertical">
 
-    <com.loopeer.cardstack.CardStackView
-        android:id="@+id/id_atm_csv"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/id_atm_srl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
+        <com.loopeer.cardstack.CardStackView
+            android:id="@+id/id_atm_csv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

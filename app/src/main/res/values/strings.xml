@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MinyuanPlus</string>
+    <string name="app_name">民院+</string>
     <string name="set_current_week">设置当前周</string>
     <string name="switch_term">切换学期</string>
     <string name="confirm">确定</string>
@@ -7,7 +7,6 @@
     <string name="cancel">取消</string>
     <string name="current_week">(本周)</string>
     <string name="week">周</string>
-    <string name="try_again_later">教务系统抽风,请稍后再试</string>
     <string name="psw_error">教务系统用户名和密码不匹配</string>
     <string name="obtain_schedule_fail">登录成功,获取课表信息失败</string>
     <string name="input_complete_info">请输入完整的信息</string>
@@ -15,20 +14,16 @@
     <string name="need_common">你还没有进行本学期的教学质量评价,在教务系统的“教学质量评价”栏中完成评价工作后，才能进入系统。</string>
     <string name="login_education">登录教务系统</string>
     <string name="query_grade">成绩查询</string>
-    <string name="title_activity_grade">GradeActivity</string>
     <string name="basic_info">基础信息</string>
     <string name="public_course_info">公共任选课信息</string>
     <string name="course_credit_statistical">课程学分统计</string>
-    <string name="title_activity_news">NewsActivity</string>
-    <string name="title_activity_after_class_news">AfterClassNewsActivity</string>
     <string name="notification">消息</string>
     <string name="grade_query">成绩查询</string>
-    <string name="title_activity_test">TestActivity</string>
-    <string name="home">Home</string>
-    <string name="college_news">News</string>
-    <string name="after_class">Leisure</string>
-    <string name="minyuan">College</string>
-    <string name="more">More</string>
+    <string name="home">首页</string>
+    <string name="college_news">校闻</string>
+    <string name="after_class">课外</string>
+    <string name="minyuan">民院</string>
+    <string name="more">更多</string>
     <string name="quit_account">退出帐号</string>
     <string name="the">"第"</string>
     <string name="term">学期</string>
@@ -40,7 +35,7 @@
     <string name="college_culture">校园文化</string>
     <string name="share_to">分享至</string>
     <string name="zhihu">知乎日报</string>
-    <string name="guokr">果壳</string>
+    <string name="guokr">果壳热门</string>
     <string name="grade">成绩</string>
     <string name="grade_term">学期成绩</string>
     <string name="grade_fail">未通过成绩</string>
@@ -72,7 +67,7 @@
     <string name="head">头像</string>
     <string name="save_flow_mode">省流量模式</string>
     <string name="clear_cache">清空缓存</string>
-    <string name="only_wifi">仅在WI-FI环境下才会自动加载课余页面图片和视频</string>
+    <string name="only_wifi">仅在WI-FI环境下才会自动加载课外页面图片和视频</string>
     <string name="clear_app_cache">清理民院+的缓存</string>
     <string name="head_setting_success">头像设置成功</string>
     <string name="clear_cache_success">清除缓存成功</string>
@@ -83,12 +78,12 @@
     <string name="feedback">意见反馈</string>
     <string name="share_application">分享民院+</string>
     <string name="education_news_data">教务系统和校闻数据</string>
-    <string name="after_class_data">课余页面数据</string>
+    <string name="after_class_data">课外页面数据</string>
     <string name="open_source">开源协议</string>
     <string name="from_college">抓取自民政学院教务系统和官网，版权归学校所有</string>
     <string name="from_net">数据来自于网上api，版权归原作者所有</string>
     <string name="feedback_message">民院+现在属于初期版本，用起来不爽，数据获取失败，发现bug，或者有好的idea，都欢迎给作者提供建议。\n \n 方式：\n 1.email:zeroztguo@163.com \n 2.在作者大学城空间留言建议</string>
-    <string name="share_app_message">欢迎使用【民院+】，它是一款民院师生专属的应用。它集课表、成绩查询，民院新闻，课外新闻，校园信息等功能于一体，希望它能给你的民院生活，带来些许便利。你可以到~~~下载</string>
+    <string name="share_app_message">欢迎使用【民院+】，它是一款民院师生专属的应用。它集课表、成绩查询，民院新闻，课外新闻，校园信息等功能于一体，希望它能给你的民院生活，带来些许便利。你可以到 myplus.bmob.cn 下载</string>
     <string name="obtain_update_message_fail">获取更新信息失败</string>
     <string name="already_latest_version">当前已是最新版本</string>
     <string name="prompt">提示</string>
@@ -116,5 +111,10 @@
     <string name="cannot_login">无法登录？</string>
     <string name="login_prompt">登录帐号为学号，密码为教务系统密码，如忘记密码，请联系辅导员。</string>
     <string name="login_fail">登录失败,请检查密码或稍后再试...</string>
-
+    <string name="map">民院地图</string>
+    <string name="scale">可跟随手势放大缩小</string>
+    <string name="weixin_special">微信精选</string>
+    <string name="this_term_no_course">本学期还没有课~</string>
+    <string name="atm">ATM</string>
+    <string name="express">快递</string>
 </resources>

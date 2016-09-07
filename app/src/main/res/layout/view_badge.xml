@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:background="?actionBarItemBackground">
+    android:background="?actionBarItemBackground"
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/id_badge_iv"
@@ -12,27 +12,15 @@
         android:layout_centerInParent="true"
         android:scaleType="center" />
 
-    <!--<android.support.v7.widget.AppCompatTextView-->
-    <!--android:id="@+id/id_badge_tv"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentEnd="true"-->
-    <!--android:layout_alignParentRight="true"-->
-    <!--android:layout_margin="2dp"-->
-    <!--android:background="@drawable/circle_red"-->
-    <!--android:gravity="center"-->
-    <!--android:text="0"-->
-    <!--android:textColor="@color/white"-->
-    <!--android:textSize="12sp" />-->
     <com.csmy.minyuanplus.ui.view.CustomColorView
         android:id="@+id/id_badge_color_view"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_margin="2dp"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        app:textSize="10sp"
-        app:circleColor="?attr/colorAccent" />
+        android:layout_margin="2dp"
+        app:circleColor="?attr/colorAccent"
+        app:textSize="10sp" />
 
 
 </RelativeLayout>

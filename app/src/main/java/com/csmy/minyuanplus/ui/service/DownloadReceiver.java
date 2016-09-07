@@ -7,30 +7,40 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.NotificationCompat;
-import android.widget.RemoteViews;
 
 import com.csmy.minyuanplus.R;
 import com.orhanobut.logger.Logger;
+
+import org.litepal.LitePalApplication;
+
+import java.util.Map;
 
 /**
  * Created by Zero on 16/8/25.
  */
 public class DownloadReceiver extends BroadcastReceiver {
+    private NotificationManager manager;
+    private NotificationCompat.Builder builder;
+    private Notification notification;
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        Logger.d("接收到了广播");
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.view_download_progress_bar);
-        remoteViews.setProgressBar(R.id.id_about_pb, 100, 50, false);
-        remoteViews.setTextViewText(R.id.id_about_progress_tv, "99%");
-
-        NotificationManager manager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-        Notification notification = builder
-                .setContentTitle("正在下载民院+")
-                .setContent(remoteViews)
-                .setSmallIcon(R.mipmap.notification)
-                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.icon))
-                .build();
-        manager.notify(1, notification);
+        if (intent.getAction().equals(DownloadService.ACTION_DOWNLOAD_UPDATE)) {
+            Logger.d("接收到了广播");
+            Map<String, Object> map = (Map<String, Object>) intent.getSerializableExtra(DownloadService.DOWNLOAD);
+            int max = (int) map.get(DownloadService.MAX);
+            int progress = (int) map.get(DownloadService.PROGRESS);
+            manager = (NotificationManager) context.getSystemService(LitePalApplication.getContext().NOTIFICATION_SERVICE);
+            builder = new NotificationCompat.Builder(LitePalApplication.getContext());
+            notification = builder
+//                .setProgress(max, progress, false)
+//                .setContentInfo(max / progress + "%")
+                    .setContentTitle("正在下载民院+")
+                    .setSmallIcon(R.mipmap.notification)
+                    .setLargeIcon(BitmapFactory.decodeResource(LitePalApplication.getContext().getResources()
+                            , R.mipmap.icon))
+                    .build();
+            manager.notify(1, notification);
+        }
     }
 }

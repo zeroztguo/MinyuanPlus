@@ -24,18 +24,15 @@ import okhttp3.OkHttpClient;
  * Created by Zero on 16/5/25.
  */
 public class App extends LitePalApplication{
-    private static android.app.Application _instance;
     public static final String TAG = "CollegePlus";
 
     @Override
     public void onCreate() {
         super.onCreate();
-        _instance = this;
         LitePalApplication.initialize(this);
         /**
          * 初始化OkHttp
          */
-//        CookieJarImpl cookieJar1 = new CookieJarImpl(new PersistentCookieStore(getApplicationContext()));
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(10000L, TimeUnit.MILLISECONDS)
                 .readTimeout(10000L,TimeUnit.MILLISECONDS)

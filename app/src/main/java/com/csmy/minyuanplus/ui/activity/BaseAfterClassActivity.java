@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -21,16 +21,16 @@ import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.support.SettingConfig;
 import com.csmy.minyuanplus.support.util.NetworkType;
 import com.csmy.minyuanplus.support.util.Util;
-import com.csmy.minyuanplus.ui.BaseView;
+import com.csmy.minyuanplus.ui.BaseProgressView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import butterknife.Bind;
 
 
-public abstract class BaseAfterClassActivity extends BaseActivity implements BaseView {
-    @Bind(R.id.id_after_class_content_layout)
-    CoordinatorLayout mContentLayout;
+public abstract class BaseAfterClassActivity extends BaseActivity implements BaseProgressView {
+    @Bind(R.id.id_after_class_news_toolbar_layout)
+    CollapsingToolbarLayout mToolbarLayout;
     @Bind(R.id.id_after_class_news_image)
     SimpleDraweeView mSimpleDraweeView;
     @Bind(R.id.id_after_class_news_web_view)
@@ -99,6 +99,10 @@ public abstract class BaseAfterClassActivity extends BaseActivity implements Bas
         }
     }
 
+
+    protected void setTitle(String title) {
+        mToolbarLayout.setTitle(title);
+    }
 
     private void initWebView() {
         mWebView.getSettings().setJavaScriptEnabled(true);

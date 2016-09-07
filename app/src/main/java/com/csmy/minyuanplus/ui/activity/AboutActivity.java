@@ -13,10 +13,11 @@ import android.view.ViewGroup;
 import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.model.VersionInfo;
+import com.csmy.minyuanplus.support.API;
 import com.csmy.minyuanplus.support.adapter.DividerItemDecoration;
+import com.csmy.minyuanplus.support.util.SnackbarUtil;
 import com.csmy.minyuanplus.support.util.ToastUtil;
 import com.csmy.minyuanplus.support.util.Util;
-import com.csmy.minyuanplus.ui.service.DownloadService;
 import com.google.gson.Gson;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
@@ -51,8 +52,9 @@ public class AboutActivity extends BaseActivity {
     private String[] mCopyrightTitles;
     private String[] mCopyrightContents;
     private String mVersionCode;
-    private String mLatestVersionUrl;
+    //    private String mLatestVersionUrl;
     private String mUpdateMessage;
+
 
     @Override
     protected int getContentViewId() {
@@ -70,8 +72,8 @@ public class AboutActivity extends BaseActivity {
         mCollegePlusTitles = new String[]{getString(R.string.app_introduce), getString(R.string.check_update)
                 , getString(R.string.feedback), getString(R.string.share_application)};
         mCopyrightTitles = new String[]{getString(R.string.education_news_data), getString(R.string.after_class_data)
-                , getString(R.string.open_source)};
-        mCopyrightContents = new String[]{getString(R.string.from_college), getString(R.string.from_net), ""};
+        };
+        mCopyrightContents = new String[]{getString(R.string.from_college), getString(R.string.from_net)};
         initToolbar();
         initCollegePlusRecyclerView();
         initCopyrightRecyclerView();
@@ -180,13 +182,13 @@ public class AboutActivity extends BaseActivity {
         showWaitDialog(this);
         OkHttpUtils
                 .get()
-                .url("https://coding.net/u/zeroztguo/p/CollegePlus/git/raw/master/latestVersionInfo.txt")
+                .url(API.APP_CHECK_UPDATE)
                 .build()
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e) {
                         dismissWaitDialog();
-                        ToastUtil.show(getString(R.string.obtain_update_message_fail));
+                        ToastUtil.showShort(AboutActivity.this, getString(R.string.obtain_update_message_fail));
                     }
 
                     @Override
@@ -196,13 +198,13 @@ public class AboutActivity extends BaseActivity {
                         Gson gson = new Gson();
                         VersionInfo versionInfo = gson.fromJson(response, VersionInfo.class);
                         mVersionCode = versionInfo.getVersionCode().trim();
-                        mLatestVersionUrl = versionInfo.getLatestVersionUrl().trim();
+//                        mLatestVersionUrl = versionInfo.getLatestVersionUrl().trim();
                         mUpdateMessage = versionInfo.getUpdateMessage().trim();
-                        showUpdateDialog(mLatestVersionUrl);
 
                         if (Integer.parseInt(mVersionCode) > Util.getVersionCode()) {
+                            showUpdateDialog();
                         } else {
-                            ToastUtil.show(getString(R.string.already_latest_version));
+                            SnackbarUtil.showWithNoAction(mCopyrightRecyclerView,getString(R.string.already_latest_version));
                         }
                     }
                 });
@@ -211,25 +213,14 @@ public class AboutActivity extends BaseActivity {
 
     /**
      * 显示提示更新的dialog
-     *
-     * @param updateUrl 最新版本apk下载地址
      */
-    private void showUpdateDialog(final String updateUrl) {
+    private void showUpdateDialog() {
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.prompt));
         builder.setMessage(mUpdateMessage);
-        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.setPositiveButton(getString(R.string.immediately_download), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(AboutActivity.this, DownloadService.class);
-                intent.putExtra("update_url", updateUrl);
-                startService(intent);
                 dialog.dismiss();
             }
         });
@@ -258,7 +249,8 @@ public class AboutActivity extends BaseActivity {
         mCopyrightRecyclerView.setAdapter(mCopyrightAdapter);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onUserEvent(EventModel eventModel) {
+
     }
 }

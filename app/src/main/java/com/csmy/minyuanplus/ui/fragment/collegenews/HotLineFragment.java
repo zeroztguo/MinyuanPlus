@@ -6,8 +6,10 @@ import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.model.collegenews.HotLine;
 import com.csmy.minyuanplus.model.collegenews.NewsBean;
+import com.csmy.minyuanplus.support.API;
 import com.csmy.minyuanplus.support.util.ToastUtil;
 import com.csmy.minyuanplus.ui.activity.MyNewsActivity;
+import com.csmy.minyuanplus.ui.fragment.SwipeRereshFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.orhanobut.logger.Logger;
@@ -29,11 +31,6 @@ import okhttp3.Call;
  * Created by Zero on 16/7/23.
  */
 public class HotLineFragment extends SwipeRereshFragment<HotLine> {
-//    @Bind(R.id.id_hot_line_rv)
-//    RecyclerView mHotLineRecyclerView;
-//    @Bind(R.id.id_hot_line_srl)
-//    SwipeRefreshLayout mSwipeRefreshLayout;
-
     private int mPage;
 
     public static HotLineFragment newInstance() {
@@ -41,7 +38,6 @@ public class HotLineFragment extends SwipeRereshFragment<HotLine> {
     }
 
 
-    public static final String COLLEGE_NEWS = "http://web.csmzxy.com/netCourse/readData";
     private static final String SHARE_URL = "http://www.csmzxy.com/xb/hot.html?content,";
 
 
@@ -55,7 +51,7 @@ public class HotLineFragment extends SwipeRereshFragment<HotLine> {
         Logger.d("请求ing...");
         OkHttpUtils
                 .get()
-                .url(COLLEGE_NEWS)
+                .url(API.COLLEGE_NEWS)
                 .addParams("cmd", "7")
                 .addParams("v1", "32906")
                 .addParams("v2", "1")
@@ -66,7 +62,7 @@ public class HotLineFragment extends SwipeRereshFragment<HotLine> {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e) {
-                        ToastUtil.show("获取院部动态失败" + e.getMessage());
+                        ToastUtil.showShort(getContext(),getString(R.string.minyuan_news_load_fail));
                         OkHttpUtils.getInstance().cancelTag(this);
                         setRefresh();
                     }
@@ -94,7 +90,7 @@ public class HotLineFragment extends SwipeRereshFragment<HotLine> {
         Logger.d("加载更多ing...");
         OkHttpUtils
                 .get()
-                .url(COLLEGE_NEWS)
+                .url(API.COLLEGE_NEWS)
                 .addParams("cmd", "7")
                 .addParams("v1", "32906")
                 .addParams("v2", page + "")
@@ -105,7 +101,7 @@ public class HotLineFragment extends SwipeRereshFragment<HotLine> {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e) {
-                        ToastUtil.show("获取院部动态失败" + e.getMessage());
+                        ToastUtil.showShort(getContext(),getString(R.string.minyuan_news_load_fail));
                         OkHttpUtils.getInstance().cancelTag(this);
                     }
 

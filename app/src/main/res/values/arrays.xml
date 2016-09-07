@@ -36,7 +36,7 @@
         <item>@color/green</item>
         <item>@color/light_green</item>
         <item>@color/lime</item>
-        <item>@color/yellow</item>
+        <!--<item>@color/yellow</item>-->
         <item>@color/amber</item>
         <item>@color/orange</item>
         <item>@color/deep_orange</item>

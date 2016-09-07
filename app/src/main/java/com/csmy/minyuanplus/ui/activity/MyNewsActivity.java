@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,7 +19,8 @@ import com.csmy.minyuanplus.model.collegenews.NewsBean;
 import com.csmy.minyuanplus.model.collegenews.NewsDetail;
 import com.csmy.minyuanplus.support.API;
 import com.csmy.minyuanplus.support.util.Util;
-import com.csmy.minyuanplus.ui.BaseView;
+import com.csmy.minyuanplus.ui.BaseProgressView;
+import com.csmy.minyuanplus.ui.BaseToolbarView;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
@@ -46,7 +47,7 @@ import okhttp3.Call;
 /**
  * 解析html文本将内容显示在RecyclerView中的校闻页面
  */
-public class MyNewsActivity extends BaseActivity implements BaseView {
+public class MyNewsActivity extends BaseActivity implements BaseToolbarView, BaseProgressView {
     @Bind(R.id.id_news_content_toolbar)
     Toolbar mToolbar;
     /**
@@ -58,18 +59,19 @@ public class MyNewsActivity extends BaseActivity implements BaseView {
     /**
      * 显示新闻作者和日期
      */
-    @Bind(R.id.id_news_content_author_time__actv)
+    @Bind(R.id.id_news_content_author_time_actv)
     AppCompatTextView mNewsAuthorTimeTextView;
 
     /**
      * 显示新闻内容
      */
-    @Bind(R.id.id_news_content)
-    CoordinatorLayout mNewsContentLayout;
     @Bind(R.id.id_news_content_progress_view)
     CircularProgressView mProgressView;
     @Bind(R.id.id_news_rv)
     RecyclerView mRecyclerView;
+
+    @Bind(R.id.id_news_nsv)
+    NestedScrollView mNestedScrollView;
 
     LinearLayoutManager mLinearLayoutManager;
     MultiItemTypeAdapter<NewsDetail> mAdapter;
@@ -90,16 +92,68 @@ public class MyNewsActivity extends BaseActivity implements BaseView {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        initToolbar();
         init();
         handleIntent(getIntent());
     }
 
-    private void init() {
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+    private void init() {
         mDatas = new ArrayList<>();
+
+//        mNewsTitleTextView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+//            @Override
+//            public void onSystemUiVisibilityChange(int visibility) {
+//                if (visibility == View.GONE) {
+//                    mTitleCardView.setVisibility(View.GONE);
+//                } else {
+//                    mTitleCardView.setVisibility(View.VISIBLE);
+//                }
+//            }
+//        });
+
+
+
+        mNestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//                Logger.d("scrollX:" + scrollX + "\tscrollY:" + scrollY + "\toldScrollX:" + oldScrollX + "\toldScrollY:" + oldScrollY);
+                Logger.d(mNewsTitleTextView.isFocused());
+
+
+            }
+        });
+
+
+//
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+//        dy > 0 手势从下往上
+//                if (dy == 0) {
+//                    mTitleCardView.setVisibility(View.VISIBLE);
+//
+//                } else if (dy > 0) {
+//                } else {
+//
+//                }
+
+
+//                if (mNewsTitleTextView.getVisibility() == View.VISIBLE) {
+//                    mTitleCardView.setVisibility(View.VISIBLE);
+//                } else {
+//                    mTitleCardView.setVisibility(View.GONE);
+//                }
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+
 
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
@@ -147,7 +201,7 @@ public class MyNewsActivity extends BaseActivity implements BaseView {
     }
 
     private String getShareMessage() {
-        return "【" + mTitle + "\n" + mAuthor + "】：" + mShareUrl + "(分享自民院+)";
+        return "【" + mTitle + "】『" + mAuthor + "』：" + mShareUrl + "(分享自民院+)";
     }
 
     @Override
@@ -175,7 +229,7 @@ public class MyNewsActivity extends BaseActivity implements BaseView {
             AutoUtils.autoTextSize(mNewsTitleTextView);
             AutoUtils.autoTextSize(mNewsAuthorTimeTextView);
             mNewsTitleTextView.setText(mTitle);
-            mNewsAuthorTimeTextView.setText(mAuthor + "     " + mSubmitTime);
+            mNewsAuthorTimeTextView.setText(mAuthor);
             obtainCollegeNews(mArticleID);
 
         }
@@ -283,6 +337,13 @@ public class MyNewsActivity extends BaseActivity implements BaseView {
                 }
             }
         }
+    }
+
+    @Override
+    public void initToolbar() {
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
 

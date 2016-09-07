@@ -1,7 +1,11 @@
 package com.csmy.minyuanplus.support;
 
 import com.csmy.minyuanplus.R;
+import com.csmy.minyuanplus.model.education.PersonalInfo;
+import com.csmy.minyuanplus.support.education.EduLogin;
 import com.csmy.minyuanplus.support.util.SPUtil;
+
+import org.litepal.crud.DataSupport;
 
 /**
  * Created by Zero on 16/8/18.
@@ -27,9 +31,10 @@ public class SettingConfig {
     /**
      * 头像
      */
-    public static Integer[] userIconArray = new Integer[]{R.mipmap.erkang, R.mipmap.rongmomo
+    public static Integer[] userIconArray = new Integer[]{R.mipmap.baike, R.mipmap.konglianshun
+            , R.mipmap.erkang, R.mipmap.rongmomo
             , R.mipmap.wangzaiboy, R.mipmap.wangzaigirl
-            , R.mipmap.baike, R.mipmap.konglianshun};
+    };
 
     /**
      * 主题
@@ -85,7 +90,18 @@ public class SettingConfig {
     }
 
     public static int getUserIconIndex() {
-        return (int) SPUtil.get(USER_ICON_INDEX, 0);
+        int defaultIndex;
+        if (EduLogin.isEducationLogined()) {
+            PersonalInfo personalInfo = DataSupport.findAll(PersonalInfo.class).get(0);
+            if (personalInfo.getSex().equals("男")) {
+                defaultIndex = 0;
+            } else {
+                defaultIndex = 1;
+            }
+        } else {
+            defaultIndex = 0;
+        }
+        return (int) SPUtil.get(USER_ICON_INDEX, defaultIndex);
     }
 
     /**
@@ -103,14 +119,15 @@ public class SettingConfig {
 
     /**
      * 设置语言
+     *
      * @param language
      */
-    public static void setLanguage(String language){
-        SPUtil.put(LANGUAGE,language);
+    public static void setLanguage(String language) {
+        SPUtil.put(LANGUAGE, language);
     }
 
-    public static String getLanguage(){
-        return (String) SPUtil.get(LANGUAGE,ZH_SIMPLE);
+    public static String getLanguage() {
+        return (String) SPUtil.get(LANGUAGE, ZH_SIMPLE);
     }
 
 }

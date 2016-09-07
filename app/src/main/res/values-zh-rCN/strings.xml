@@ -40,7 +40,7 @@
     <string name="college_culture">校园文化</string>
     <string name="share_to">分享至</string>
     <string name="zhihu">知乎日报</string>
-    <string name="guokr">果壳</string>
+    <string name="guokr">果壳热门</string>
     <string name="grade">成绩</string>
     <string name="grade_term">学期成绩</string>
     <string name="grade_fail">未通过成绩</string>
@@ -72,7 +72,7 @@
     <string name="head">头像</string>
     <string name="save_flow_mode">省流量模式</string>
     <string name="clear_cache">清空缓存</string>
-    <string name="only_wifi">仅在WI-FI环境下才会自动加载课余页面图片和视频</string>
+    <string name="only_wifi">仅在WI-FI环境下才会自动加载课外页面图片和视频</string>
     <string name="clear_app_cache">清理民院+的缓存</string>
     <string name="head_setting_success">头像设置成功</string>
     <string name="clear_cache_success">清除缓存成功</string>
@@ -83,7 +83,7 @@
     <string name="feedback">意见反馈</string>
     <string name="share_application">分享民院+</string>
     <string name="education_news_data">教务系统和校闻数据</string>
-    <string name="after_class_data">课余页面数据</string>
+    <string name="after_class_data">课外页面数据</string>
     <string name="open_source">开源协议</string>
     <string name="from_college">抓取自民政学院教务系统和官网，版权归学校所有</string>
     <string name="from_net">数据来自于网上api，版权归原作者所有</string>
@@ -115,5 +115,11 @@
     <string name="login">登录</string>
     <string name="cannot_login">无法登录？</string>
     <string name="login_prompt">登录帐号为学号，密码为教务系统密码，如忘记密码，请联系辅导员。</string>
+    <string name="map">民院地图</string>
+    <string name="scale">可跟随手势放大缩小</string>
+    <string name="weixin_special">微信精选</string>
+    <string name="this_term_no_course">本学期还没有课~</string>
+    <string name="atm">ATM</string>
+    <string name="express">快递</string>
 
 </resources>

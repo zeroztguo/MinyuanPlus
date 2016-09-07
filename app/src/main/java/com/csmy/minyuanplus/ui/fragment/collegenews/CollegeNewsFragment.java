@@ -1,19 +1,19 @@
 package com.csmy.minyuanplus.ui.fragment.collegenews;
 
 import android.content.Intent;
-import android.support.v7.widget.AppCompatTextView;
 
 import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.model.collegenews.CollegeNews;
 import com.csmy.minyuanplus.model.collegenews.NewsBean;
+import com.csmy.minyuanplus.support.API;
 import com.csmy.minyuanplus.support.util.ToastUtil;
 import com.csmy.minyuanplus.ui.activity.MyNewsActivity;
+import com.csmy.minyuanplus.ui.fragment.SwipeRereshFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.orhanobut.logger.Logger;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
-import com.zhy.autolayout.utils.AutoUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -31,13 +31,8 @@ import okhttp3.Call;
  * Created by Zero on 16/7/23.
  */
 public class CollegeNewsFragment extends SwipeRereshFragment<CollegeNews> {
-//    @Bind(R.id.id_college_news_rv)
-//    RecyclerView mCollegeNewsRecyclerView;
-//    @Bind(R.id.id_college_news_srl)
-//    SwipeRefreshLayout mSwipeRefreshLayout;
 
     private int mPage;
-
 
 
     public static CollegeNewsFragment newInstance() {
@@ -47,7 +42,6 @@ public class CollegeNewsFragment extends SwipeRereshFragment<CollegeNews> {
     }
 
 
-    public static final String COLLEGE_NEWS = "http://web.csmzxy.com/netCourse/readData";
     private static final String SHARE_URL = "http://www.csmzxy.com/sub2.html?content,";
 
 
@@ -60,7 +54,7 @@ public class CollegeNewsFragment extends SwipeRereshFragment<CollegeNews> {
         Logger.d("请求ing...");
         OkHttpUtils
                 .get()
-                .url(COLLEGE_NEWS)
+                .url(API.COLLEGE_NEWS)
                 .addParams("cmd", "7")
                 .addParams("v1", "274")
                 .addParams("v2", "1")
@@ -71,7 +65,7 @@ public class CollegeNewsFragment extends SwipeRereshFragment<CollegeNews> {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e) {
-                        ToastUtil.show("获取院部动态失败" + e.getMessage());
+                        ToastUtil.showShort(getContext(), getString(R.string.minyuan_news_load_fail));
                         OkHttpUtils.getInstance().cancelTag(this);
                         setRefresh();
                     }
@@ -86,9 +80,7 @@ public class CollegeNewsFragment extends SwipeRereshFragment<CollegeNews> {
                         DataSupport.deleteAll(CollegeNews.class);
                         DataSupport.saveAll(CollegeNewsList);
 
-//                        for (CollegeNews cd : CollegeNewsList) {
-//                            addData(cd);
-//                        }
+
                         addAllData(CollegeNewsList);
                         Logger.d("一共有这么多条：" + CollegeNewsList.size());
                         setRefresh();
@@ -102,10 +94,10 @@ public class CollegeNewsFragment extends SwipeRereshFragment<CollegeNews> {
         Logger.d("加载更多ing...");
         OkHttpUtils
                 .get()
-                .url(COLLEGE_NEWS)
+                .url(API.COLLEGE_NEWS)
                 .addParams("cmd", "7")
                 .addParams("v1", "274")
-                .addParams("v2", page+"")
+                .addParams("v2", page + "")
                 .addParams("v3", "15")
                 .addParams("tempData", new Date().toString())
                 .tag(this)
@@ -113,7 +105,7 @@ public class CollegeNewsFragment extends SwipeRereshFragment<CollegeNews> {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e) {
-                        ToastUtil.show("获取院部动态失败" + e.getMessage());
+                        ToastUtil.showShort(getContext(), getString(R.string.minyuan_news_load_fail));
                         OkHttpUtils.getInstance().cancelTag(this);
                     }
 
@@ -133,7 +125,6 @@ public class CollegeNewsFragment extends SwipeRereshFragment<CollegeNews> {
     }
 
 
-
     @Override
     protected int getItemId() {
         return R.layout.item_college_news;
@@ -147,13 +138,11 @@ public class CollegeNewsFragment extends SwipeRereshFragment<CollegeNews> {
 
     @Override
     protected void setItem(ViewHolder holder, CollegeNews cd, int position) {
-        AppCompatTextView title = holder.getView(R.id.id_college_news_title_actv);
-        AutoUtils.autoTextSize(title);
-        title.setText(cd.getContentTitle());
-
-//        holder.setText(R.id.id_college_news_title_actv, cd.getContentTitle());
+        holder.setText(R.id.id_college_news_title_actv, cd.getContentTitle());
         holder.setText(R.id.id_college_news_author_actv, cd.getContentAuthor());
         holder.setText(R.id.id_college_news_date_actv, cd.getSubmitTime());
+        holder.setVisible(R.id.id_college_news_head_tv, true);
+        holder.setText(R.id.id_college_news_head_tv,cd.getContentAuthor().substring(0,1));
     }
 
     @Override
@@ -164,7 +153,7 @@ public class CollegeNewsFragment extends SwipeRereshFragment<CollegeNews> {
                 .setContentAuthor(cn.getContentAuthor())
                 .setContentID(cn.getContentID())
                 .setSubmitTime(cn.getSubmitTime())
-                .setShareUrl(SHARE_URL+cn.getContentID());
+                .setShareUrl(SHARE_URL + cn.getContentID());
 
         intent.putExtra("college_news", newsBean);
         startActivity(intent);

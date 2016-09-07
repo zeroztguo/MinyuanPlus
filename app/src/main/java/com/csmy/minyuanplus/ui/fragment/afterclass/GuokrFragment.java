@@ -114,7 +114,7 @@ public class GuokrFragment extends AfterClassSwipeRereshFragment<GuokrHeader> {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e) {
-                        ToastUtil.show(getString(R.string.guokr_news_load_fail));
+                        ToastUtil.showShort(getContext(), getString(R.string.guokr_news_load_fail));
                         setRefresh();
                     }
 
@@ -144,7 +144,7 @@ public class GuokrFragment extends AfterClassSwipeRereshFragment<GuokrHeader> {
     @Override
     protected void setOnItemClick(GuokrHeader GuokrHeader) {
         Intent intent = new Intent(getHoldingActivity(), GuokrActivity.class);
-        intent.putExtra("guokr", GuokrHeader.getResource_url());
+        intent.putExtra(GuokrFragment.class.getSimpleName(), GuokrHeader.getResource_url());
         startActivity(intent);
     }
 

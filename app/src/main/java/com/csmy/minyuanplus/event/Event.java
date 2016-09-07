@@ -34,9 +34,9 @@ public class Event {
     //查询成绩统计失败
     public static final int EDUCATION_GRADE_STATISTICAL_FAIL = 16;
     //新闻内容开始更新
-    public static final int NEWS_CONTENT_UPDATE_START =17;
+    public static final int NEWS_CONTENT_UPDATE_START = 17;
     //新闻内容更新成功
-    public static final int NEWS_CONTENT_UPDATE_SUCCESS =18;
+    public static final int NEWS_CONTENT_UPDATE_SUCCESS = 18;
     //获取学院新闻
     public static final int NEWS_COLLEGE = 19;
 
@@ -45,16 +45,22 @@ public class Event {
     //查询未通过成绩失败
     public static final int EDUCATION_QUERY_GRADE_FAIL_FAIL = 21;
     //切换到登录界面
-    public static final int SWITCH_LOGIN_PAGE=22;
+    public static final int SWITCH_LOGIN_PAGE = 22;
     //新消息
-    public static final int NOTIFY_UPDATE=23;
+    public static final int NOTIFY_UPDATE = 23;
+    //更新应用
+    public static final int UPDATE_APPLICATION = 24;
+    //修改用户头像
+    public static final int UPDATE_USER_ICON = 25;
+    //选择课表成功但没有课
+    public static final int SWITCH_SCHEDULE_NO_COURSE = 26;
 
-    public static void sendEmptyMessage(int event){
+    public static void sendEmptyMessage(int event) {
         EventBus.getDefault().post(new EventModel<String>(event));
     }
 
-    public static void sendIntMessage(int event,int message){
-        EventBus.getDefault().post(new EventModel<Integer>(event,message));
+    public static void sendIntMessage(int event, int message) {
+        EventBus.getDefault().post(new EventModel<Integer>(event, message));
     }
 
 }

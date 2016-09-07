@@ -56,7 +56,7 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
     @Bind(R.id.id_login_psw_til)
     android.support.design.widget.TextInputLayout mPswWrapper;
 
-    @Bind(R.id.id_base_tool_bar)
+    @Bind(R.id.id_login_toolbar)
     Toolbar mLoginToolbar;
 
     @BindString(R.string.input_complete_info)
@@ -189,7 +189,7 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
         switch (eventModel.getEventCode()) {
             case Event.EDUCATION_LOGIN_FAIL:
                 dismissWaitDialog();
-                ToastUtil.show(getString(R.string.login_fail));
+                ToastUtil.showShort(getContext(), getString(R.string.login_fail));
                 break;
             case Event.EDUCATION_OBTAIN_SCHEDULE_SUCCESS:
                 dismissWaitDialog();
@@ -199,9 +199,8 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
 
                 List<Course> courses = DataSupport.findAll(Course.class);
 
-                StringBuilder sb = new StringBuilder();
                 for (Course course : courses) {
-                    Logger.d(course.toString());
+                    Logger.d("0831：" + course.toString());
                 }
 
                 EduLogin.setEducationLogin(true);
@@ -238,23 +237,25 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
 //                break;
             case Event.NOTIFY_UPDATE:
                 Logger.d("收到 通知：" + Notification.getLatestNotifyCode());
-                mBadgeActionProvider.setTextInt(BadgeActionProvider.getUnreadCount());
+                if (mBadgeActionProvider != null) {
+                    mBadgeActionProvider.setTextInt(BadgeActionProvider.getUnreadCount());
+                }
                 break;
 
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (!mIsInit) {
-            if (mBadgeActionProvider != null) {
-                mBadgeActionProvider.setTextInt(BadgeActionProvider.getUnreadCount());
-            }
-        } else {
-            mIsInit = !mIsInit;
-        }
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        if (!mIsInit) {
+//            if (mBadgeActionProvider != null) {
+//                mBadgeActionProvider.setTextInt(BadgeActionProvider.getUnreadCount());
+//            }
+//        } else {
+//            mIsInit = !mIsInit;
+//        }
+//    }
 
     /**
      * 隐藏键盘
@@ -270,6 +271,7 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
 
     @Override
     public void initToolbar() {
+        setHasOptionsMenu(true);
         getHoldingActivity().setSupportActionBar(mLoginToolbar);
         getHoldingActivity().getSupportActionBar().setTitle(getString(R.string.login));
     }

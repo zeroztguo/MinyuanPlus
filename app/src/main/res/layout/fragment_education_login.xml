@@ -7,8 +7,18 @@
     android:background="?attr/colorPrimaryBg"
     android:fitsSystemWindows="true">
 
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
 
-    <include layout="@layout/tool_bar" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/id_login_toolbar"
+            android:layout_width="match_parent"
+            app:titleTextColor="?attr/textOrIcon"
+            android:layout_height="wrap_content"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </android.support.design.widget.AppBarLayout>
 
 
     <android.support.v7.widget.CardView

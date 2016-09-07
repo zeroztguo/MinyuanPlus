@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "org.litepal.LitePalApplication"
+        applicationId "com.csmy.minyuanplus.application.App"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1

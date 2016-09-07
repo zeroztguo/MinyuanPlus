@@ -258,7 +258,7 @@
         <item name="colorPrimaryBg">@color/colorPrimaryBg</item>
         <item name="colorCardBg">@color/colorCardBg</item>
         <item name="textBottomTab">@color/textBottomTab</item>
-        <item name="textSpinner">@color/textOrIcon</item>
+        <item name="textSpinner">@color/textPrimary</item>
         <item name="android:actionMenuTextColor">@color/textOrIcon</item>
         <item name="colorControlNormal">@android:color/white</item>
 
@@ -278,7 +278,7 @@
         <item name="colorPrimaryBg">@color/colorPrimaryBg</item>
         <item name="colorCardBg">@color/colorCardBg</item>
         <item name="textBottomTab">@color/textBottomTab</item>
-        <item name="textSpinner">@color/textOrIcon</item>
+        <item name="textSpinner">@color/textPrimary</item>
         <item name="android:actionMenuTextColor">@color/textOrIcon</item>
         <item name="colorControlNormal">@android:color/white</item>
 
@@ -298,7 +298,7 @@
         <item name="colorPrimaryBg">@color/colorPrimaryBg</item>
         <item name="colorCardBg">@color/colorCardBg</item>
         <item name="textBottomTab">@color/textBottomTab</item>
-        <item name="textSpinner">@color/textOrIcon</item>
+        <item name="textSpinner">@color/textPrimary</item>
 
         <item name="android:actionMenuTextColor">@color/textOrIcon</item>
         <item name="colorControlNormal">@android:color/white</item>
@@ -339,7 +339,7 @@
         <item name="colorPrimaryBg">@color/colorPrimaryBg</item>
         <item name="colorCardBg">@color/colorCardBg</item>
         <item name="textBottomTab">@color/textBottomTab</item>
-        <item name="textSpinner">@color/textOrIcon</item>
+        <item name="textSpinner">@color/textSecond</item>
         <item name="colorControlNormal">@android:color/white</item>
 
         <item name="android:actionMenuTextColor">@color/textPrimary</item>
@@ -391,6 +391,10 @@
         <!--<item name="android:previewImage">@mipmap/settings</item>-->
     </style>
 
+
+    <style name="AppBarLayoutText">
+        <item name="android:textSize">16sp</item>
+    </style>
     <!--<style name="SpinnerItemNormal">-->
         <!--<item name="android:textSize">@dimen/spinner_text_size</item>-->
         <!--<item name="android:textColor">@color/chabai</item>-->

@@ -23,6 +23,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
     //等待框
     protected WaitDialog waitDialog;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +32,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
         ButterKnife.bind(this);
         initView(savedInstanceState);
     }
+
 
     protected abstract void initView(Bundle savedInstanceState);
 
@@ -98,7 +100,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
         super.onBackPressed();
         finish();
     }
-
 
 
     protected void showWaitDialog(Context context) {

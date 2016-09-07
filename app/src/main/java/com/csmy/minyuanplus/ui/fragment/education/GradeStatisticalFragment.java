@@ -104,7 +104,7 @@ public class GradeStatisticalFragment extends BaseFragment {
                 break;
             case Event.EDUCATION_GRADE_STATISTICAL_FAIL:
                 dismissWaitDialog();
-                ToastUtil.show("查询成绩统计失败，请再试一次...");
+                ToastUtil.showShort(getContext(),"查询成绩统计失败，请再试一次...");
                 break;
         }
     }

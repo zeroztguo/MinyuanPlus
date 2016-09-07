@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 
 import com.csmy.minyuanplus.R;
+import com.csmy.minyuanplus.event.Event;
 import com.csmy.minyuanplus.support.education.EduLogin;
 import com.csmy.minyuanplus.model.Setting;
 import com.csmy.minyuanplus.model.education.AcademicYear;
@@ -84,9 +85,9 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
         mBasicTitles = new String[]{getString(R.string.save_flow_mode), getString(R.string.clear_cache)};
         mBasicSubTitles = new String[]{getString(R.string.only_wifi), getString(R.string.clear_app_cache)};
         mLanguages = new String[]{getString(R.string.zh_simple), getString(R.string.zh_tw), getString(R.string.en)};
-        if(EduLogin.isEducationLogined()){
+        if (EduLogin.isEducationLogined()) {
             mQuitAccountTextView.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             mQuitAccountTextView.setVisibility(View.GONE);
         }
         initToolbar();
@@ -221,7 +222,7 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
 
         SettingConfig.setLanguage(language);
 
-        ToastUtil.show(getString(R.string.language_setting_success));
+        ToastUtil.showShort(SettingActivity.this, getString(R.string.language_setting_success));
         finish();
 
         Intent it = new Intent(SettingActivity.this, MainActivity.class);
@@ -283,6 +284,7 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
                 SettingConfig.setUserIconIndex(mUserIconIndex);
                 dialog.dismiss();
                 SnackbarUtil.showWithNoAction(mBasicRecyclerView, getString(R.string.head_setting_success));
+                Event.sendEmptyMessage(Event.UPDATE_USER_ICON);
             }
         });
 
@@ -326,7 +328,11 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
 
                 switch (position) {
                     case 1:
-                        subtitleTextView.setText(subtitleTextView.getText() + "   " + DataCleanManager.getCacheSize(getBaseContext()));
+                        try {
+                            subtitleTextView.setText(subtitleTextView.getText() + "   " + DataCleanManager.getCacheSize(getBaseContext()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         break;
                 }
             }

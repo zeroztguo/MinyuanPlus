@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.csmy.minyuanplus.R;
+import com.csmy.minyuanplus.event.Event;
 import com.csmy.minyuanplus.model.NotifyContent;
 import com.csmy.minyuanplus.ui.BaseToolbarView;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -57,8 +58,9 @@ public class NotifyActivity extends BaseActivity implements BaseToolbarView {
     }
 
     private void initRecyclerView() {
-        mDatas = DataSupport.where("id >= ?", "0")
-                .order("id desc").find(NotifyContent.class);
+//        mDatas = DataSupport.where("id >= ?", "0")
+//                .order("id asc").find(NotifyContent.class);
+        mDatas = DataSupport.findAll(NotifyContent.class);
 
 
         mLinearLayoutManager = new LinearLayoutManager(this);
@@ -86,6 +88,7 @@ public class NotifyActivity extends BaseActivity implements BaseToolbarView {
                             ContentValues contentValues = new ContentValues();
                             contentValues.put("isRead", true);
                             DataSupport.update(NotifyContent.class, contentValues, notifyContent.getId());
+                            Event.sendEmptyMessage(Event.NOTIFY_UPDATE);
                         }
 
                         Intent intent = new Intent(NotifyActivity.this, NotifyContentActivity.class);

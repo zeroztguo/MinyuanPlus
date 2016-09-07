@@ -2,6 +2,8 @@ package com.csmy.minyuanplus.support.util;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -9,10 +11,12 @@ import com.csmy.minyuanplus.application.App;
 
 import org.litepal.LitePalApplication;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -161,10 +165,10 @@ public class Util {
     /**
      * @return 应用版本码
      */
-    public static int getVersionCode(){
+    public static int getVersionCode() {
         int versionCode = 0;
         try {
-            versionCode = context.getPackageManager().getPackageInfo(context.getPackageName(),0).versionCode;
+            versionCode = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -174,15 +178,134 @@ public class Util {
     /**
      * @return 应用版本号
      */
-    public static String getVersionName(){
+    public static String getVersionName() {
         String versionName = "";
         try {
-            versionName = context.getPackageManager().getPackageInfo(context.getPackageName(),0).versionName;
+            versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         return versionName;
     }
 
+    /**
+     * Bitmap转字节数组
+     *
+     * @param bm
+     * @return
+     */
+    public static byte[] Bitmap2Bytes(Bitmap bm) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        return baos.toByteArray();
+    }
+
+    /**
+     * 字节数组转Bitmap
+     *
+     * @param b
+     * @return
+     */
+    public static Bitmap Bytes2Bitmap(byte[] b) {
+        if (b.length != 0) {
+            return BitmapFactory.decodeByteArray(b, 0, b.length);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 字符数字转整形
+     *
+     * @return
+     */
+    public static int numberString2int(String s) {
+        if (s.equals("一")) {
+            return 1;
+        } else if (s.equals("二")) {
+            return 2;
+        } else if (s.equals("三")) {
+            return 3;
+        } else if (s.equals("四")) {
+            return 4;
+        } else if (s.equals("五")) {
+            return 5;
+        } else if (s.equals("六")) {
+            return 6;
+        } else if (s.equals("七")) {
+            return 7;
+        } else if (s.equals("八")) {
+            return 8;
+        } else if (s.equals("九")) {
+            return 9;
+        }
+        return 1;
+    }
+
+
+    // MD5加密，32位
+    public static String MD5(String str) {
+        MessageDigest md5 = null;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+
+        char[] charArray = str.toCharArray();
+        byte[] byteArray = new byte[charArray.length];
+
+        for (int i = 0; i < charArray.length; i++) {
+            byteArray[i] = (byte) charArray[i];
+        }
+        byte[] md5Bytes = md5.digest(byteArray);
+
+        StringBuffer hexValue = new StringBuffer();
+        for (int i = 0; i < md5Bytes.length; i++) {
+            int val = ((int) md5Bytes[i]) & 0xff;
+            if (val < 16) {
+                hexValue.append("0");
+            }
+            hexValue.append(Integer.toHexString(val));
+        }
+        return hexValue.toString();
+    }
+
+    // 可逆的加密算法
+    public static String encryptmd5(String str) {
+        char[] a = str.toCharArray();
+        for (int i = 0; i < a.length; i++) {
+            a[i] = (char) (a[i] ^ 'l');
+        }
+        String s = new String(a);
+        return s;
+    }
+
+
+    /**
+     * 格式化从Calendar中获取的星期数
+     *
+     * @param calendarWeek Calendar中获取的星期数
+     * @return
+     */
+    public static int getFormatWeekNum(int calendarWeek) {
+        int week = calendarWeek - 1;
+        if (week == 0) {
+            week = 7;
+        }
+        return week;
+    }
+
+
+    /**
+     * @return 当天的日期，格式如：2016-9-5
+     */
+    public static String getCurrentDate(){
+        Calendar cal = Calendar.getInstance();
+        return cal.get(Calendar.YEAR) + "-"
+                + cal.get(Calendar.MONTH) + "-"
+                + cal.get(Calendar.DAY_OF_MONTH);
+    }
 
 }

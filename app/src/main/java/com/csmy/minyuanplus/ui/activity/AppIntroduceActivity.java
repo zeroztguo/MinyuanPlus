@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import com.apptopus.progressive.Progressive;
 import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.ui.BaseToolbarView;
-import com.csmy.minyuanplus.ui.BaseView;
+import com.csmy.minyuanplus.ui.BaseProgressView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zzhoujay.richtext.RichText;
@@ -16,7 +16,7 @@ import com.zzhoujay.richtext.RichText;
 import butterknife.Bind;
 import okhttp3.Call;
 
-public class AppIntroduceActivity extends BaseActivity implements BaseToolbarView, BaseView {
+public class AppIntroduceActivity extends BaseActivity implements BaseToolbarView, BaseProgressView {
     @Bind(R.id.id_base_tool_bar)
     Toolbar mToolbar;
     @Bind(R.id.id_introduce_tv)

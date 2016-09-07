@@ -53,7 +53,7 @@ public class MoreFragment extends BaseFragment {
     AppCompatTextView mUserNameTextView;
 
 
-    CommonAdapter mAdapter;
+    private CommonAdapter mAdapter;
     private String[] mTitles;
     private int[] mIcons = {R.mipmap.theme, R.mipmap.setting, R.mipmap.about};
     private int mThemeIndex;
@@ -66,6 +66,7 @@ public class MoreFragment extends BaseFragment {
 
     @Override
     protected void initView(View view, Bundle saveInstanceState) {
+        mUserIconImageView.getHierarchy().setPlaceholderImage(SettingConfig.userIconArray[SettingConfig.getUserIconIndex()]);
         init();
     }
 
@@ -78,14 +79,11 @@ public class MoreFragment extends BaseFragment {
     }
 
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        /*
-        设置用户头像
-         */
-        mUserIconImageView.getHierarchy().setPlaceholderImage(SettingConfig.userIconArray[SettingConfig.getUserIconIndex()]);
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//    }
 
     private void init() {
         mTitles = new String[]{getHoldingActivity().getString(R.string.theme), getHoldingActivity().getString(R.string.setting), getHoldingActivity().getString(R.string.about)};
@@ -183,7 +181,7 @@ public class MoreFragment extends BaseFragment {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 SettingConfig.setThemeIndex(mThemeIndex);
-                ToastUtil.show(getHoldingActivity().getString(R.string.theme_setting_success));
+                ToastUtil.showShort(getContext(), getHoldingActivity().getString(R.string.theme_setting_success));
                 //重启Activity
                 getHoldingActivity().recreate();
             }
@@ -208,6 +206,12 @@ public class MoreFragment extends BaseFragment {
         switch (eventModel.getEventCode()) {
             case Event.EDUCATION_LOGIN_SUCCESS:
                 init();
+                break;
+            case Event.UPDATE_USER_ICON:
+                /*
+                设置用户头像
+                 */
+                mUserIconImageView.getHierarchy().setPlaceholderImage(SettingConfig.userIconArray[SettingConfig.getUserIconIndex()]);
                 break;
         }
     }

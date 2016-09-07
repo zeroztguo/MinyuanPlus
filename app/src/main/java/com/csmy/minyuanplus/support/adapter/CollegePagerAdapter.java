@@ -1,23 +1,22 @@
 package com.csmy.minyuanplus.support.adapter;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.ui.fragment.college.ATMFragment;
+
+import org.litepal.LitePalApplication;
 
 /**
  * Created by Zero on 16/7/15.
  */
-public class CollegePagerAdapter extends FragmentStatePagerAdapter{
+public class CollegePagerAdapter extends FragmentStatePagerAdapter {
     public static final int COUNT = 2;
-    private String[] titles = new String[]{"ATM","快递"};
-
+    private Context context = LitePalApplication.getContext();
     private ATMFragment mATMFragment;
-
-
-
-
 
 
     public CollegePagerAdapter(FragmentManager fm) {
@@ -26,9 +25,9 @@ public class CollegePagerAdapter extends FragmentStatePagerAdapter{
 
     @Override
     public Fragment getItem(int position) {
-        switch (position){
+        switch (position) {
             case 0:
-                if(mATMFragment == null){
+                if (mATMFragment == null) {
                     mATMFragment = ATMFragment.newInstance();
                 }
                 return mATMFragment;
@@ -49,6 +48,12 @@ public class CollegePagerAdapter extends FragmentStatePagerAdapter{
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return titles[position];
+        switch (position) {
+            case 0:
+                return context.getString(R.string.atm);
+            case 1:
+                return context.getString(R.string.express);
+        }
+        return "";
     }
 }

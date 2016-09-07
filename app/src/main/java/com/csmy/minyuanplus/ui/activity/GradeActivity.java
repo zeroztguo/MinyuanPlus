@@ -50,7 +50,7 @@ public class GradeActivity extends BaseActivity {
         mViewPager.setOffscreenPageLimit(GradePagerAdapter.COUNT);
         mViewPager.setAdapter(mGradePagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
-        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+            mTabLayout.setTabMode(TabLayout.MODE_FIXED);
     }
 
 

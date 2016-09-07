@@ -21,8 +21,6 @@ public class DailyActivity extends BaseAfterClassActivity {
     private DailyContent dailyContent;
 
 
-
-
     @Override
     protected void handleIntent(Intent intent) {
         if (null != intent) {
@@ -41,7 +39,7 @@ public class DailyActivity extends BaseAfterClassActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e) {
-                        ToastUtil.show(getString(R.string.zhihu_daily_load_fail));
+                        ToastUtil.showShort(DailyActivity.this, getString(R.string.zhihu_daily_load_fail));
                     }
 
                     @Override
@@ -49,7 +47,7 @@ public class DailyActivity extends BaseAfterClassActivity {
                         Gson gson = new Gson();
                         dailyContent = gson.fromJson(response, DailyContent.class);
                         if (!Util.isStringNull(dailyContent.getTitle())) {
-                            mTiTleTextView.setText(dailyContent.getTitle());
+                            setTitle(dailyContent.getTitle());
                         }
                         mWebView.loadDataWithBaseURL("file:///android_asset/", "<link rel=\"stylesheet\" type=\"text/css\" href=\"dailycss.css\" />" + dailyContent.getBody(), "text/html", "utf-8", null);
 
@@ -70,4 +68,5 @@ public class DailyActivity extends BaseAfterClassActivity {
         super.onDestroy();
         OkHttpUtils.getInstance().cancelTag(this);
     }
+
 }

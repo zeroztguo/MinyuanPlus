@@ -13,6 +13,15 @@ public class Daily extends DataSupport {
     String ga_prefix;
     String title;
     String id_str;
+    String date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public int getId() {
         return id;

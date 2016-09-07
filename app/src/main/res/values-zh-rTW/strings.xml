@@ -35,7 +35,7 @@
     <string name="college_culture">校園文化</string>
     <string name="share_to">分享至</string>
     <string name="zhihu">知乎日報</string>
-    <string name="guokr">果殼</string>
+    <string name="guokr">果殼熱門</string>
     <string name="grade">成績</string>
     <string name="grade_term">學期成績</string>
     <string name="grade_fail">未通過成績</string>
@@ -67,7 +67,7 @@
     <string name="head">頭像</string>
     <string name="save_flow_mode">省流量模式</string>
     <string name="clear_cache">清空緩存</string>
-    <string name="only_wifi">僅在WI-FI環境下才會自動加載課餘頁面圖片和視頻</string>
+    <string name="only_wifi">僅在WI-FI環境下才會自動加載課外頁面圖片和視頻</string>
     <string name="clear_app_cache">清理民院＋的緩存</string>
     <string name="head_setting_success">頭像設置成功</string>
     <string name="clear_cache_success">清楚緩存成功</string>
@@ -78,7 +78,7 @@
     <string name="feedback">意見反饋</string>
     <string name="share_application">分享民院+</string>
     <string name="education_news_data">教務系統和校聞數據</string>
-    <string name="after_class_data">課餘頁面數據</string>
+    <string name="after_class_data">課外頁面數據</string>
     <string name="open_source">開源協議</string>
     <string name="from_college">抓取自民政學院教務系統和官網，版權歸學校所有</string>
     <string name="from_net">數據來自于網上api，版權歸原作者所有</string>
@@ -106,9 +106,15 @@
     <string name="guokr_news_load_fail">果殼新聞加載失敗...</string>
     <string name="minyuan_news_load_fail">民院新聞加載失敗...</string>
     <string name="zhihu_daily_load_fail">知乎日報加載失敗...</string>
-    <string name="login_minyan_education">登录民政学院教务系统</string>
-    <string name="login">登录</string>
-    <string name="cannot_login">无法登录？</string>
-    <string name="login_prompt">登录帐号为学号，密码为教务系统密码，如忘记密码，请联系辅导员。</string>
+    <string name="login_minyan_education">登錄民政學院教務系統</string>
+    <string name="login">登錄</string>
+    <string name="cannot_login">無法登錄？</string>
+    <string name="login_prompt">登錄帳號為學號，密碼為教務系統密碼，如忘記密碼，請聯繫輔導員。</string>
+    <string name="map">民院地圖</string>
+    <string name="scale">可跟隨手勢放大縮小</string>
+    <string name="weixin_special">微信精選</string>
+    <string name="this_term_no_course">本学期还没有课~</string>
+    <string name="atm">ATM</string>
+    <string name="express">快递</string>
 
 </resources>

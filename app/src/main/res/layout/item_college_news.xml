@@ -3,50 +3,73 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="6dp"
     app:cardCornerRadius="0dp"
     app:cardElevation="1dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="false">
 
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:gravity="center"
+        android:orientation="horizontal"
         android:padding="14dp">
 
+
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/id_college_news_title_actv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:maxLines="2"
-            android:text="蒋晓明参加全国高职高专院校思想政治理论课建设联盟会议"
+            android:id="@+id/id_college_news_head_tv"
+            android:layout_width="200px"
+            android:layout_height="200px"
+            android:layout_marginRight="14dp"
+            android:background="@drawable/circle_red"
+            android:gravity="center"
+            android:text="教"
             android:textColor="?attr/textPrimary"
-            android:textSize="54px" />
+            android:textSize="110px"
+            android:visibility="gone" />
 
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/id_college_news_author_actv"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/id_college_news_title_actv"
-            android:layout_marginTop="18dp"
-            android:text="教务处 易希平 梁奇伟"
-            android:textColor="?attr/textSecond"
-            android:textSize="34px" />
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/id_college_news_date_actv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/id_college_news_title_actv"
-            android:layout_marginTop="18dp"
-            android:text="2016-7-8"
-            android:textColor="?attr/textSecond"
-            android:textSize="34px" />
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/id_college_news_title_actv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="蒋晓明参加全国高职高专院校思想政治理论课建设联盟会议"
+                android:textColor="?attr/textPrimary"
+                android:textSize="54px" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/id_college_news_author_actv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/id_college_news_title_actv"
+                android:layout_marginTop="18dp"
+                android:text="教务处 易希平 梁奇伟"
+                android:textColor="?attr/textSecond"
+                android:textSize="34px" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/id_college_news_date_actv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/id_college_news_title_actv"
+                android:layout_marginTop="18dp"
+                android:text="2016-7-8"
+                android:textColor="?attr/textSecond"
+                android:textSize="34px" />
+
+        </RelativeLayout>
 
 
-    </RelativeLayout>
+    </LinearLayout>
+
 </com.csmy.minyuanplus.ui.view.AutoCardView>

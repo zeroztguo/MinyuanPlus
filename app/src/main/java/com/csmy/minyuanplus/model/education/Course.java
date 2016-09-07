@@ -5,9 +5,11 @@ import org.litepal.crud.DataSupport;
 /**
  * Created by Zero on 16/5/31.
  */
-public class Course extends DataSupport{
-//课程名
-private String courseName;
+public class Course extends DataSupport {
+
+    private int id;
+    //课程名
+    private String courseName;
     //授课老师
     private String teacher;
     //上课教室
@@ -104,8 +106,18 @@ private String courseName;
     }
 
     public void setEndClass(int endClass) {
+
         this.endClass = endClass;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 
     @Override
     public String toString() {

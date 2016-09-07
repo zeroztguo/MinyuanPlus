@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_set_current_week"
+        android:title="@string/set_current_week"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_switch_term"
+        android:title="@string/switch_term"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_timetable"
+        android:title="@string/timetable"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_notification"
+        app:actionProviderClass="com.csmy.minyuanplus.support.BadgeActionProvider"
+        android:title="@string/notification"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_grade"
+        android:icon="@mipmap/grade"
+        android:title="@string/grade_query"
+        app:showAsAction="always" />
+
+</menu>
