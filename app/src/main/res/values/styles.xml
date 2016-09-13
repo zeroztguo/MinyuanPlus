@@ -1,7 +1,7 @@
 <resources>
 
     <!-- 默认主题 0 -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.Swipe">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorPrimaryLight">@color/colorPrimaryLight</item>
@@ -20,7 +20,7 @@
     </style>
 
     <!-- RED主题 1-->
-    <style name="AppTheme.Red" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Red" parent="Theme.Swipe">
         <item name="colorPrimary">@color/colorRed</item>
         <item name="colorPrimaryDark">@color/colorRedDark</item>
         <item name="colorPrimaryLight">@color/colorRedLight</item>
@@ -37,10 +37,10 @@
         <item name="colorControlNormal">@android:color/white</item>
 
         <item name="android:actionMenuTextColor">@color/textOrIcon</item>
-    </style> 
-    
+    </style>
+
     <!-- PINK主题 2-->
-    <style name="AppTheme.Pink" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Pink" parent="Theme.Swipe">
         <item name="colorPrimary">@color/colorPink</item>
         <item name="colorPrimaryDark">@color/colorPinkDark</item>
         <item name="colorPrimaryLight">@color/colorPinkLight</item>
@@ -60,7 +60,7 @@
     </style>
 
     <!-- Purple主题 3-->
-    <style name="AppTheme.Purple" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Purple" parent="Theme.Swipe">
         <item name="colorPrimary">@color/colorPurple</item>
         <item name="colorPrimaryDark">@color/colorPurpleDark</item>
         <item name="colorPrimaryLight">@color/colorPurpleLight</item>
@@ -78,9 +78,9 @@
         <item name="colorControlNormal">@android:color/white</item>
 
     </style>
-    
+
     <!-- DeepPurple主题 4-->
-    <style name="AppTheme.DeepPurple" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.DeepPurple" parent="Theme.Swipe">
         <item name="colorPrimary">@color/colorDeepPurple</item>
         <item name="colorPrimaryDark">@color/colorDeepPurpleDark</item>
         <item name="colorPrimaryLight">@color/colorDeepPurpleLight</item>
@@ -102,7 +102,7 @@
 
 
     <!-- Indigo主题 5-->
-    <style name="AppTheme.Indigo" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Indigo" parent="Theme.Swipe">
         <item name="colorPrimary">@color/colorIndigo</item>
         <item name="colorPrimaryDark">@color/colorIndigoDark</item>
         <item name="colorPrimaryLight">@color/colorIndigoLight</item>
@@ -120,10 +120,10 @@
         <item name="android:actionMenuTextColor">@color/textOrIcon</item>
         <item name="colorControlNormal">@android:color/white</item>
 
-    </style> 
-    
+    </style>
+
     <!-- Cyan主题 6-->
-    <style name="AppTheme.Cyan" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Cyan" parent="Theme.Swipe">
         <item name="colorPrimary">@color/colorCyan</item>
         <item name="colorPrimaryDark">@color/colorCyanDark</item>
         <item name="colorPrimaryLight">@color/colorCyanLight</item>
@@ -141,10 +141,10 @@
         <item name="android:actionMenuTextColor">@color/textOrIcon</item>
         <item name="colorControlNormal">@android:color/white</item>
 
-    </style> 
-    
+    </style>
+
     <!-- Teal主题 7-->
-    <style name="AppTheme.Teal" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Teal" parent="Theme.Swipe">
         <item name="colorPrimary">@color/colorTeal</item>
         <item name="colorPrimaryDark">@color/colorTealDark</item>
         <item name="colorPrimaryLight">@color/colorTealLight</item>
@@ -162,10 +162,10 @@
         <item name="android:actionMenuTextColor">@color/textOrIcon</item>
         <item name="colorControlNormal">@android:color/white</item>
 
-    </style>  
-    
+    </style>
+
     <!-- Green主题 8-->
-    <style name="AppTheme.Green" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Green" parent="Theme.Swipe">
         <item name="colorPrimary">@color/colorGreen</item>
         <item name="colorPrimaryDark">@color/colorGreenDark</item>
         <item name="colorPrimaryLight">@color/colorGreenLight</item>
@@ -183,9 +183,9 @@
         <item name="colorControlNormal">@android:color/white</item>
 
     </style>
-    
+
     <!-- LightGreen主题 9-->
-    <style name="AppTheme.LightGreen" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.LightGreen" parent="Theme.Swipe">
         <item name="colorPrimary">@color/colorLightGreen</item>
         <item name="colorPrimaryDark">@color/colorLightGreenDark</item>
         <item name="colorPrimaryLight">@color/colorLightGreenLight</item>
@@ -203,9 +203,9 @@
         <item name="colorControlNormal">@android:color/white</item>
 
     </style>
-    
+
     <!-- Lime主题 10-->
-    <style name="AppTheme.Lime" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Lime" parent="Theme.Swipe">
         <item name="colorPrimary">@color/colorLime</item>
         <item name="colorPrimaryDark">@color/colorLimeDark</item>
         <item name="colorPrimaryLight">@color/colorLimeLight</item>
@@ -223,9 +223,9 @@
         <item name="colorControlNormal">@android:color/white</item>
 
     </style>
-    
+
     <!-- Yellow主题 11-->
-    <style name="AppTheme.Yellow" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Yellow" parent="Theme.Swipe">
         <item name="colorPrimary">@color/colorYellow</item>
         <item name="colorPrimaryDark">@color/colorYellowDark</item>
         <item name="colorPrimaryLight">@color/colorYellowLight</item>
@@ -243,9 +243,9 @@
         <item name="colorControlNormal">@android:color/white</item>
 
     </style>
-    
+
     <!-- Amber主题 12-->
-    <style name="AppTheme.Amber" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Amber" parent="Theme.Swipe">
         <item name="colorPrimary">@color/colorAmber</item>
         <item name="colorPrimaryDark">@color/colorAmberDark</item>
         <item name="colorPrimaryLight">@color/colorAmberLight</item>
@@ -262,10 +262,10 @@
         <item name="android:actionMenuTextColor">@color/textOrIcon</item>
         <item name="colorControlNormal">@android:color/white</item>
 
-    </style> 
-    
+    </style>
+
     <!-- Orange主题 13-->
-    <style name="AppTheme.Orange" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Orange" parent="Theme.Swipe">
         <item name="colorPrimary">@color/colorOrange</item>
         <item name="colorPrimaryDark">@color/colorOrangeDark</item>
         <item name="colorPrimaryLight">@color/colorOrangeLight</item>
@@ -283,9 +283,9 @@
         <item name="colorControlNormal">@android:color/white</item>
 
     </style>
-    
+
     <!-- DeepOrange主题 14-->
-    <style name="AppTheme.DeepOrange" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.DeepOrange" parent="Theme.Swipe">
         <item name="colorPrimary">@color/colorDeepOrange</item>
         <item name="colorPrimaryDark">@color/colorDeepOrangeDark</item>
         <item name="colorPrimaryLight">@color/colorDeepOrangeLight</item>
@@ -304,9 +304,9 @@
         <item name="colorControlNormal">@android:color/white</item>
 
     </style>
-    
+
     <!-- Brown主题 15-->
-    <style name="AppTheme.Brown" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Brown" parent="Theme.Swipe">
         <item name="colorPrimary">@color/colorBrown</item>
         <item name="colorPrimaryDark">@color/colorBrownDark</item>
         <item name="colorPrimaryLight">@color/colorBrownLight</item>
@@ -323,10 +323,10 @@
         <item name="colorControlNormal">@android:color/white</item>
 
         <item name="android:actionMenuTextColor">@color/textOrIcon</item>
-    </style> 
-    
+    </style>
+
     <!-- Grey主题 16-->
-    <style name="AppTheme.Grey" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Grey" parent="Theme.Swipe">
         <item name="colorPrimary">@color/colorGrey</item>
         <item name="colorPrimaryDark">@color/colorGreyDark</item>
         <item name="colorPrimaryLight">@color/colorGreyLight</item>
@@ -341,12 +341,11 @@
         <item name="textBottomTab">@color/textBottomTab</item>
         <item name="textSpinner">@color/textSecond</item>
         <item name="colorControlNormal">@android:color/white</item>
-
         <item name="android:actionMenuTextColor">@color/textPrimary</item>
-    </style> 
-    
+    </style>
+
     <!-- BlueGrey主题 17-->
-    <style name="AppTheme.BlueGrey" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.BlueGrey" parent="Theme.Swipe">
         <item name="colorPrimary">@color/colorBlueGrey</item>
         <item name="colorPrimaryDark">@color/colorBlueGreyDark</item>
         <item name="colorPrimaryLight">@color/colorBlueGreyLight</item>
@@ -366,19 +365,18 @@
     </style>
 
 
-
-    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.NoActionBar" parent="Theme.Swipe">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
         <item name="colorControlNormal">@color/white</item>
     </style>
 
-    <style name="Theme.ToolBar.College" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.ToolBar.College" parent="Theme.Swipe">
         <item name="actionOverflowButtonStyle">@style/ActionButton.Overflow.College</item>
         <item name="android:actionMenuTextColor">?attr/textOrIcon</item>
         <item name="colorControlNormal">?attr/textOrIcon</item>
@@ -396,46 +394,53 @@
         <item name="android:textSize">16sp</item>
     </style>
     <!--<style name="SpinnerItemNormal">-->
-        <!--<item name="android:textSize">@dimen/spinner_text_size</item>-->
-        <!--<item name="android:textColor">@color/chabai</item>-->
-        <!--<item name="android:paddingTop">@dimen/spinner_padding</item>-->
-        <!--<item name="android:paddingBottom">@dimen/spinner_padding</item>-->
-        <!--<item name="android:gravity">center</item>-->
+    <!--<item name="android:textSize">@dimen/spinner_text_size</item>-->
+    <!--<item name="android:textColor">@color/chabai</item>-->
+    <!--<item name="android:paddingTop">@dimen/spinner_padding</item>-->
+    <!--<item name="android:paddingBottom">@dimen/spinner_padding</item>-->
+    <!--<item name="android:gravity">center</item>-->
     <!--</style>-->
 
     <!--<style name="SpinnerItemDropDown">-->
-        <!--<item name="android:textSize">@dimen/spinner_text_size</item>-->
-        <!--<item name="android:textColor">@color/black</item>-->
-        <!--<item name="android:background">@color/grey</item>-->
-        <!--<item name="android:paddingTop">@dimen/spinner_padding</item>-->
-        <!--<item name="android:paddingBottom">@dimen/spinner_padding</item>-->
-        <!--<item name="android:paddingLeft">@dimen/one_dp</item>-->
-        <!--<item name="android:paddingRight">@dimen/one_dp</item>-->
-        <!--<item name="android:gravity">center</item>-->
+    <!--<item name="android:textSize">@dimen/spinner_text_size</item>-->
+    <!--<item name="android:textColor">@color/black</item>-->
+    <!--<item name="android:background">@color/grey</item>-->
+    <!--<item name="android:paddingTop">@dimen/spinner_padding</item>-->
+    <!--<item name="android:paddingBottom">@dimen/spinner_padding</item>-->
+    <!--<item name="android:paddingLeft">@dimen/one_dp</item>-->
+    <!--<item name="android:paddingRight">@dimen/one_dp</item>-->
+    <!--<item name="android:gravity">center</item>-->
     <!--</style>-->
 
     <!--<style name="login_text" parent="Theme.AppCompat.Light.DarkActionBar">-->
-        <!--<item name="android:textSize">@dimen/dialog_text_size</item>-->
-        <!--<item name="colorControlActivated">@color/colorPrimaryDark</item>-->
+    <!--<item name="android:textSize">@dimen/dialog_text_size</item>-->
+    <!--<item name="colorControlActivated">@color/colorPrimaryDark</item>-->
     <!--</style>-->
 
     <!--<style name="logion_text_error">-->
-        <!--<item name="android:textColor">@color/colorAccent</item>-->
+    <!--<item name="android:textColor">@color/colorAccent</item>-->
     <!--</style>-->
 
     <!--<style name="GradeStatisticalHead">-->
-        <!--<item name="android:textColor">@color/textPrimary</item>-->
-        <!--<item name="android:textSize">@dimen/dialog_text_size_plus</item>-->
+    <!--<item name="android:textColor">@color/textPrimary</item>-->
+    <!--<item name="android:textSize">@dimen/dialog_text_size_plus</item>-->
     <!--</style>-->
 
     <!--<style name="news_title">-->
-        <!--<item name="android:textColor">@color/textOrIcon</item>-->
-        <!--<item name="android:textSize">14sp</item>-->
+    <!--<item name="android:textColor">@color/textOrIcon</item>-->
+    <!--<item name="android:textSize">14sp</item>-->
     <!--</style>-->
 
     <!--<style name="news_toolbar_title">-->
-        <!--<item name="android:textColor">@color/textOrIcon</item>-->
-        <!--<item name="android:textSize">16sp</item>-->
+    <!--<item name="android:textColor">@color/textOrIcon</item>-->
+    <!--<item name="android:textSize">16sp</item>-->
     <!--</style>-->
+
+    <!--<item name="android:windowBackground">@android:color/transparent</item>-->
+    <style name="Theme.Swipe" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
 
 </resources>

@@ -3,6 +3,7 @@ package com.csmy.minyuanplus.model.afterclass;
 import org.litepal.crud.DataSupport;
 
 /**
+ * 知乎日报信息实体，数据库模型
  * Created by Zero on 16/8/9.
  */
 public class Daily extends DataSupport {

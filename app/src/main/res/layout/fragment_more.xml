@@ -3,15 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:zero="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/id_more_user_info_app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,8 +24,8 @@
                 android:id="@+id/id_more_user_icon_iv"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                zero:roundAsCircle="true"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                zero:roundAsCircle="true" />
 
 
             <android.support.v7.widget.AppCompatTextView
@@ -45,7 +42,9 @@
 
     <ListView
         android:id="@+id/id_more_lv"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 </android.support.design.widget.CoordinatorLayout>

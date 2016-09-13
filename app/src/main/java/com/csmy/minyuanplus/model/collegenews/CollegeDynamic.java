@@ -5,7 +5,7 @@ import org.litepal.crud.DataSupport;
 import java.io.Serializable;
 
 /**
- * 院部动态实体类
+ * 院部动态实体类，数据库模型
  * Created by Zero on 16/7/23.
  */
 public class CollegeDynamic extends DataSupport implements Serializable{

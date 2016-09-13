@@ -31,6 +31,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 /**
+ * 成绩统计
  * Created by Zero on 16/7/11.
  */
 public class GradeStatisticalFragment extends BaseFragment {
@@ -39,25 +40,19 @@ public class GradeStatisticalFragment extends BaseFragment {
     @Bind(R.id.id_grade_statistical_csv)
     CardStackView mCardStackView;
 
+    private List<Map<String, String>> mDatas;
     private GradeAdapter mAdapter;
-
-
-    List<Map<String, String>> mDatas;
 
     public static GradeStatisticalFragment newInstance() {
         return new GradeStatisticalFragment();
     }
 
     @Override
-    protected void initView(View view, Bundle saveInstanceState)
-    {
+    protected void initView(View view, Bundle saveInstanceState) {
         mDatas = new ArrayList<>();
         mAdapter = new GradeAdapter(getContext());
         mCardStackView.setAdapter(mAdapter);
     }
-
-
-
 
 
     @OnClick(R.id.id_grade_statistical_btn)
@@ -89,24 +84,44 @@ public class GradeStatisticalFragment extends BaseFragment {
                                 "重修学分：" + info.getCreditRestudy() + "\n" +
                                 "正考未通过学分：" + info.getCreditFail());
                     } else {
+                        String prompt = "";
                         GradeCourseStatistical course = (GradeCourseStatistical) datas.get(i);
-                        data.put(GradeAdapter.KEY_TITLE, course.getCourseProperty());
+                        String courseProperty = course.getCourseProperty();
+                        if (courseProperty.equals("公共艺术")) {
+                            prompt += "\n\n（提示：在7分的公共任选课中必须有2分公共艺术学分）";
+                        } else if (courseProperty.equals("人文社科")) {
+                            prompt += "\n\n（提示：在7分的公共任选课中人文社科类不作要求，所以还需学分为负）";
+                        } else if (courseProperty.equals("公共任选课")) {
+                            prompt += "\n\n（提示：公共任选课包括人文社科和公共艺术两类课程）";
+                        }
+                        data.put(GradeAdapter.KEY_TITLE, courseProperty);
                         data.put(GradeAdapter.KEY_CONTENT, "学分要求：" + course.getCreditRequire() + "\n" +
                                 "获得学分：" + course.getCreditObtain() + "\n" +
                                 "未通过学分：" + course.getCreditFail() + "\n" +
-                                "还需学分：" + course.getCreditNeed());
+                                "还需学分：" + course.getCreditNeed() + prompt);
                     }
                     mDatas.add(data);
+                    //手动回收
+                    data = null;
                 }
                 mAdapter.updateData(mDatas);
                 mGradeStatisticalBtn.setVisibility(View.GONE);
 
+                //手动回收
+                mDatas = null;
                 break;
             case Event.EDUCATION_GRADE_STATISTICAL_FAIL:
                 dismissWaitDialog();
-                ToastUtil.showShort(getContext(),"查询成绩统计失败，请再试一次...");
+                ToastUtil.showShort(getContext(), "查询成绩统计失败，请再试一次...");
                 break;
         }
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mAdapter = null;
     }
 
     /**

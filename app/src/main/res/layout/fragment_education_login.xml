@@ -15,102 +15,103 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/id_login_toolbar"
             android:layout_width="match_parent"
-            app:titleTextColor="?attr/textOrIcon"
             android:layout_height="wrap_content"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:titleTextColor="?attr/textOrIcon" />
     </android.support.design.widget.AppBarLayout>
 
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/id_login_cv"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        app:cardCornerRadius="@dimen/card_radius"
-        app:cardElevation="@dimen/card_elevation"
-        app:cardUseCompatPadding="true">
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin">
 
-        <LinearLayout
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            app:placeholderImage="@mipmap/icon_tiny" />
+
+        <android.support.v7.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/activity_horizontal_margin">
+            android:textColor="?attr/textPrimary"
+            android:textSize="@dimen/spinner_text_size" />
 
-            <android.support.v7.widget.AppCompatTextView
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/id_login_user_name_til"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spinner_padding">
+            <!--android:theme="@style/login_text"-->
+
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/id_login__user_name_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/login_minyan_education"
-                android:textColor="?attr/textPrimary"
-                android:textSize="@dimen/spinner_text_size" />
+                android:hint="教务系统用户名"
+                android:inputType="number"
+                android:textColor="?attr/textSecond"
+                android:textColorHint="?attr/textSecond" />
 
+        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/id_login_user_name_til"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/id_login_psw_til"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spinner_padding">
+
+            <!--android:theme="@style/login_text"-->
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/id_login_psw_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spinner_padding">
-                <!--android:theme="@style/login_text"-->
+                android:hint="教务系统密码"
+                android:inputType="textPassword"
+                android:textColor="?attr/textSecond"
+                android:textColorHint="?attr/textSecond" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="horizontal">-->
 
 
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/id_login__user_name_et"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="教务系统用户名"
-                    android:inputType="number"
-                    android:textColor="?attr/textSecond" />
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/id_login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="?attr/colorPrimary"
+            android:gravity="center"
+            android:text="@string/login"
+            android:textColor="?attr/textOrIcon"
+            android:textSize="@dimen/dialog_text_size_plus" />
 
-            </android.support.design.widget.TextInputLayout>
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/id_login_cannot_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="@string/cannot_login"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="14sp" />
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/id_login_psw_til"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spinner_padding">
+    </LinearLayout>
 
-                <!--android:theme="@style/login_text"-->
+    <!--</LinearLayout>-->
 
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/id_login_psw_et"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="教务系统密码"
-                    android:inputType="textPassword"
-                    android:textColor="?attr/textSecond" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/id_login_cannot_login"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spinner_padding"
-                    android:text="@string/cannot_login"
-                    android:textColor="?attr/textPrimary"
-                    android:textSize="14sp" />
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/id_login_tv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spinner_padding"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="@string/login"
-                    android:textColor="?attr/colorPrimary"
-                    android:textSize="@dimen/dialog_text_size_plus" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
+    <!--</android.support.v7.widget.CardView>-->
 
 </RelativeLayout>

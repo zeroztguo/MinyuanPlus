@@ -35,6 +35,8 @@ public class NotifyContentActivity extends BaseActivity implements BaseToolbarVi
     @Bind(R.id.id_notify_content_progress_view)
     CircularProgressView mProgressView;
 
+    private int mType;
+
 
     @Override
     protected int getContentViewId() {
@@ -75,10 +77,11 @@ public class NotifyContentActivity extends BaseActivity implements BaseToolbarVi
             NotifyContent notifyContent = (NotifyContent) intent.getSerializableExtra("notify_content");
             getSupportActionBar().setTitle(notifyContent.getTitle());
             String url = notifyContent.getUrl();
+            mType = Integer.valueOf(notifyContent.getType());
             /*
             文字
              */
-            if (Integer.valueOf(notifyContent.getType()) == 0) {
+            if (mType == 0) {
                 mContentTextView.setVisibility(View.VISIBLE);
                 obtainNotifyContent(url);
             }
@@ -91,6 +94,7 @@ public class NotifyContentActivity extends BaseActivity implements BaseToolbarVi
             }
         }
     }
+
 
     private void obtainNotifyContent(String url) {
         OkHttpUtils

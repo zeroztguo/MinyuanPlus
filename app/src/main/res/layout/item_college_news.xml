@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="6dp"
+    app:cardBackgroundColor="?attr/colorCardBg"
     app:cardCornerRadius="0dp"
     app:cardElevation="1dp"
     app:cardPreventCornerOverlap="true"
@@ -17,18 +18,28 @@
         android:orientation="horizontal"
         android:padding="14dp">
 
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/id_college_news_head_tv"
+        <FrameLayout
+            android:id="@+id/id_college_news_head_layout"
             android:layout_width="200px"
             android:layout_height="200px"
             android:layout_marginRight="14dp"
-            android:background="@drawable/circle_red"
-            android:gravity="center"
-            android:text="教"
-            android:textColor="?attr/textPrimary"
-            android:textSize="110px"
-            android:visibility="gone" />
+            android:visibility="gone">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:placeholderImage="?attr/colorPrimaryLight"
+                app:roundAsCircle="false" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/id_college_news_head_tv"
+                android:layout_width="200px"
+                android:layout_height="200px"
+                android:gravity="center"
+                android:text="教"
+                android:textColor="?attr/textPrimary"
+                android:textSize="110px" />
+        </FrameLayout>
 
         <RelativeLayout
             android:layout_width="0dp"

@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * 教务系统课表的帮助类
  * Created by Zero on 16/5/31.
  */
 public class EduSchedule extends Util {

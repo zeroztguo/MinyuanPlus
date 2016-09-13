@@ -12,12 +12,14 @@ import android.widget.TextView;
 
 import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.ui.activity.MapActivity;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
+ * 课程视图
  * Created by Zero on 16/6/13.
  */
 public class CourseLayout extends ViewGroup {
@@ -26,25 +28,29 @@ public class CourseLayout extends ViewGroup {
 
     private int[] mColorArray = getResources().getIntArray(R.array.material_design_color);
     private List<Integer> mColors;
+    private List<CourseView> mCourseViewList;
 
 
     private Context mContext;
     private LayoutInflater mInflater;
 
-    private static int week_days_num = 7;
-    private static int sum_class_num = 5;
+    private int mDayHaveClass = 7;
+    private int mNumOfClass = 5;
 
     public CourseLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
 
-        mColors = new ArrayList<Integer>();
+        mColors = new ArrayList<>();
 
         for (int i = 0; i < mColorArray.length; i++) {
             mColors.add(mColorArray[i]);
         }
+        mColorArray = null;
     }
+
 
     public CourseLayout(Context context) {
         this(context, null);
@@ -54,18 +60,35 @@ public class CourseLayout extends ViewGroup {
         this(context, attrs, 0);
     }
 
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        width = MeasureSpec.getSize(widthMeasureSpec);
-        height = MeasureSpec.getSize(heightMeasureSpec);
+        if (MeasureSpec.getSize(widthMeasureSpec) > 0) {
+            width = MeasureSpec.getSize(widthMeasureSpec);
+        }
+        if (MeasureSpec.getSize(heightMeasureSpec) > 0) {
+            height = MeasureSpec.getSize(heightMeasureSpec);
+        }
         setMeasuredDimension(width, height);
+        Logger.d("measure width:" + width + "  measure height:" + height);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+
+
+        requestLayout();
+        Logger.d("on size changed:" + w + " " + h);
     }
 
     public void addCourseViews(List<CourseView> courseViews, int dayHaveClass, int numOfClass) {
+        mDayHaveClass = dayHaveClass;
+        mNumOfClass = numOfClass;
+
         removeAllViews();
         Collections.shuffle(mColors);
-        week_days_num = dayHaveClass;
-        sum_class_num = numOfClass;
+        mCourseViewList = courseViews;
         for (CourseView cv : courseViews) {
             final String name = cv.getCourseName();
             final String classroom = cv.getClassroom();
@@ -78,51 +101,86 @@ public class CourseLayout extends ViewGroup {
                     showCourseInfoDialog(name, classroom, teacher, classInfo);
                 }
             });
+
+
+            cv.setCardBackgroundColor(mColors.get(cv.getId()));
+
+
+            TextView tv = new TextView(mContext);
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+            int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2
+                    , mContext.getResources().getDisplayMetrics());
+            tv.setPadding(padding, padding, padding, padding);
+            tv.setTextColor(mContext.getResources().getColor(R.color.white));
+            tv.setText(cv.getCourseName() + "\n" + "@" + cv.getClassroom());
+            cv.addView(tv);
+
             addView(cv);
         }
-        requestLayout();
-        invalidate();
     }
 
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+
         for (int i = 0; i < getChildCount(); i++) {
-            CourseView child = (CourseView) this.getChildAt(i);
 
-            String courseName = child.getCourseName();
-            String classroom = child.getClassroom();
-            int day = child.getDay();
-            int beginClass = child.getBeginClass();
-            int endClass = child.getEndClass();
-            int id = child.getId();
+            CourseView cv = (CourseView) getChildAt(i);
+            int day = cv.getDay();
+            int beginClass = cv.getBeginClass();
+            int endClass = cv.getEndClass();
 
-            int cl = width * (day - 1) / week_days_num;
-            int ct = height * ((beginClass - 1) / 2) / sum_class_num;
-            int cr = width * day / week_days_num;
-            int cb = height * endClass / 2 / sum_class_num;
-            child.layout(cl, ct, cr, cb);
+            int cl = width * (day - 1) / mDayHaveClass;
+            int ct = height * ((beginClass - 1) / 2) / mNumOfClass;
+            int cr = width * day / mDayHaveClass;
+            int cb = height * endClass / 2 / mNumOfClass;
+            cv.layout(cl, ct, cr, cb);
 
-            float maxCardElevation = child.getMaxCardElevation();
+            float maxCardElevation = cv.getMaxCardElevation();
             double cos45 = Math.cos(Math.toRadians(45));
-            float cornerRadius = child.getRadius();
+            float cornerRadius = cv.getRadius();
             int paddingLR = (int) (maxCardElevation + (1 - cos45) * cornerRadius);
             int paddingTB = (int) (maxCardElevation * 1.5 + (1 - cos45) * cornerRadius);
 
-            TextView tv = new TextView(mContext);
-            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
-            int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,2
-                    ,mContext.getResources().getDisplayMetrics());
-            tv.setPadding(padding,padding,padding,padding);
-            tv.setTextColor(mContext.getResources().getColor(R.color.white));
-            tv.setText(courseName + "\n" + "@" + classroom);
-            tv.layout(paddingLR, paddingTB, cr - paddingLR, cb - paddingTB);
-            tv.layout(paddingLR, paddingTB, cr - cl, cb - ct);
+            cv.getChildAt(0).layout(paddingLR, paddingTB, cr - cl, cb - ct);
 
-            child.addView(tv);
-//            child.setContentPadding(paddingLR,paddingTB,paddingLR,paddingTB);
-            child.setCardBackgroundColor(mColors.get(id));
         }
+//        for (int i = 0; i < getChildCount(); i++) {
+//            CourseView child = (CourseView) this.getChildAt(i);
+//
+//            String courseName = child.getCourseName();
+//            String classroom = child.getClassroom();
+//            int day = child.getDay();
+//            int beginClass = child.getBeginClass();
+//            int endClass = child.getEndClass();
+//            int id = child.getId();
+//
+//            int cl = width * (day - 1) / dayHaveClass;
+//            int ct = height * ((beginClass - 1) / 2) / numOfClass;
+//            int cr = width * day / dayHaveClass;
+//            int cb = height * endClass / 2 / numOfClass;
+//            child.layout(cl, ct, cr, cb);
+//
+//            float maxCardElevation = child.getMaxCardElevation();
+//            double cos45 = Math.cos(Math.toRadians(45));
+//            float cornerRadius = child.getRadius();
+//            int paddingLR = (int) (maxCardElevation + (1 - cos45) * cornerRadius);
+//            int paddingTB = (int) (maxCardElevation * 1.5 + (1 - cos45) * cornerRadius);
+//
+//            TextView tv = new TextView(mContext);
+//            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+//            int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2
+//                    , mContext.getResources().getDisplayMetrics());
+//            tv.setPadding(padding, padding, padding, padding);
+//            tv.setTextColor(mContext.getResources().getColor(R.color.white));
+//            tv.setText(courseName + "\n" + "@" + classroom);
+//            tv.layout(paddingLR, paddingTB, cr - paddingLR, cb - paddingTB);
+//            tv.layout(paddingLR, paddingTB, cr - cl, cb - ct);
+//
+//            child.addView(tv);
+//            child.setCardBackgroundColor(mColors.get(id));
+//        }
+//
 
     }
 
@@ -141,6 +199,7 @@ public class CourseLayout extends ViewGroup {
 
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(mContext);
         builder.setTitle(getContext().getString(R.string.course_info));
+//        暂时取消民院地图功能，导致app卡顿
         builder.setNeutralButton(mContext.getString(R.string.map), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -148,6 +207,7 @@ public class CourseLayout extends ViewGroup {
                 mContext.startActivity(intent);
             }
         });
+
         builder.setView(dialog);
         builder.setPositiveButton(getContext().getString(R.string.confirm), new DialogInterface.OnClickListener() {
             @Override
@@ -159,6 +219,5 @@ public class CourseLayout extends ViewGroup {
         builder.create().show();
 
     }
-
 
 }

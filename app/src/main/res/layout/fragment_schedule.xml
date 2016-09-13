@@ -7,33 +7,33 @@
     android:orientation="vertical">
 
     <!--<LinearLayout-->
-        <!--android:id="@+id/id_schedule_toolbar_ll"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentTop="true">-->
+    <!--android:id="@+id/id_schedule_toolbar_ll"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentTop="true">-->
 
-        <android.support.design.widget.AppBarLayout
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/id_home_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            >
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/id_home_toolbar"
-                android:layout_width="match_parent"
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/id_schedule_week_spinner"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
+                app:ms_background_color="?attr/colorPrimaryLight"
+                app:ms_text_color="?attr/textSpinner" />
 
-
-                <com.jaredrummler.materialspinner.MaterialSpinner
-                    android:id="@+id/id_schedule_week_spinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:ms_background_color="?attr/colorPrimaryLight"
-                    app:ms_text_color="?attr/textSpinner" />
-
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.AppBarLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
     <!--</LinearLayout>-->
 
     <LinearLayout
@@ -73,51 +73,53 @@
         </LinearLayout>
 
 
+        <!--<LinearLayout-->
+        <!--android:id="@+id/id_schedule_vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="?attr/colorPrimaryBg">-->
+
         <LinearLayout
             android:id="@+id/id_schedule_vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/colorPrimaryBg">
+            android:background="?attr/colorPrimaryBg"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="130px"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="130px"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                <include layout="@layout/item_schedule_vertical" />
 
-                    <include layout="@layout/item_schedule_vertical" />
+                <include layout="@layout/item_schedule_vertical" />
 
-                    <include layout="@layout/item_schedule_vertical" />
+                <include layout="@layout/item_schedule_vertical" />
 
-                    <include layout="@layout/item_schedule_vertical" />
+                <include layout="@layout/item_schedule_vertical" />
 
-                    <include layout="@layout/item_schedule_vertical" />
+                <include layout="@layout/item_schedule_vertical" />
 
-                    <include layout="@layout/item_schedule_vertical" />
+                <include layout="@layout/item_schedule_vertical" />
 
-                    <include layout="@layout/item_schedule_vertical" />
+                <include layout="@layout/item_schedule_vertical" />
 
-                    <include layout="@layout/item_schedule_vertical" />
+                <include layout="@layout/item_schedule_vertical" />
 
-                    <include layout="@layout/item_schedule_vertical" />
+                <include layout="@layout/item_schedule_vertical" />
 
-                    <include layout="@layout/item_schedule_vertical" />
-
-                    <include layout="@layout/item_schedule_vertical" />
-                </LinearLayout>
-
-                <com.csmy.minyuanplus.ui.view.CourseLayout
-                    android:id="@+id/id_course_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
+                <include layout="@layout/item_schedule_vertical" />
             </LinearLayout>
-        </LinearLayout>
 
+            <!--<com.csmy.minyuanplus.ui.view.CourseLayout-->
+                <!--android:id="@+id/id_course_layout"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent" />-->
+
+        </LinearLayout>
     </LinearLayout>
+
+    <!--</LinearLayout>-->
 
 </LinearLayout>

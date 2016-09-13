@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
-import com.csmy.minyuanplus.dialog.WaitDialog;
+import com.csmy.minyuanplus.ui.dialog.WaitDialog;
 import com.csmy.minyuanplus.ui.activity.BaseActivity;
 
 import org.greenrobot.eventbus.EventBus;

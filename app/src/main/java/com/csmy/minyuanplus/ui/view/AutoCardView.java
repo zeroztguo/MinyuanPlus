@@ -8,6 +8,7 @@ import com.zhy.autolayout.AutoFrameLayout;
 import com.zhy.autolayout.utils.AutoLayoutHelper;
 
 /**
+ * 让CardView可以实现文字大小自动适配
  * Created by Zero on 16/8/18.
  */
 public class AutoCardView extends CardView{

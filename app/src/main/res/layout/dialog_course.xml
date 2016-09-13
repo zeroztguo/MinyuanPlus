@@ -12,26 +12,22 @@
         android:orientation="horizontal"
         android:padding="5dp">
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/spinner_padding"
-            android:src="@mipmap/course" />
 
-        <TextView
+
+        <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:gravity="center"
             android:text="名称"
-            android:textSize="@dimen/dialog_text_size_plus"
-            android:textStyle="bold" />
+            android:textColor="?attr/textPrimary"
+            android:textSize="@dimen/dialog_text_size_plus"/>
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/id_dialog_course_name"
             android:layout_width="0dp"
+            android:textColor="?attr/textSecond"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="@dimen/dialog_text_size"
@@ -48,28 +44,23 @@
 
         >
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/spinner_padding"
-            android:src="@mipmap/classroom" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:gravity="center"
             android:text="教室"
-            android:textSize="@dimen/dialog_text_size_plus"
-            android:textStyle="bold" />
+            android:textColor="?attr/textPrimary"
+            android:textSize="@dimen/dialog_text_size_plus" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/id_dialog_course_classroom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="?attr/textSecond"
             android:gravity="left|center_vertical"
 
             android:textSize="@dimen/dialog_text_size" />
@@ -85,30 +76,23 @@
 
         >
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
 
-            android:layout_marginLeft="@dimen/spinner_padding"
-
-            android:src="@mipmap/teacher" />
-
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:gravity="center"
             android:text="老师"
-            android:textSize="@dimen/dialog_text_size_plus"
-            android:textStyle="bold" />
+            android:textColor="?attr/textPrimary"
+            android:textSize="@dimen/dialog_text_size_plus" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/id_dialog_course_teacher"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="?attr/textSecond"
             android:gravity="left|center_vertical"
             android:textSize="@dimen/dialog_text_size" />
     </LinearLayout>
@@ -122,28 +106,29 @@
 
         >
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/spinner_padding"
-            android:src="@mipmap/class_num" />
+        <!--<android.support.v7.widget.AppCompatImageView-->
+            <!--android:layout_width="20dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_marginLeft="@dimen/spinner_padding"-->
+            <!--android:src="@mipmap/class_num" />-->
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:gravity="center"
             android:text="节数"
-            android:textSize="@dimen/dialog_text_size_plus"
-            android:textStyle="bold" />
+            android:textColor="?attr/textPrimary"
+            android:textSize="@dimen/dialog_text_size_plus"/>
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/id_dialog_course_class_num"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="?attr/textSecond"
             android:gravity="left|center_vertical"
             android:textSize="@dimen/dialog_text_size" />
     </LinearLayout>

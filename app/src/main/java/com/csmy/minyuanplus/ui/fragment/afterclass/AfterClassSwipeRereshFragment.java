@@ -31,7 +31,7 @@ import java.util.List;
 import butterknife.Bind;
 
 /**
- * 课余基类
+ * 课外基类,弃用
  * Created by Zero on 16/7/27.
  */
 public abstract class AfterClassSwipeRereshFragment<T> extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {

@@ -24,6 +24,9 @@ import java.util.List;
 
 import butterknife.Bind;
 
+/**
+ * 通知页面
+ */
 public class NotifyActivity extends BaseActivity implements BaseToolbarView {
     @Bind(R.id.id_notify_rv)
     RecyclerView mRecyclerView;

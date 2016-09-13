@@ -3,6 +3,7 @@ package com.csmy.minyuanplus.model.collegenews;
 import java.io.Serializable;
 
 /**
+ * 民院新闻的实体
  * Created by Zero on 16/8/15.
  */
 public class NewsBean implements Serializable{

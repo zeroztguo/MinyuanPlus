@@ -16,11 +16,11 @@ import com.csmy.minyuanplus.ui.fragment.collegenews.JobFragment;
 import org.litepal.LitePalApplication;
 
 /**
+ * 民院新闻页面适配器
  * Created by Zero on 16/7/15.
  */
 public class NewsPagerAdapter extends FragmentPagerAdapter{
     private static final int count = 6;
-//    private String[] titles = new String[]{"学院新闻","院部动态","热点专线","校园展台","就业创业","校园文化"};
     private Context context = LitePalApplication.getContext();
     private CollegeNewsFragment mCollegeNewsFragment;
     private CollegeDynamicFragment mCollegeDynamicFragment;

@@ -1,6 +1,7 @@
 package com.csmy.minyuanplus.support.adapter;
 
 /**
+ * 无用，等待删除
  * Created by Zero on 16/7/3.
  */
 

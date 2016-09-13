@@ -16,6 +16,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.Bind;
 
 /**
+ * 课外页面
  * Created by Zero on 16/7/15.
  */
 public class AfterClassFragment extends BaseFragment {

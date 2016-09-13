@@ -13,6 +13,7 @@ import com.csmy.minyuanplus.ui.fragment.afterclass.WeixinFragment;
 import org.litepal.LitePalApplication;
 
 /**
+ * 课外页面的适配器
  * Created by Zero on 16/7/15.
  */
 public class AfterClassPagerAdapter extends FragmentStatePagerAdapter {

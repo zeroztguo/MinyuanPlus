@@ -4,7 +4,6 @@ import com.csmy.minyuanplus.model.education.Grade;
 import com.csmy.minyuanplus.model.education.GradeCourseStatistical;
 import com.csmy.minyuanplus.model.education.GradeInfoStatistical;
 import com.csmy.minyuanplus.support.util.SPUtil;
-import com.csmy.minyuanplus.support.util.Util;
 import com.orhanobut.logger.Logger;
 
 import org.jsoup.Jsoup;
@@ -18,9 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 教务系统成绩帮助类
  * Created by Zero on 16/6/27.
  */
-public class EduGrade extends Util {
+public class EduGrade {
     public static final String GRADE = "grade";
     public static final String GRADE_HOME = "grade_home";
     public static final String VIEW_STATE = "view_state";
@@ -183,36 +183,7 @@ public class EduGrade extends Util {
 //        Logger.d(xftj);
 //        Logger.d(gradeIS.toString());
         gsList.add(gradeIS);
-        /**
-         * 解析课程学分统计并保存
-         */
-        Elements trs = document.select("table#Datagrid2").select("tr");
-        for (int i = 1; i <=5; i++) {
-            Elements tds = trs.get(i).select("td");
-            GradeCourseStatistical gradeCS = new GradeCourseStatistical();
-            for (int j = 0; j < tds.size(); j++) {
-                String td = tds.get(j).text();
-                switch (j){
-                    case 0:
-                        gradeCS.setCourseProperty(td);
-                        break;
-                    case 1:
-                        gradeCS.setCreditRequire(td);
-                        break;
-                    case 2:
-                        gradeCS.setCreditObtain(td);
-                        break;
-                    case 3:
-                        gradeCS.setCreditFail(td);
-                        break;
-                    case 4:
-                        gradeCS.setCreditNeed(td);
-                        break;
 
-                }
-            }
-            gsList.add(gradeCS);
-        }
         /**
          * 解析公共任选课信息并保存
          */
@@ -243,6 +214,38 @@ public class EduGrade extends Util {
             }
             gsList.add(gradeCS);
         }
+
+        /**
+         * 解析课程学分统计并保存
+         */
+        Elements trs = document.select("table#Datagrid2").select("tr");
+        for (int i = 1; i <=5; i++) {
+            Elements tds = trs.get(i).select("td");
+            GradeCourseStatistical gradeCS = new GradeCourseStatistical();
+            for (int j = 0; j < tds.size(); j++) {
+                String td = tds.get(j).text();
+                switch (j){
+                    case 0:
+                        gradeCS.setCourseProperty(td);
+                        break;
+                    case 1:
+                        gradeCS.setCreditRequire(td);
+                        break;
+                    case 2:
+                        gradeCS.setCreditObtain(td);
+                        break;
+                    case 3:
+                        gradeCS.setCreditFail(td);
+                        break;
+                    case 4:
+                        gradeCS.setCreditNeed(td);
+                        break;
+
+                }
+            }
+            gsList.add(gradeCS);
+        }
+
         return gsList;
     }
 

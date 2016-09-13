@@ -60,7 +60,7 @@
     <string name="origin_area">來源地區</string>
     <string name="origin_province">來源省</string>
     <string name="college">學院</string>
-    <string name="major">專業名臣</string>
+    <string name="major">專業名稱</string>
     <string name="class_info">行政班</string>
     <string name="personal_info">個人信息</string>
     <string name="language">語言</string>
@@ -113,8 +113,15 @@
     <string name="map">民院地圖</string>
     <string name="scale">可跟隨手勢放大縮小</string>
     <string name="weixin_special">微信精選</string>
-    <string name="this_term_no_course">本学期还没有课~</string>
+    <string name="this_term_no_course">本學期還沒有課~</string>
     <string name="atm">ATM</string>
-    <string name="express">快递</string>
+    <string name="express">快遞</string>
+    <string name="version">Version</string>
+    <string name="express_load_fail">快遞信息加載失敗...</string>
+    <string name="atm_load_fail">ATM信息加載失敗...</string>
+    <string name="express_pic_load_fail">快遞圖片加載失敗...</string>
+    <string name="atm_pic_load_fail">ATM圖片加載失敗...</string>
+    <string name="press_again">再按一次退出程序</string>
+    <string name="map_simple">地圖</string>
 
 </resources>

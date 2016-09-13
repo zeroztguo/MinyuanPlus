@@ -10,6 +10,7 @@ import com.csmy.minyuanplus.event.Event;
 import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.model.Notify;
 import com.csmy.minyuanplus.model.NotifyContent;
+import com.csmy.minyuanplus.support.API;
 import com.csmy.minyuanplus.support.Notification;
 import com.csmy.minyuanplus.support.education.EduLogin;
 import com.csmy.minyuanplus.support.util.SnackbarUtil;
@@ -20,30 +21,26 @@ import com.csmy.minyuanplus.ui.fragment.collegenews.NewsFragment;
 import com.csmy.minyuanplus.ui.fragment.education.EducationLoginFragment;
 import com.csmy.minyuanplus.ui.fragment.education.ScheduleFragment;
 import com.google.gson.Gson;
-import com.orhanobut.logger.Logger;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.List;
-
 import butterknife.Bind;
 import me.majiajie.pagerbottomtabstrip.Controller;
 import me.majiajie.pagerbottomtabstrip.PagerBottomTabLayout;
 import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectListener;
 import okhttp3.Call;
 
+/**
+ * 主页面
+ */
 public class MainActivity extends BaseActivity {
-    private static final String TAG = "MainActivity";
 
     @Bind(R.id.tab)
     PagerBottomTabLayout mBottomTabLayout;
-    //    @BindColor(R.attr.tabSelectedTextColor)
     int textBottomTabSelected;
-    //    @BindColor(R.color.textBottomTab)
     int colorTabText;
 
     Controller controller;
@@ -60,6 +57,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
+
         setSwipeEnabled(false);
 
         /*
@@ -90,7 +88,6 @@ public class MainActivity extends BaseActivity {
             FragmentManager manager = getSupportFragmentManager();
             manager.popBackStackImmediate(null, 1);
         }
-
 
 
         OnTabItemSelectListener onTabItemSelectListener = new OnTabItemSelectListener() {
@@ -162,6 +159,7 @@ public class MainActivity extends BaseActivity {
                         }
                         break;
                 }
+
             }
 
 
@@ -176,11 +174,11 @@ public class MainActivity extends BaseActivity {
         initNotify();
     }
 
+
     private void initNotify() {
-        Logger.d("init notify~~~~~~");
         OkHttpUtils
                 .get()
-                .url("https://coding.net/u/zeroztguo/p/CollegePlus/git/raw/master/notification.txt")
+                .url(API.NOTIFICATION)
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -201,13 +199,12 @@ public class MainActivity extends BaseActivity {
                             只保存本地没有的消息
                              */
                             for (NotifyContent notifyContent : notifyList) {
-                                if(Integer.valueOf(notifyContent.getNotifyCode()) >localLatestNotifyCode){
+                                if (Integer.valueOf(notifyContent.getNotifyCode()) > localLatestNotifyCode) {
                                     notifyContent.setRead(false);
                                     notifyContent.save();
                                 }
                             }
-//                            int unread = Notification.getUnreadNotify() + latestNotifyCode - localLatestNotifyCode;
-//                            Notification.setUnreadNotify(unread);
+
                             Notification.setLatestNotifyCode(latestNotifyCode);
                             Event.sendEmptyMessage(Event.NOTIFY_UPDATE);
                         }
@@ -240,7 +237,7 @@ public class MainActivity extends BaseActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (System.currentTimeMillis() - mExitTime > 2000) {
-                SnackbarUtil.showWithNoAction(mBottomTabLayout, "再按一次退出程序");
+                SnackbarUtil.showSnackShort(mBottomTabLayout, getString(R.string.press_again));
                 mExitTime = System.currentTimeMillis();
             } else {
                 finish();

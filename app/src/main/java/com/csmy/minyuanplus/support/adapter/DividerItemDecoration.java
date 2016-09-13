@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
+ * 添加RecyclerView下划线帮助类，来自于GitHub
  * This class is from the v7 samples of the Android SDK. It's not by me!
  * <p/>
  * See the license above for details.

@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/id_grade_ll"
-    android:background="?attr/colorPrimaryBg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="?attr/colorPrimaryBg">
+
 
     <com.loopeer.cardstack.CardStackView
         android:id="@+id/id_grade_csv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:paddingLeft="40px"
-        android:paddingRight="40px"
-        android:paddingTop="40px"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
         android:visibility="gone" />
 
 
     <LinearLayout
+        android:id="@+id/id_query_grade_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:orientation="vertical">
 
         <com.jaredrummler.materialspinner.MaterialSpinner
@@ -36,7 +36,6 @@
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/id_query_grade_btn"
-
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,4 +43,17 @@
     </LinearLayout>
 
 
-</LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/id_query_grade_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="80dp"
+        android:src="@mipmap/reset"
+        android:visibility="gone"
+        app:borderWidth="0dp" />
+
+
+</RelativeLayout>

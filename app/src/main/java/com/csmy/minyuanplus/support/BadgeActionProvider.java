@@ -3,26 +3,28 @@ package com.csmy.minyuanplus.support;
 import android.content.Context;
 import android.support.v4.view.ActionProvider;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.model.NotifyContent;
-import com.csmy.minyuanplus.ui.view.CustomColorView;
 import com.orhanobut.logger.Logger;
 
 import org.litepal.crud.DataSupport;
 
 /**
+ * 消息提示的圆点
  * Created by Zero on 16/8/25.
  */
 public class BadgeActionProvider extends ActionProvider {
-    private AppCompatImageView mIvIcon;
-//    private AppCompatTextView mTvBadge;
-    private CustomColorView mColorView;
+    private AppCompatTextView mNumTextView;
+    private AppCompatImageView mIconView;
     private int clickWhat;
     private OnClickListener onClickListener;
+    private FrameLayout mNotifyLayout;
 
     public BadgeActionProvider(Context context) {
         super(context);
@@ -38,9 +40,10 @@ public class BadgeActionProvider extends ActionProvider {
                 .inflate(R.layout.view_badge, null, false);
 
         view.setLayoutParams(layoutParams);
-        mIvIcon = (AppCompatImageView) view.findViewById(R.id.id_badge_iv);
-        mColorView = (CustomColorView) view.findViewById(R.id.id_badge_color_view);
-        mIvIcon.setImageResource(R.mipmap.notification);
+        mNotifyLayout = (FrameLayout) view.findViewById(R.id.id_badge_layout);
+        mNumTextView = (AppCompatTextView) view.findViewById(R.id.id_badge_tv);
+        mIconView = (AppCompatImageView) view.findViewById(R.id.id_badge_iv);
+        mIconView.setImageResource(R.mipmap.notification);
         setTextInt(getUnreadCount());
         view.setOnClickListener(onViewClickListener);
         return view;
@@ -65,16 +68,16 @@ public class BadgeActionProvider extends ActionProvider {
         void onClick(int what);
     }
 
-    public void setIcon(int icon) {
-        mIvIcon.setImageResource(icon);
-    }
+//    public void setIcon(int icon) {
+//        mIvIcon.setImageResource(icon);
+//    }
 
     public void setTextInt(int i) {
-        if(i == 0){
-            mColorView.setVisibility(View.GONE);
-        }else{
-            mColorView.setVisibility(View.VISIBLE);
-            mColorView.setTextInt(i);
+        if (i == 0) {
+            mNotifyLayout.setVisibility(View.GONE);
+        } else {
+            mNotifyLayout.setVisibility(View.VISIBLE);
+            mNumTextView.setText(i+"");
         }
 
     }
@@ -82,14 +85,14 @@ public class BadgeActionProvider extends ActionProvider {
     /**
      * @return 未读的消息数
      */
-    public static int getUnreadCount(){
+    public static int getUnreadCount() {
         int i = 0;
         for (NotifyContent notifyContent : DataSupport.findAll(NotifyContent.class)) {
-            if(!notifyContent.isRead()){
+            if (!notifyContent.isRead()) {
                 i++;
             }
         }
-        Logger.d("unread:"+i);
+        Logger.d("unread:" + i);
 
         return i;
     }

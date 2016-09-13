@@ -16,6 +16,9 @@ import com.zzhoujay.richtext.RichText;
 import butterknife.Bind;
 import okhttp3.Call;
 
+/**
+ * 应用简介页面
+ */
 public class AppIntroduceActivity extends BaseActivity implements BaseToolbarView, BaseProgressView {
     @Bind(R.id.id_base_tool_bar)
     Toolbar mToolbar;

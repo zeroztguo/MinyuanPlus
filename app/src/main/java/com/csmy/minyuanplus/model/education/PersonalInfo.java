@@ -3,6 +3,7 @@ package com.csmy.minyuanplus.model.education;
 import org.litepal.crud.DataSupport;
 
 /**
+ * 个人信息实体，数据库模型
  * Created by Zero on 16/6/26.
  */
 public class PersonalInfo extends DataSupport{

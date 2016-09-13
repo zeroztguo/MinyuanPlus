@@ -1,7 +1,9 @@
 package com.csmy.minyuanplus.ui.fragment.education;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.event.Event;
@@ -38,9 +40,12 @@ public class GradeFragment extends BaseFragment {
     CardStackView mCardStackView;
     @Bind(R.id.id_grade_spinner)
     MaterialSpinner mSpinner;
-    GradeAdapter mStackAdapter;
+    @Bind(R.id.id_query_grade_layout)
+    LinearLayout mQueryGradeLayout;
+    @Bind(R.id.id_query_grade_fab)
+    FloatingActionButton mResetFab;
 
-
+    private GradeAdapter mStackAdapter;
     private List<Map<String, String>> mDatas;
 
 
@@ -53,6 +58,15 @@ public class GradeFragment extends BaseFragment {
         mStackAdapter = new GradeAdapter(getContext());
         mCardStackView.setAdapter(mStackAdapter);
         initSpinner();
+
+        mResetFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mResetFab.setVisibility(View.GONE);
+                mCardStackView.setVisibility(View.GONE);
+                mQueryGradeLayout.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @OnClick(R.id.id_query_grade_btn)
@@ -60,12 +74,19 @@ public class GradeFragment extends BaseFragment {
         queryTermGrade();
     }
 
+//    @OnClick(R.id.id_query_grade_fab)
+//    void operate() {
+//
+//    }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUserEvent(EventModel eventModel) {
         switch (eventModel.getEventCode()) {
             case Event.EDUCATION_QUERY_GRADE_SUCCESS:
                 dismissWaitDialog();
+                mQueryGradeLayout.setVisibility(View.GONE);
+                mResetFab.setVisibility(View.VISIBLE);
                 mCardStackView.setVisibility(View.VISIBLE);
                 mDatas = new ArrayList<>();
                 List<Grade> gradeList = EduGrade.getGrade();
@@ -88,10 +109,11 @@ public class GradeFragment extends BaseFragment {
                     mDatas.add(data);
                 }
                 mStackAdapter.updateData(mDatas);
+
                 break;
             case Event.EDUCATION_QUERY_GRADE_FAIL:
                 dismissWaitDialog();
-                ToastUtil.showShort(getContext(),getHoldingActivity().getString(R.string.query_grade_fail_try_again));
+                ToastUtil.showShort(getContext(), getString(R.string.query_grade_fail_try_again));
                 break;
         }
     }
@@ -113,7 +135,7 @@ public class GradeFragment extends BaseFragment {
     private void initSpinner() {
         EduGrade.saveGradeAcadamicYear(EduInfo.getCurrentAcademicYear());
         EduGrade.saveGradeTerm(EduInfo.getCurrentTerm());
-        final List ayList = new ArrayList<String>();
+        final List ayList = new ArrayList<>();
         //学年集合
         List<AcademicYear> ays = DataSupport.findAll(AcademicYear.class);
         int tag = 0;

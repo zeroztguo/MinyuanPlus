@@ -19,7 +19,7 @@
     <application
         android:name=".application.App"
         android:allowBackup="true"
-        android:icon="@mipmap/icon"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -41,12 +41,8 @@
             android:name=".ui.activity.DailyActivity"
             android:label="@string/title_activity_after_class_news"
             android:theme="@style/AppTheme" />
-        <!-- <activity -->
-        <!-- android:name=".ui.activity.BaseAfterClassActivity" -->
-        <!-- android:label="@string/title_activity_after_class_news" -->
-        <!-- android:theme="@style/AppTheme" /> -->
         <activity
-            android:name=".ui.activity.MyNewsActivity"
+            android:name=".ui.activity.CollegeNewsActivity"
             android:label="@string/title_activity_news"
             android:theme="@style/AppTheme" />
         <activity
@@ -55,11 +51,7 @@
         <activity
             android:name=".ui.activity.MainActivity"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ui.activity.GuokrActivity"
@@ -88,7 +80,15 @@
         <activity android:name=".ui.activity.NotifyContentActivity" />
         <activity android:name=".ui.activity.MapActivity" />
         <activity android:name=".ui.activity.BaseWebViewActivity" />
-        <activity android:name=".ui.activity.WeixinActivity"></activity>
+        <activity android:name=".ui.activity.WeixinActivity" />
+        <activity android:name=".ui.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

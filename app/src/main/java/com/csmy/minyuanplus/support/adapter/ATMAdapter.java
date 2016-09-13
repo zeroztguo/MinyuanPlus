@@ -1,6 +1,7 @@
 package com.csmy.minyuanplus.support.adapter;
 
 /**
+ * ATM页面StackAdapter，弃用
  * Created by Zero on 16/7/3.
  */
 
@@ -13,7 +14,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.csmy.minyuanplus.R;
-import com.csmy.minyuanplus.model.ATM;
+import com.csmy.minyuanplus.model.college.ATM;
+import com.csmy.minyuanplus.support.util.ToastUtil;
 import com.csmy.minyuanplus.support.util.Util;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -29,8 +31,11 @@ import okhttp3.Call;
 
 public class ATMAdapter extends StackAdapter<ATM> {
 
+    private static Context mContext;
+
     public ATMAdapter(Context context) {
         super(context);
+        mContext = context;
     }
 
     @Override
@@ -82,20 +87,20 @@ public class ATMAdapter extends StackAdapter<ATM> {
                         .execute(new BitmapCallback() {
                             @Override
                             public void onError(Call call, Exception e) {
-
+                                ToastUtil.showShort(mContext,mContext.getString(R.string.atm_pic_load_fail));
                             }
 
                             @Override
                             public void onResponse(Bitmap response) {
                                 byte[] bytes = Util.Bitmap2Bytes(response);
                                 ContentValues values = new ContentValues();
-                                values.put("img",bytes);
-                                DataSupport.update(ATM.class,values,data.getId());
+                                values.put("img", bytes);
+                                DataSupport.update(ATM.class, values, data.getId());
                                 mContent.setImageBitmap(response);
                                 Logger.d("从网络加载ATM图片~~~~~~~~~成功");
                             }
                         });
-                Logger.d("从网络加载ATM图片~~~~~~~~~");
+                Logger.d("从网络加载ATM图片");
             } else {
                 mContent.setImageBitmap(Util.Bytes2Bitmap(data.getImg()));
                 Logger.d("从本地加载ATM图片~~~~~~~~~");

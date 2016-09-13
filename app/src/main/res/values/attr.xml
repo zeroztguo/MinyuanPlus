@@ -7,6 +7,11 @@
     </attr>
     <attr name="src" format="reference" />
 
+    <!--<declare-styleable name="CustomCircleTextView">-->
+        <!--<attr name=""/>-->
+
+    <!--</declare-styleable>-->
+
     <declare-styleable name="CustomImageView">
         <attr name="borderRadius" />
         <attr name="type" />
@@ -21,6 +26,23 @@
     </declare-styleable>
 
 
+    <declare-styleable name="SwipeBackLayout">
+        <attr name="edge_size" format="dimension"/>
+        <attr name="edge_flag">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+            <enum name="bottom" value="2" />
+            <enum name="all" value="3" />
+        </attr>
+        <attr name="shadow_left" format="reference"/>
+        <attr name="shadow_right" format="reference"/>
+        <attr name="shadow_bottom" format="reference"/>
+    </declare-styleable>
+
+    <attr name="SwipeBackLayoutStyle" format="reference"/>
+
+
+
     <attr name="colorCardBg" format="color" />
     <attr name="colorPrimaryBg" format="color" />
     <attr name="colorPrimaryLight" format="color" />
@@ -31,6 +53,5 @@
     <attr name="textSecond" format="color" />
     <attr name="textTab" format="color" />
     <attr name="textSpinner" format="color" />
-
 
 </resources>

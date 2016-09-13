@@ -72,7 +72,7 @@ public class WeixinFragment extends SwipeRereshFragment<Weixin> {
 
     @Override
     protected void refresh() {
-        setRefresh();
+        setRefresh(true);
         mPage = 1;
         isLoadMore = false;
         obtainWeixinList(mPage);
@@ -104,7 +104,7 @@ public class WeixinFragment extends SwipeRereshFragment<Weixin> {
                             ToastUtil.showShort(getContext(), getString(R.string.minyuan_news_load_fail));
                             OkHttpUtils.getInstance().cancelTag(this);
                         }
-                        setRefresh();
+                        setRefresh(false);
                     }
 
                     @Override
@@ -121,7 +121,7 @@ public class WeixinFragment extends SwipeRereshFragment<Weixin> {
                             DataSupport.saveAll(weixinList);
 
                             addAllData(weixinList);
-                            setRefresh();
+                            setRefresh(false);
                             setLoadMore();
                         }
                         Logger.d("微信精选一共有这么多条：" + weixinList.size());

@@ -7,16 +7,19 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.ui.fragment.college.ATMFragment;
+import com.csmy.minyuanplus.ui.fragment.college.ExpressFragment;
 
 import org.litepal.LitePalApplication;
 
 /**
+ * 民院页面适配器
  * Created by Zero on 16/7/15.
  */
 public class CollegePagerAdapter extends FragmentStatePagerAdapter {
     public static final int COUNT = 2;
     private Context context = LitePalApplication.getContext();
     private ATMFragment mATMFragment;
+    private ExpressFragment mExpressFragment;
 
 
     public CollegePagerAdapter(FragmentManager fm) {
@@ -31,11 +34,11 @@ public class CollegePagerAdapter extends FragmentStatePagerAdapter {
                     mATMFragment = ATMFragment.newInstance();
                 }
                 return mATMFragment;
-//            case 1:
-//                if(mGuokrFragmnet == null){
-//                    mGuokrFragmnet = GuokrFragment.newInstance();
-//                }
-//                return mGuokrFragmnet;
+            case 1:
+                if(mExpressFragment == null){
+                    mExpressFragment = ExpressFragment.newInstance();
+                }
+                return mExpressFragment;
             default:
                 return new Fragment();
         }

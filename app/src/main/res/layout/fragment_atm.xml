@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.loopeer.cardstack.CardStackView
-            android:id="@+id/id_atm_csv"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/id_atm_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </android.support.v4.widget.SwipeRefreshLayout>

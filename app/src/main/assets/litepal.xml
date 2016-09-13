@@ -2,7 +2,7 @@
 <litepal>
     <dbname value="college_plus"/>
 
-    <version value="19"/>
+    <version value="22"/>
 
     <list>
         <mapping class="com.csmy.minyuanplus.model.education.Course"/>
@@ -18,7 +18,8 @@
         <mapping class="com.csmy.minyuanplus.model.afterclass.GuokrHeader"/>
         <mapping class="com.csmy.minyuanplus.model.afterclass.Weixin"/>
         <mapping class="com.csmy.minyuanplus.model.NotifyContent"/>
-        <mapping class="com.csmy.minyuanplus.model.ATM"/>
+        <mapping class="com.csmy.minyuanplus.model.college.ATM"/>
+        <mapping class="com.csmy.minyuanplus.model.college.Express"/>
 
     </list>
 

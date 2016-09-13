@@ -5,7 +5,7 @@ import org.litepal.crud.DataSupport;
 import java.io.Serializable;
 
 /**
- * 校园展台实体类
+ * 校园展台实体类，数据库模型
  *
  * Created by Zero on 16/7/14.
  */

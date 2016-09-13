@@ -1,6 +1,7 @@
 package com.csmy.minyuanplus.support.adapter;
 
 /**
+ * 成绩页面的StackAdapter
  * Created by Zero on 16/7/3.
  */
 
@@ -15,14 +16,16 @@ import com.csmy.minyuanplus.R;
 import com.loopeer.cardstack.CardStackView;
 import com.loopeer.cardstack.StackAdapter;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class GradeAdapter extends StackAdapter<Map<String, String>> {
     public static final String KEY_TITLE = "title";
-    public static final String KEY_CONTENT= "content";
+    public static final String KEY_CONTENT = "content";
 
-    public static int[] TEST_DATAS = new int[]{
+    public int[] colorArray = new int[]{
             R.color.color_1,
             R.color.color_2,
             R.color.color_3,
@@ -51,9 +54,19 @@ public class GradeAdapter extends StackAdapter<Map<String, String>> {
             R.color.color_26
     };
 
+    private List<Integer> mColors;
+
 
     public GradeAdapter(Context context) {
         super(context);
+//        int[] array = context.getResources().getIntArray(R.array.chinese_style_color);
+        mColors = new ArrayList<>();
+        for (int i = 0; i < colorArray.length; i++) {
+            mColors.add(colorArray[i]);
+        }
+        //打乱顺序
+        Collections.shuffle(mColors);
+        colorArray = null;
     }
 
     @Override
@@ -69,7 +82,6 @@ public class GradeAdapter extends StackAdapter<Map<String, String>> {
         View view;
         view = getLayoutInflater().inflate(R.layout.list_card_item, parent, false);
         return new ColorItemViewHolder(view);
-//        }
     }
 
     @Override
@@ -77,7 +89,7 @@ public class GradeAdapter extends StackAdapter<Map<String, String>> {
         return R.layout.list_card_item;
     }
 
-    static class ColorItemViewHolder extends CardStackView.ViewHolder {
+     class ColorItemViewHolder extends CardStackView.ViewHolder {
         View mLayout;
         View mContainerContent;
         TextView mTextTitle;
@@ -97,7 +109,7 @@ public class GradeAdapter extends StackAdapter<Map<String, String>> {
         }
 
         public void onBind(Map<String, String> data, int position) {
-            mLayout.getBackground().setColorFilter(ContextCompat.getColor(getContext(), TEST_DATAS[new Random().nextInt(TEST_DATAS.length)]), PorterDuff.Mode.SRC_IN);
+            mLayout.getBackground().setColorFilter(ContextCompat.getColor(getContext(), mColors.get(position)), PorterDuff.Mode.SRC_IN);
             mTextTitle.setText(data.get(KEY_TITLE));
             mTextContent.setText(data.get(KEY_CONTENT));
         }

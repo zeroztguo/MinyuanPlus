@@ -7,8 +7,9 @@ import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.model.collegenews.CollegeDynamic;
 import com.csmy.minyuanplus.model.collegenews.NewsBean;
 import com.csmy.minyuanplus.support.API;
+import com.csmy.minyuanplus.support.CollegeNewsHelper;
 import com.csmy.minyuanplus.support.util.ToastUtil;
-import com.csmy.minyuanplus.ui.activity.MyNewsActivity;
+import com.csmy.minyuanplus.ui.activity.CollegeNewsActivity;
 import com.csmy.minyuanplus.ui.fragment.SwipeRereshFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -28,6 +29,7 @@ import java.util.List;
 import okhttp3.Call;
 
 /**
+ * 院部动态页面
  * Created by Zero on 16/7/23.
  */
 public class CollegeDynamicFragment extends SwipeRereshFragment<CollegeDynamic> {
@@ -39,8 +41,6 @@ public class CollegeDynamicFragment extends SwipeRereshFragment<CollegeDynamic> 
         return new CollegeDynamicFragment();
     }
 
-
-    private static final String SHARE_URL = "http://www.csmzxy.com/sub2.html?content,";
 
 
 
@@ -54,19 +54,19 @@ public class CollegeDynamicFragment extends SwipeRereshFragment<CollegeDynamic> 
         OkHttpUtils
                 .get()
                 .url(API.COLLEGE_NEWS)
-                .addParams("cmd", "7")
-                .addParams("v1", "275")
-                .addParams("v2", "1")
-                .addParams("v3", "15")
-                .addParams("tempData", new Date().toString())
+                .addParams(CollegeNewsHelper.CMD, CollegeNewsHelper.CMD_VALUE)
+                .addParams(CollegeNewsHelper.V_ONE, CollegeNewsHelper.V_ONE_COLLEGE_DYNALIC_VALUE)
+                .addParams(CollegeNewsHelper.V_TWO, CollegeNewsHelper.V_TWO_VALUE)
+                .addParams(CollegeNewsHelper.V_THREE, CollegeNewsHelper.V_THREE_VALUE)
+                .addParams(CollegeNewsHelper.TEMP_DATE, new Date().toString())
                 .tag(this)
                 .build()
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e) {
-                        ToastUtil.showShort(getContext(),getString(R.string.minyuan_news_load_fail));
+                        ToastUtil.showShort(getContext(), getString(R.string.minyuan_news_load_fail));
                         OkHttpUtils.getInstance().cancelTag(this);
-                        setRefresh();
+                        setRefresh(false);
                     }
 
                     @Override
@@ -81,29 +81,29 @@ public class CollegeDynamicFragment extends SwipeRereshFragment<CollegeDynamic> 
 
                         addAllData(collegeDynamicList);
                         Logger.d("一共有这么多条：" + collegeDynamicList.size());
-                        setRefresh();
+                        setRefresh(false);
                         setLoadMore();
                         mPage = 1;
                     }
                 });
     }
 
-    private void loadMoreCollegeDynamicList(int page) {
+    private void loadMoreCollegeDynamicList(String page) {
         Logger.d("加载更多ing...");
         OkHttpUtils
                 .get()
                 .url(API.COLLEGE_NEWS)
-                .addParams("cmd", "7")
-                .addParams("v1", "275")
-                .addParams("v2", page + "")
-                .addParams("v3", "15")
-                .addParams("tempData", new Date().toString())
+                .addParams(CollegeNewsHelper.CMD, CollegeNewsHelper.CMD_VALUE)
+                .addParams(CollegeNewsHelper.V_ONE, CollegeNewsHelper.V_ONE_COLLEGE_DYNALIC_VALUE)
+                .addParams(CollegeNewsHelper.V_TWO, page)
+                .addParams(CollegeNewsHelper.V_THREE, CollegeNewsHelper.V_THREE_VALUE)
+                .addParams(CollegeNewsHelper.TEMP_DATE, new Date().toString())
                 .tag(this)
                 .build()
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e) {
-                        ToastUtil.showShort(getContext(),getString(R.string.minyuan_news_load_fail));
+                        ToastUtil.showShort(getContext(), getString(R.string.minyuan_news_load_fail));
                         OkHttpUtils.getInstance().cancelTag(this);
                     }
 
@@ -122,15 +122,6 @@ public class CollegeDynamicFragment extends SwipeRereshFragment<CollegeDynamic> 
                 });
     }
 
-//    @Override
-//    protected SwipeRefreshLayout getSwipeRefreshLayout() {
-//        return mSwipeRefreshLayout;
-//    }
-//
-//    @Override
-//    protected RecyclerView getRecyclerView() {
-//        return mCollegeDynamicRecyclerView;
-//    }
 
 
     @Override
@@ -149,27 +140,27 @@ public class CollegeDynamicFragment extends SwipeRereshFragment<CollegeDynamic> 
         holder.setText(R.id.id_college_news_title_actv, cd.getContentTitle());
         holder.setText(R.id.id_college_news_author_actv, cd.getContentAuthor());
         holder.setText(R.id.id_college_news_date_actv, cd.getSubmitTime());
-        holder.setVisible(R.id.id_college_news_head_tv, true);
-        holder.setText(R.id.id_college_news_head_tv,cd.getContentAuthor().substring(0,1));
+        holder.setVisible(R.id.id_college_news_head_layout, true);
+        holder.setText(R.id.id_college_news_head_tv, cd.getContentAuthor().substring(0, 1));
     }
 
     @Override
     protected void setOnItemClick(CollegeDynamic cd) {
-        Intent intent = new Intent(getHoldingActivity(), MyNewsActivity.class);
+        Intent intent = new Intent(getHoldingActivity(), CollegeNewsActivity.class);
         NewsBean newsBean = new NewsBean();
         newsBean.setContentTitle(cd.getContentTitle())
                 .setContentAuthor(cd.getContentAuthor())
                 .setContentID(cd.getContentID())
                 .setSubmitTime(cd.getSubmitTime())
-                .setShareUrl(SHARE_URL+cd.getContentID());
+                .setShareUrl(CollegeNewsHelper.COLLEGE_DYNAMIC_SHARE_URL + cd.getContentID());
 
-        intent.putExtra("college_news", newsBean);
+        intent.putExtra(CollegeNewsHelper.COLLEGE_NEWS, newsBean);
         startActivity(intent);
     }
 
     @Override
     protected void refresh() {
-        setRefresh();
+        setRefresh(true);
         mPage = 1;
         obtainCollegeDynamicList();
     }
@@ -177,16 +168,8 @@ public class CollegeDynamicFragment extends SwipeRereshFragment<CollegeDynamic> 
     @Override
     protected void loadMore() {
         mPage++;
-        loadMoreCollegeDynamicList(mPage);
+        loadMoreCollegeDynamicList(mPage+"");
     }
 
-//    @Override
-//    protected void initView(View view, Bundle saveInstanceState) {
-//        init();
-//    }
-//
-//    @Override
-//    protected int getLayoutId() {
-//        return R.layout.fragment_college_dynamic;
-//    }
+
 }

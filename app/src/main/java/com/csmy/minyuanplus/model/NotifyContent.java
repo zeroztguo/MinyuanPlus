@@ -5,7 +5,7 @@ import org.litepal.crud.DataSupport;
 import java.io.Serializable;
 
 /**
- * 通知内容实体类
+ * 通知内容实体类，数据库模型
  * Created by Zero on 16/8/26.
  */
 public class NotifyContent extends DataSupport implements Serializable{

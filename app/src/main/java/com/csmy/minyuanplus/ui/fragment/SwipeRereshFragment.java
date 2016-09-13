@@ -37,7 +37,6 @@ public abstract class SwipeRereshFragment<T> extends BaseFragment implements Swi
      */
     @Bind(R.id.id_swipe_refresh_rv)
     RecyclerView mRecyclerView;
-
     /**
      * 下拉刷新布局
      */
@@ -62,7 +61,7 @@ public abstract class SwipeRereshFragment<T> extends BaseFragment implements Swi
     /**
      * 是否刷新的变量，用来更新进度条状态
      */
-    private boolean isRefresh = false;
+//    private boolean isRefresh = false;
     /**
      * 用来设置是否可以加载更多
      */
@@ -86,7 +85,7 @@ public abstract class SwipeRereshFragment<T> extends BaseFragment implements Swi
         /**
          * 初始化SwipeRefreshLayout
          */
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent, R.color.colorRed);
 
         // 这句话是为了，第一次进入页面的时候显示加载进度条
         mSwipeRefreshLayout.setProgressViewOffset(false, 0, (int) TypedValue
@@ -94,14 +93,14 @@ public abstract class SwipeRereshFragment<T> extends BaseFragment implements Swi
                         .getDisplayMetrics()));
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && mLastVisibleItem + 1 == mAdapter.getItemCount()) {
-//                    mSwipeRefreshLayout.setRefreshing(true);
-                }
+//                if (newState == RecyclerView.SCROLL_STATE_IDLE
+//                        && mLastVisibleItem + 1 == mAdapter.getItemCount()) {
+//                    setRefresh(true);
+//                }
             }
 
             @Override
@@ -111,12 +110,12 @@ public abstract class SwipeRereshFragment<T> extends BaseFragment implements Swi
                 //不能再往上滑动，上拉刷新
                 if (!recyclerView.canScrollVertically(-1)
                         && mLastVisibleItem + 1 == mAdapter.getItemCount()) {
-                    refresh();
+                    setRefresh(true);
                 }
-                //不能再往下滑动，下拉加载
-                else if (!recyclerView.canScrollVertically(1)) {
-
-                }
+//                //不能再往下滑动，下拉加载
+//                else if (!recyclerView.canScrollVertically(1)) {
+//
+//                }
             }
         });
         /**
@@ -157,12 +156,8 @@ public abstract class SwipeRereshFragment<T> extends BaseFragment implements Swi
 
 
         loadFromDatabase();
-
     }
 
-    protected void setBindViewHolder(ViewHolder holder, int position) {
-
-    }
 
     private void loadFromNet() {
         //网络不可用，提示。可用，刷新新闻
@@ -271,8 +266,8 @@ public abstract class SwipeRereshFragment<T> extends BaseFragment implements Swi
     /**
      * 设置刷新状态
      */
-    protected void setRefresh() {
-        isRefresh = !isRefresh;
+    protected void setRefresh(boolean isRefresh) {
+//        isRefresh = !isRefresh;
         mSwipeRefreshLayout.setRefreshing(isRefresh);
         Logger.d("下拉刷新状态：" + isRefresh);
     }

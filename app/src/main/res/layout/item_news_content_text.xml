@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="12dp"
     android:layout_marginRight="12dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
     android:textColor="?attr/textPrimary"
     android:textSize="54px" />

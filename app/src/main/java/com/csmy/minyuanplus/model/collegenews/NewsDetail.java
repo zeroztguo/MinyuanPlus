@@ -1,6 +1,7 @@
 package com.csmy.minyuanplus.model.collegenews;
 
 /**
+ * 民院新闻内容的实体
  * Created by Zero on 16/7/21.
  */
 public class NewsDetail {

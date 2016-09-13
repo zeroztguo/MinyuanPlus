@@ -3,6 +3,7 @@ package com.csmy.minyuanplus.event;
 import java.util.List;
 
 /**
+ * EventBus 事件模型
  * Created by Zero on 16/5/28.
  */
 public class EventModel<T> {

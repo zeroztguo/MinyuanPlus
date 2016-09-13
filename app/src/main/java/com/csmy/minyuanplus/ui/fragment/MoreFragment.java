@@ -22,6 +22,7 @@ import com.csmy.minyuanplus.model.education.PersonalInfo;
 import com.csmy.minyuanplus.support.SettingConfig;
 import com.csmy.minyuanplus.support.util.ToastUtil;
 import com.csmy.minyuanplus.ui.activity.AboutActivity;
+import com.csmy.minyuanplus.ui.activity.MapActivity;
 import com.csmy.minyuanplus.ui.activity.SettingActivity;
 import com.csmy.minyuanplus.ui.activity.UserInfoActivity;
 import com.csmy.minyuanplus.ui.view.CustomColorView;
@@ -55,7 +56,7 @@ public class MoreFragment extends BaseFragment {
 
     private CommonAdapter mAdapter;
     private String[] mTitles;
-    private int[] mIcons = {R.mipmap.theme, R.mipmap.setting, R.mipmap.about};
+    private int[] mIcons = {R.mipmap.location,R.mipmap.theme, R.mipmap.setting, R.mipmap.about};
     private int mThemeIndex;
 
 
@@ -86,7 +87,7 @@ public class MoreFragment extends BaseFragment {
 //    }
 
     private void init() {
-        mTitles = new String[]{getHoldingActivity().getString(R.string.theme), getHoldingActivity().getString(R.string.setting), getHoldingActivity().getString(R.string.about)};
+        mTitles = new String[]{getString(R.string.map_simple), getString(R.string.theme), getString(R.string.setting), getString(R.string.about)};
         mAdapter = new CommonAdapter<String>(getContext(), R.layout.item_more, Arrays.asList(mTitles)) {
             @Override
             protected void convert(ViewHolder viewHolder, String item, int position) {
@@ -111,13 +112,17 @@ public class MoreFragment extends BaseFragment {
                 Intent intent;
                 switch (position) {
                     case 0:
-                        showSetThemeDialog();
+                        intent = new Intent(getHoldingActivity(), MapActivity.class);
+                        startActivity(intent);
                         break;
                     case 1:
+                        showSetThemeDialog();
+                        break;
+                    case 2:
                         intent = new Intent(getHoldingActivity(), SettingActivity.class);
                         startActivity(intent);
                         break;
-                    case 2:
+                    case 3:
                         intent = new Intent(getHoldingActivity(), AboutActivity.class);
                         startActivity(intent);
                 }

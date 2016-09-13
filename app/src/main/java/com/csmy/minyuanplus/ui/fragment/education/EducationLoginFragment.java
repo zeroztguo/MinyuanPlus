@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,18 +18,18 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.csmy.minyuanplus.R;
-import com.csmy.minyuanplus.support.BadgeActionProvider;
-import com.csmy.minyuanplus.support.Notification;
-import com.csmy.minyuanplus.support.education.EduInfo;
-import com.csmy.minyuanplus.support.education.EduLogin;
-import com.csmy.minyuanplus.support.education.EduRxVolley;
-import com.csmy.minyuanplus.support.education.EduSchedule;
 import com.csmy.minyuanplus.event.Event;
 import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.event.EventTag;
 import com.csmy.minyuanplus.model.education.AcademicYear;
 import com.csmy.minyuanplus.model.education.Course;
 import com.csmy.minyuanplus.model.education.PersonalInfo;
+import com.csmy.minyuanplus.support.BadgeActionProvider;
+import com.csmy.minyuanplus.support.Notification;
+import com.csmy.minyuanplus.support.education.EduInfo;
+import com.csmy.minyuanplus.support.education.EduLogin;
+import com.csmy.minyuanplus.support.education.EduRxVolley;
+import com.csmy.minyuanplus.support.education.EduSchedule;
 import com.csmy.minyuanplus.support.util.ToastUtil;
 import com.csmy.minyuanplus.ui.BaseToolbarView;
 import com.csmy.minyuanplus.ui.activity.NotifyActivity;
@@ -48,6 +47,7 @@ import butterknife.BindString;
 import butterknife.OnClick;
 
 /**
+ * 登录教务系统
  * Created by Zero on 16/6/21.
  */
 public class EducationLoginFragment extends BaseFragment implements BaseToolbarView {
@@ -55,10 +55,8 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
     android.support.design.widget.TextInputLayout mUserNameWrapper;
     @Bind(R.id.id_login_psw_til)
     android.support.design.widget.TextInputLayout mPswWrapper;
-
     @Bind(R.id.id_login_toolbar)
     Toolbar mLoginToolbar;
-
     @BindString(R.string.input_complete_info)
     String inputCompleteInfo;
 
@@ -68,7 +66,6 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
     private AppCompatEditText mPswET;
     private String mUserName;
     private String mPsw;
-    private boolean mIsInit = true;
 
 
     private ScheduleFragment mScheduleFragment = ScheduleFragment.newInstance();
@@ -77,7 +74,6 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
         return new EducationLoginFragment();
     }
 
-    private static final String TAG = "EducationLoginFragment";
 
     @Override
     protected void initView(View view, Bundle saveInstanceState) {
@@ -121,9 +117,8 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
     }
 
 
-    @OnClick(R.id.id_login_tv)
+    @OnClick(R.id.id_login_btn)
     void login(View view) {
-        Log.i(TAG, "login: click");
         hideKeyboard();
         checkLoginInfo();
     }
@@ -213,11 +208,7 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
                 }
 
                 break;
-//            case Event.EDUCATION_OBTAIN_SCHEDULE_FAIL:
-//                ToastUtil.show(obtainScheduleFail);
-//                Logger.d("获取课表html失败");
-//                dismissWaitDialog();
-//                break;
+
             case Event.EDUCATION_OBTAIN_PERSONAL_INFO_SUCCESS:
                 PersonalInfo pi = EduLogin.getPersonalInfo();
                 pi.save();
@@ -232,9 +223,7 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
 
                 EduRxVolley.obtainSchedule();
                 break;
-//            case Event.EDUCATION_OBTAIN_PERSONAL_INFO_FAIL:
-//                Logger.d("获取个人信息失败:" + eventModel.getData().toString());
-//                break;
+
             case Event.NOTIFY_UPDATE:
                 Logger.d("收到 通知：" + Notification.getLatestNotifyCode());
                 if (mBadgeActionProvider != null) {
@@ -245,17 +234,6 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
         }
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        if (!mIsInit) {
-//            if (mBadgeActionProvider != null) {
-//                mBadgeActionProvider.setTextInt(BadgeActionProvider.getUnreadCount());
-//            }
-//        } else {
-//            mIsInit = !mIsInit;
-//        }
-//    }
 
     /**
      * 隐藏键盘

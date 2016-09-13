@@ -1,14 +1,14 @@
 package com.csmy.minyuanplus.ui.view;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 
 /**
+ * 课程
  * Created by Zero on 16/6/13.
  */
-public class CourseView extends CardView {
+public class CourseView extends AutoCardView {
     private String courseName;
     private String classroom;
     private String teacher;

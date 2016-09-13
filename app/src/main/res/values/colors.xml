@@ -14,6 +14,8 @@
     <color name="textBottomTab">#D4D4D4</color>
     <color name="textBottomTabSelected">#0F88EB</color>
 
+    <color name="colorScheme">?attr/colorAccent</color>
+
     <!-- RED主题-->
     <color name="colorRed">#F44336</color>
     <color name="colorRedDark">#D32F2F</color>

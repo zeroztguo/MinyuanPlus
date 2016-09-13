@@ -3,7 +3,7 @@ package com.csmy.minyuanplus.model.afterclass;
 import org.litepal.crud.DataSupport;
 
 /**
- * 果壳 新闻头信息
+ * 果壳 新闻头信息实体
  * Created by Zero on 16/8/14.
  */
 public class GuokrHeader extends DataSupport{

@@ -3,6 +3,7 @@ package com.csmy.minyuanplus.model.education;
 import org.litepal.crud.DataSupport;
 
 /**
+ * 课程实体，数据库模型
  * Created by Zero on 16/5/31.
  */
 public class Course extends DataSupport {

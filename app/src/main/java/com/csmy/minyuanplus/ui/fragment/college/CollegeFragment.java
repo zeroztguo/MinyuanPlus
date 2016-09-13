@@ -16,6 +16,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.Bind;
 
 /**
+ * 民院页面
  * Created by Zero on 16/8/20.
  */
 public class CollegeFragment extends BaseFragment {

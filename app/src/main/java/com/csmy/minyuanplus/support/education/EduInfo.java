@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
+ * 教务系统个人信息的帮助类
  * Created by Zero on 16/7/2.
  */
 public class EduInfo {

@@ -121,5 +121,12 @@
     <string name="this_term_no_course">本学期还没有课~</string>
     <string name="atm">ATM</string>
     <string name="express">快递</string>
+    <string name="version">版本</string>
+    <string name="express_load_fail">快递信息加载失败...</string>
+    <string name="atm_load_fail">ATM信息加载失败...</string>
+    <string name="express_pic_load_fail">快递图片加载失败...</string>
+    <string name="atm_pic_load_fail">ATM图片加载失败...</string>
+    <string name="press_again">再按一次退出程序</string>
+    <string name="map_simple">地图</string>
 
 </resources>

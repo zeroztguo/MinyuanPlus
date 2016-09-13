@@ -3,13 +3,13 @@ package com.csmy.minyuanplus.ui.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.model.VersionInfo;
@@ -35,6 +35,9 @@ import java.util.Arrays;
 import butterknife.Bind;
 import okhttp3.Call;
 
+/**
+ * 关于页面
+ */
 public class AboutActivity extends BaseActivity {
     @Bind(R.id.id_about_college_plus_rv)
     RecyclerView mCollegePlusRecyclerView;
@@ -42,6 +45,8 @@ public class AboutActivity extends BaseActivity {
     RecyclerView mCopyrightRecyclerView;
     @Bind(R.id.id_base_tool_bar)
     Toolbar mToolbar;
+    @Bind(R.id.id_setting_version_tv)
+    AppCompatTextView mVersionTextView;
 
     LinearLayoutManager mCollegePlusLayoutManager;
     private CommonAdapter<String> mCollegePlusAdapter;
@@ -74,6 +79,7 @@ public class AboutActivity extends BaseActivity {
         mCopyrightTitles = new String[]{getString(R.string.education_news_data), getString(R.string.after_class_data)
         };
         mCopyrightContents = new String[]{getString(R.string.from_college), getString(R.string.from_net)};
+        mVersionTextView.setText(getString(R.string.version) + "  " + Util.getVersionName());
         initToolbar();
         initCollegePlusRecyclerView();
         initCopyrightRecyclerView();
@@ -204,7 +210,7 @@ public class AboutActivity extends BaseActivity {
                         if (Integer.parseInt(mVersionCode) > Util.getVersionCode()) {
                             showUpdateDialog();
                         } else {
-                            SnackbarUtil.showWithNoAction(mCopyrightRecyclerView,getString(R.string.already_latest_version));
+                            SnackbarUtil.showSnackShort(mCopyrightRecyclerView, getString(R.string.already_latest_version));
                         }
                     }
                 });

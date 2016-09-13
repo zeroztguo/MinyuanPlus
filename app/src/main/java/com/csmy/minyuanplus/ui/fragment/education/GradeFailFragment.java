@@ -37,10 +37,8 @@ public class GradeFailFragment extends BaseFragment{
     @Bind(R.id.id_query_grade_fail_btn)
     AppCompatButton mQueryGradeFailBtn;
 
-
-    GradeAdapter mStackAdapter;
+    private GradeAdapter mStackAdapter;
     private List<Map<String,String>> mDatas;
-
 
 
 
@@ -78,6 +76,7 @@ public class GradeFailFragment extends BaseFragment{
                                         "学分：" + grade.getGpa() + "\n" +
                                         "成绩：" + grade.getLevel() + "\n");
                         mDatas.add(data);
+
                     }
                 }else{
                     Map<String,String> data = new HashMap<>();
@@ -87,6 +86,7 @@ public class GradeFailFragment extends BaseFragment{
                 }
 
                 mStackAdapter.updateData(mDatas);
+
                 break;
             case Event.EDUCATION_QUERY_GRADE_FAIL_FAIL:
                 dismissWaitDialog();

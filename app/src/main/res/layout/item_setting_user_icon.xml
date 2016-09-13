@@ -10,7 +10,6 @@
         android:id="@+id/id_setting_user_icon_iv"
         android:layout_marginTop="5dp"
         android:layout_width="50dp"
-        android:layout_height="50dp"
-        zero:src="@mipmap/boy" />
+        android:layout_height="50dp"/>
 
 </LinearLayout>

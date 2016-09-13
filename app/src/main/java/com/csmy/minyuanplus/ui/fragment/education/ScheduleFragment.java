@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,8 +54,8 @@ import butterknife.BindString;
 public class ScheduleFragment extends BaseFragment {
     @Bind(R.id.id_schedule_horizontal)
     LinearLayout mScheduleHorzLayout;
-    @Bind(R.id.id_course_layout)
-    CourseLayout mCourseLayout;
+    //    @Bind(R.id.id_course_layout)
+    private com.csmy.minyuanplus.ui.view.CourseLayout mCourseLayout;
     @Bind(R.id.id_schedule_vertical)
     LinearLayout mScheduleVertLayout;
     @Bind(R.id.id_home_toolbar)
@@ -81,6 +82,8 @@ public class ScheduleFragment extends BaseFragment {
     private String mTerm;
     private int mSelectedWeek;
     private boolean mIsInit = true;
+    private List mAyList;
+
 
     /**
      * 查询某周课表的sql where语句
@@ -97,11 +100,15 @@ public class ScheduleFragment extends BaseFragment {
         return new ScheduleFragment();
     }
 
-    private static final String TAG = "ScheduleFragment";
-
 
     @Override
     protected void initView(View view, Bundle saveInstanceState) {
+        mCourseLayout = new CourseLayout(getContext());
+        mCourseLayout.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        mScheduleVertLayout.addView(mCourseLayout);
+
+
         mAcademicYear = EduInfo.getCurrentAcademicYear();
         mTerm = EduInfo.getCurrentTerm();
         initToolbar();
@@ -109,7 +116,6 @@ public class ScheduleFragment extends BaseFragment {
         initSpinner();
         initSchedule(EduSchedule.getScheduleWeek());
     }
-
 
     /**
      * 跳转到成绩查询
@@ -208,7 +214,7 @@ public class ScheduleFragment extends BaseFragment {
             }
         }
         mScheduleWeekSpinner.setItems(datas);
-        if(curtWeek>0){
+        if (curtWeek > 0) {
             mScheduleWeekSpinner.setSelectedIndex(curtWeek - 1);
         }
 
@@ -219,6 +225,9 @@ public class ScheduleFragment extends BaseFragment {
                 initSchedule(position + 1);
             }
         });
+
+        //手动回收
+        datas = null;
 
     }
 
@@ -247,7 +256,7 @@ public class ScheduleFragment extends BaseFragment {
                 numOfClass = course.getEndClass() / 2;
             }
         }
-        List<CourseView> courseViews = new ArrayList<CourseView>();
+        List<CourseView> courseViews = new ArrayList<>();
         for (Course course : courses) {
             CourseView courseView = new CourseView(getHoldingActivity());
             String courseName = course.getCourseName();
@@ -259,12 +268,7 @@ public class ScheduleFragment extends BaseFragment {
             int beginWeek = course.getBeginWeek();
             int endWeek = course.getEndWeek();
 
-//            if (day >= EduSchedule.DEFAULT_DAYS_HAVE_CLASS) {
-//                EduSchedule.saveDaysHaveClass(day);
-//            }
-//            if ((endClass / 2) > numOfClass) {
-//                EduSchedule.saveNumOfClass(endClass / 2);
-//            }
+
             courseView.setCourseName(courseName);
             courseView.setClassroom(classroom);
             courseView.setTeacher(teacher);
@@ -288,7 +292,7 @@ public class ScheduleFragment extends BaseFragment {
             courseViews.add(courseView);
         }
 
-        Map<String, Integer> ids = new HashMap<String, Integer>();
+        Map<String, Integer> ids = new HashMap<>();
         int i = -1;
         for (CourseView cv : courseViews) {
             String courseName = cv.getCourseName();
@@ -306,6 +310,7 @@ public class ScheduleFragment extends BaseFragment {
         initClassNum(numOfClass);
 
         mCourseLayout.addCourseViews(courseViews, dayHaveClass, numOfClass);
+
     }
 
 
@@ -339,7 +344,8 @@ public class ScheduleFragment extends BaseFragment {
      * @param maxClassNum 本周有课的最大节次，9.10节没课则隐藏
      */
     private void initClassNum(int maxClassNum) {
-        LinearLayout layout = ((LinearLayout) ((LinearLayout) mScheduleVertLayout.getChildAt(0)).getChildAt(0));
+//        LinearLayout layout = ((LinearLayout) ((LinearLayout) mScheduleVertLayout.getChildAt(0)).getChildAt(0));
+        LinearLayout layout = (LinearLayout) mScheduleVertLayout.getChildAt(0);
         String[] time;
         if (EduSchedule.isSummerTimetable()) {
             time = EduSchedule.SUMMMER_TIME;
@@ -383,7 +389,7 @@ public class ScheduleFragment extends BaseFragment {
                 dismissWaitDialog();
                 initSpinner();
                 initSchedule(EduSchedule.getScheduleWeek());
-                SnackbarUtil.showWithNoAction(mScheduleHorzLayout, getString(R.string.this_term_no_course));
+                SnackbarUtil.showSnackShort(mScheduleHorzLayout, getString(R.string.this_term_no_course));
                 break;
             case Event.NOTIFY_UPDATE:
                 Logger.d("收到 通知：" + Notification.getLatestNotifyCode());
@@ -394,6 +400,7 @@ public class ScheduleFragment extends BaseFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        Logger.d("Schedule onCreateOptionMenu");
         inflater.inflate(R.menu.menu_schedule, menu);
         MenuItem menuItem = menu.findItem(R.id.action_notification);
         mBadgeActionProvider = (BadgeActionProvider) MenuItemCompat.getActionProvider(menuItem);
@@ -466,13 +473,16 @@ public class ScheduleFragment extends BaseFragment {
         builder.setPositiveButton(confirm, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                EduSchedule.saveScheduleWeek(select[0]);
                 dialog.dismiss();
-                Toast.makeText(getContext(), setSuccess, Toast.LENGTH_SHORT).show();
                 //设置保存时的日期
+                if (select[0] == 0) {
+                    select[0] = EduSchedule.getScheduleWeek();
+                }
+                EduSchedule.saveScheduleWeek(select[0]);
                 EduSchedule.setCurrentWeekDate();
                 initSpinner();
                 initSchedule(EduSchedule.getScheduleWeek());
+                Toast.makeText(getContext(), setSuccess, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -483,15 +493,14 @@ public class ScheduleFragment extends BaseFragment {
             }
         });
         builder.create().show();
-
     }
 
     /**
      * 设置当前学期
      */
     private void showSetCurrentTermDialog() {
+        final List ayList = new ArrayList();
 
-        final List ayList = new ArrayList<>();
         List<AcademicYear> ays = DataSupport.findAll(AcademicYear.class);
         for (int i = 0; i < ays.size(); i++) {
             ayList.add(ays.get(i).getAcademicYear());
@@ -552,6 +561,7 @@ public class ScheduleFragment extends BaseFragment {
             }
         });
         builder.create().show();
+
     }
 
 

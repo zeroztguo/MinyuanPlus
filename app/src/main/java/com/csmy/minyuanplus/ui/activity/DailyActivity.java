@@ -8,6 +8,7 @@ import com.csmy.minyuanplus.model.afterclass.DailyContent;
 import com.csmy.minyuanplus.support.API;
 import com.csmy.minyuanplus.support.util.ToastUtil;
 import com.csmy.minyuanplus.support.util.Util;
+import com.csmy.minyuanplus.ui.fragment.afterclass.DailyFragment;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -15,7 +16,9 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import okhttp3.Call;
 
-
+/**
+ * 知乎日报内容页
+ */
 public class DailyActivity extends BaseAfterClassActivity {
     private String url;
     private DailyContent dailyContent;
@@ -24,7 +27,7 @@ public class DailyActivity extends BaseAfterClassActivity {
     @Override
     protected void handleIntent(Intent intent) {
         if (null != intent) {
-            String id = intent.getStringExtra("daily");
+            String id = intent.getStringExtra(DailyFragment.class.getSimpleName());
             url = API.ZHIHU_DAILY_CONTENT + id;
             loadData();
         }

@@ -23,7 +23,6 @@ import android.widget.CompoundButton;
 
 import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.event.Event;
-import com.csmy.minyuanplus.support.education.EduLogin;
 import com.csmy.minyuanplus.model.Setting;
 import com.csmy.minyuanplus.model.education.AcademicYear;
 import com.csmy.minyuanplus.model.education.Course;
@@ -31,6 +30,7 @@ import com.csmy.minyuanplus.model.education.PersonalInfo;
 import com.csmy.minyuanplus.support.DataCleanManager;
 import com.csmy.minyuanplus.support.SettingConfig;
 import com.csmy.minyuanplus.support.adapter.DividerItemDecoration;
+import com.csmy.minyuanplus.support.education.EduLogin;
 import com.csmy.minyuanplus.support.util.SnackbarUtil;
 import com.csmy.minyuanplus.support.util.ToastUtil;
 import com.csmy.minyuanplus.ui.BaseToolbarView;
@@ -51,6 +51,9 @@ import java.util.Locale;
 import butterknife.Bind;
 import butterknife.OnClick;
 
+/**
+ * 设置页面
+ */
 public class SettingActivity extends BaseActivity implements BaseToolbarView {
     @Bind(R.id.id_setting_preference_rv)
     RecyclerView mPrefRecyclerView;
@@ -60,6 +63,7 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
     Toolbar mToolbar;
     @Bind(R.id.id_setting_quit_account_tv)
     AppCompatTextView mQuitAccountTextView;
+
 
     MultiItemTypeAdapter<Setting> mBasicAdapter;
     ItemViewDelegate<Setting> mTextDelegate;
@@ -85,6 +89,7 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
         mBasicTitles = new String[]{getString(R.string.save_flow_mode), getString(R.string.clear_cache)};
         mBasicSubTitles = new String[]{getString(R.string.only_wifi), getString(R.string.clear_app_cache)};
         mLanguages = new String[]{getString(R.string.zh_simple), getString(R.string.zh_tw), getString(R.string.en)};
+
         if (EduLogin.isEducationLogined()) {
             mQuitAccountTextView.setVisibility(View.VISIBLE);
         } else {
@@ -283,7 +288,7 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
             public void onClick(DialogInterface dialog, int which) {
                 SettingConfig.setUserIconIndex(mUserIconIndex);
                 dialog.dismiss();
-                SnackbarUtil.showWithNoAction(mBasicRecyclerView, getString(R.string.head_setting_success));
+                SnackbarUtil.showSnackShort(mBasicRecyclerView, getString(R.string.head_setting_success));
                 Event.sendEmptyMessage(Event.UPDATE_USER_ICON);
             }
         });
@@ -380,7 +385,7 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
                 switch (position) {
                     case 1:
                         DataCleanManager.cleanAllCache(getBaseContext());
-                        SnackbarUtil.showWithNoAction(mBasicRecyclerView, getString(R.string.clear_cache_success));
+                        SnackbarUtil.showSnackShort(mBasicRecyclerView, getString(R.string.clear_cache_success));
                         mBasicAdapter.notifyItemChanged(1);
                         break;
                 }

@@ -1,6 +1,7 @@
 package com.csmy.minyuanplus.support.util;
 
 /**
+ * 网络类型
  * Created by Zero on 16/7/28.
  */
 public class NetworkType {

@@ -7,8 +7,9 @@ import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.model.collegenews.Job;
 import com.csmy.minyuanplus.model.collegenews.NewsBean;
 import com.csmy.minyuanplus.support.API;
+import com.csmy.minyuanplus.support.CollegeNewsHelper;
 import com.csmy.minyuanplus.support.util.ToastUtil;
-import com.csmy.minyuanplus.ui.activity.MyNewsActivity;
+import com.csmy.minyuanplus.ui.activity.CollegeNewsActivity;
 import com.csmy.minyuanplus.ui.fragment.SwipeRereshFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -39,8 +40,6 @@ public class JobFragment extends SwipeRereshFragment<Job> {
     }
 
 
-    private static final String SHARE_URL = "http://www.csmzxy.com/xb/jiuye.html?content,";
-
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -53,19 +52,19 @@ public class JobFragment extends SwipeRereshFragment<Job> {
         OkHttpUtils
                 .get()
                 .url(API.COLLEGE_NEWS)
-                .addParams("cmd", "7")
-                .addParams("v1", "32908")
-                .addParams("v2", "1")
-                .addParams("v3", "15")
-                .addParams("tempData", new Date().toString())
+                .addParams(CollegeNewsHelper.CMD, CollegeNewsHelper.CMD_VALUE)
+                .addParams(CollegeNewsHelper.V_ONE, CollegeNewsHelper.V_ONE_JOB_VALUE)
+                .addParams(CollegeNewsHelper.V_TWO, CollegeNewsHelper.V_TWO_VALUE)
+                .addParams(CollegeNewsHelper.V_THREE, CollegeNewsHelper.V_THREE_VALUE)
+                .addParams(CollegeNewsHelper.TEMP_DATE, new Date().toString())
                 .tag(this)
                 .build()
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e) {
-                        ToastUtil.showShort(getContext(),getString(R.string.minyuan_news_load_fail));
+                        ToastUtil.showShort(getContext(), getString(R.string.minyuan_news_load_fail));
                         OkHttpUtils.getInstance().cancelTag(this);
-                        setRefresh();
+                        setRefresh(false);
                     }
 
                     @Override
@@ -80,29 +79,29 @@ public class JobFragment extends SwipeRereshFragment<Job> {
 
                         addAllData(JobList);
                         Logger.d("一共有这么多条：" + JobList.size());
-                        setRefresh();
+                        setRefresh(false);
                         setLoadMore();
                         mPage = 1;
                     }
                 });
     }
 
-    private void loadMoreJobList(int page) {
+    private void loadMoreJobList(String page) {
         Logger.d("加载更多ing...");
         OkHttpUtils
                 .get()
                 .url(API.COLLEGE_NEWS)
-                .addParams("cmd", "7")
-                .addParams("v1", "32908")
-                .addParams("v2", page + "")
-                .addParams("v3", "15")
-                .addParams("tempData", new Date().toString())
+                .addParams(CollegeNewsHelper.CMD, CollegeNewsHelper.CMD_VALUE)
+                .addParams(CollegeNewsHelper.V_ONE, CollegeNewsHelper.V_ONE_HOT_LINE_VALUE)
+                .addParams(CollegeNewsHelper.V_TWO, page)
+                .addParams(CollegeNewsHelper.V_THREE, CollegeNewsHelper.V_THREE_VALUE)
+                .addParams(CollegeNewsHelper.TEMP_DATE, new Date().toString())
                 .tag(this)
                 .build()
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e) {
-                        ToastUtil.showShort(getContext(),getString(R.string.minyuan_news_load_fail));
+                        ToastUtil.showShort(getContext(), getString(R.string.minyuan_news_load_fail));
                         OkHttpUtils.getInstance().cancelTag(this);
                     }
 
@@ -152,21 +151,21 @@ public class JobFragment extends SwipeRereshFragment<Job> {
 
     @Override
     protected void setOnItemClick(Job job) {
-        Intent intent = new Intent(getHoldingActivity(), MyNewsActivity.class);
+        Intent intent = new Intent(getHoldingActivity(), CollegeNewsActivity.class);
         NewsBean newsBean = new NewsBean();
         newsBean.setContentTitle(job.getContentTitle())
                 .setContentAuthor(job.getContentAuthor())
                 .setContentID(job.getContentID())
                 .setSubmitTime(job.getSubmitTime())
-                .setShareUrl(SHARE_URL+job.getContentID());
+                .setShareUrl(CollegeNewsHelper.JOB_SHARE_URL + job.getContentID());
 
-        intent.putExtra("college_news", newsBean);
+        intent.putExtra(CollegeNewsHelper.COLLEGE_NEWS, newsBean);
         startActivity(intent);
     }
 
     @Override
     protected void refresh() {
-        setRefresh();
+        setRefresh(true);
         mPage = 1;
         obtainJobList();
     }
@@ -174,16 +173,7 @@ public class JobFragment extends SwipeRereshFragment<Job> {
     @Override
     protected void loadMore() {
         mPage++;
-        loadMoreJobList(mPage);
+        loadMoreJobList(mPage + "");
     }
 
-//    @Override
-//    protected void initView(View view, Bundle saveInstanceState) {
-//        init();
-//    }
-//
-//    @Override
-//    protected int getLayoutId() {
-//        return R.layout.fragment_job;
-//    }
 }

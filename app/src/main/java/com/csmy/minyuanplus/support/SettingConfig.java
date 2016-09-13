@@ -8,6 +8,7 @@ import com.csmy.minyuanplus.support.util.SPUtil;
 import org.litepal.crud.DataSupport;
 
 /**
+ * 设置配置
  * Created by Zero on 16/8/18.
  */
 public class SettingConfig {
@@ -31,7 +32,9 @@ public class SettingConfig {
     /**
      * 头像
      */
-    public static Integer[] userIconArray = new Integer[]{R.mipmap.baike, R.mipmap.konglianshun
+    public static Integer[] userIconArray = new Integer[]{
+            R.mipmap.logo_blue_tiny,R.mipmap.logo_red_tiny,
+            R.mipmap.baike, R.mipmap.konglianshun
             , R.mipmap.erkang, R.mipmap.rongmomo
             , R.mipmap.wangzaiboy, R.mipmap.wangzaigirl
     };

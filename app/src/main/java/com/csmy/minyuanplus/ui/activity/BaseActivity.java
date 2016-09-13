@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 
-import com.csmy.minyuanplus.dialog.WaitDialog;
+import com.csmy.minyuanplus.ui.dialog.WaitDialog;
 import com.csmy.minyuanplus.support.SettingConfig;
+import com.csmy.minyuanplus.ui.SwipeBackActivity;
 import com.csmy.minyuanplus.ui.fragment.BaseFragment;
 
 import butterknife.ButterKnife;
 
+/**
+ * Activity基类
+ */
 public abstract class BaseActivity extends SwipeBackActivity {
     private BaseFragment mCurrentFragment;
 
@@ -22,6 +26,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
 
     //等待框
     protected WaitDialog waitDialog;
+
 
 
     @Override

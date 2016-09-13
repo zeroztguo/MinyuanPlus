@@ -3,6 +3,7 @@ package com.csmy.minyuanplus.event;
 import org.greenrobot.eventbus.EventBus;
 
 /**
+ * EventBus 事件编号
  * Created by Zero on 16/5/28.
  */
 public class Event {

@@ -1,6 +1,7 @@
 package com.csmy.minyuanplus.model;
 
 /**
+ * 设置实体
  * Created by Zero on 16/8/17.
  */
 public class Setting {

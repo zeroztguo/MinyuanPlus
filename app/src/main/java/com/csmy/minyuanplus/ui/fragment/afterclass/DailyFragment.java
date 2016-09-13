@@ -31,6 +31,7 @@ import java.util.List;
 import okhttp3.Call;
 
 /**
+ * 知乎日报列表
  * Created by Zero on 16/7/23.
  */
 public class DailyFragment extends SwipeRereshFragment<Daily> {
@@ -65,7 +66,7 @@ public class DailyFragment extends SwipeRereshFragment<Daily> {
                     public void onError(Call call, Exception e) {
                         ToastUtil.showShort(getContext(), getString(R.string.zhihu_daily_load_fail));
                         OkHttpUtils.getInstance().cancelTag(this);
-                        setRefresh();
+                        setRefresh(false);
                     }
 
                     @Override
@@ -106,7 +107,7 @@ public class DailyFragment extends SwipeRereshFragment<Daily> {
                         Logger.d("日报有：" + dailyList.size());
 
                         addAllData(dailyList);
-                        setRefresh();
+                        setRefresh(false);
                         setLoadMore();
                     }
                 });
@@ -135,7 +136,7 @@ public class DailyFragment extends SwipeRereshFragment<Daily> {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e) {
-                        setRefresh();
+                        setRefresh(false);
                     }
 
                     @Override
@@ -210,13 +211,13 @@ public class DailyFragment extends SwipeRereshFragment<Daily> {
     @Override
     protected void setOnItemClick(Daily daily) {
         Intent intent = new Intent(getHoldingActivity(), DailyActivity.class);
-        intent.putExtra("daily", daily.getId_str());
+        intent.putExtra(DailyFragment.class.getSimpleName(), daily.getId_str());
         startActivity(intent);
     }
 
     @Override
     protected void refresh() {
-        setRefresh();
+        setRefresh(true);
         obtainDailyList();
     }
 
@@ -225,9 +226,9 @@ public class DailyFragment extends SwipeRereshFragment<Daily> {
         /*
         第一次加载更多不更改查询的时间，因为查询过往知乎日报会显示前一天的
          */
-        if(isFirstLoadMore){
+        if (isFirstLoadMore) {
             isFirstLoadMore = false;
-        }else{
+        } else {
             mCalendar.add(Calendar.DAY_OF_MONTH, -1);
         }
         obtainBeforeDailyList();

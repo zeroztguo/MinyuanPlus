@@ -7,6 +7,9 @@ import com.csmy.minyuanplus.model.afterclass.Weixin;
 import com.csmy.minyuanplus.ui.fragment.afterclass.WeixinFragment;
 import com.facebook.drawee.drawable.ScalingUtils;
 
+/**
+ * 微信内容页
+ */
 public class WeixinActivity extends BaseAfterClassActivity {
     private Weixin mWeixin;
 

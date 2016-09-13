@@ -1,6 +1,7 @@
 package com.csmy.minyuanplus.model.afterclass;
 
 /**
+ * 知乎日报内容实体
  * Created by Zero on 16/8/10.
  */
 public class DailyContent {

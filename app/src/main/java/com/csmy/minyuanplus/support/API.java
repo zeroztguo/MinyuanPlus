@@ -1,6 +1,7 @@
 package com.csmy.minyuanplus.support;
 
 /**
+ * 应用所用请求API或地址
  * Created by Zero on 16/8/27.
  */
 public class API {
@@ -36,5 +37,18 @@ public class API {
      * 微信精选
      */
     public static final String WEIXIN = "http://api.tianapi.com/wxnew/?key=adb4c5239aeaa27d3f36da533ecc7691&num=10&page=";
+    /**
+     * 民院ATM机信息
+     */
+    public static final String ATM = "https://coding.net/u/zeroztguo/p/CollegePlus/git/raw/master/atm.txt";
+    /**
+     * 民院快递信息
+     */
+    public static final String EXPRESS = "https://coding.net/u/zeroztguo/p/CollegePlus/git/raw/master/express.txt";
+    /**
+     * 通知
+     */
+    public static final String NOTIFICATION = "https://coding.net/u/zeroztguo/p/CollegePlus/git/raw/master/notification.txt";
+
 
 }

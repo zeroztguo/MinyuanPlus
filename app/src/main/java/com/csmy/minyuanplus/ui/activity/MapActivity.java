@@ -7,15 +7,17 @@ import android.view.MenuItem;
 import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.support.util.SnackbarUtil;
 import com.csmy.minyuanplus.ui.BaseToolbarView;
-import com.csmy.minyuanplus.ui.view.PinchImageView;
 
 import butterknife.Bind;
 
+/**
+ * 民院地图
+ */
 public class MapActivity extends BaseActivity implements BaseToolbarView {
     @Bind(R.id.id_base_tool_bar)
     Toolbar mToolbar;
     @Bind(R.id.id_map_piv)
-    PinchImageView mPinchImageView;
+    com.csmy.minyuanplus.ui.view.PinchImageView mPinchImageView;
 
     @Override
     protected int getContentViewId() {
@@ -30,7 +32,7 @@ public class MapActivity extends BaseActivity implements BaseToolbarView {
     @Override
     protected void initView(Bundle savedInstanceState) {
         initToolbar();
-        SnackbarUtil.showWithNoAction(mPinchImageView, getString(R.string.scale));
+        SnackbarUtil.showSnackShort(mToolbar, getString(R.string.scale));
     }
 
     @Override
@@ -48,10 +50,4 @@ public class MapActivity extends BaseActivity implements BaseToolbarView {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mPinchImageView.destroyDrawingCache();
-        mPinchImageView = null;
-    }
 }

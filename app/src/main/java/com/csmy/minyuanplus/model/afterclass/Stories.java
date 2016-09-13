@@ -56,14 +56,4 @@ public class Stories{
         this.title = title;
     }
 
-    @Override
-    public String toString() {
-        return "Daily{" +
-                "images='" + images + '\'' +
-                ", type='" + type + '\'' +
-                ", id='" + id + '\'' +
-                ", ga_prefix='" + ga_prefix + '\'' +
-                ", title='" + title + '\'' +
-                '}';
-    }
 }

@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 下载的服务，暂时弃用
  * Created by Zero on 16/8/21.
  */
 public class DownloadService extends IntentService {

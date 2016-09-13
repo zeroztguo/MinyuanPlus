@@ -8,10 +8,14 @@ import android.view.MenuItem;
 
 import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.support.adapter.GradePagerAdapter;
+import com.orhanobut.logger.Logger;
 
 import butterknife.Bind;
 import butterknife.BindColor;
 
+/**
+ * 成绩页面
+ */
 public class GradeActivity extends BaseActivity {
     @Bind(R.id.id_grade_toolbar)
     Toolbar mGradeToolbar;
@@ -41,16 +45,16 @@ public class GradeActivity extends BaseActivity {
     }
 
 
-
     @Override
     protected void initView(Bundle savedInstanceState) {
+
         initToolbar();
 
         mGradePagerAdapter = new GradePagerAdapter(getSupportFragmentManager(), this);
         mViewPager.setOffscreenPageLimit(GradePagerAdapter.COUNT);
         mViewPager.setAdapter(mGradePagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
-            mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
     }
 
 
@@ -63,6 +67,17 @@ public class GradeActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Logger.d("成绩页面的onStop()");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Logger.d("成绩页面的onDestroy()");
+    }
 
 
 }

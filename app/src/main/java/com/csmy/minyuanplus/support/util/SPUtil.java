@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 /**
+ * SharedPreference工具类
  * Created by Zero on 16/5/28.
  */
 public class SPUtil extends Util{

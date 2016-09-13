@@ -3,6 +3,7 @@ package com.csmy.minyuanplus.support;
 import com.csmy.minyuanplus.support.util.SPUtil;
 
 /**
+ * 通知的帮助类
  * Created by Zero on 16/8/26.
  */
 public class Notification {

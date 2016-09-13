@@ -9,15 +9,13 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 /**
- * 登录教务系统的工具类
+ * 登录教务系统的帮助类
  * Created by Zero on 16/5/28.
  */
 public class EduLogin extends Util {
     public static final String IS_EDUCATION_LOGIN = "isEducationLogin";
 
     public static final String PERSONAL_INFO = "personalInfo";
-
-    private static final String TAG = "LoginUtil";
 
 
     /**

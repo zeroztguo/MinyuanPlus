@@ -6,9 +6,9 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.csmy.minyuanplus.R;
-import com.csmy.minyuanplus.ui.fragment.BaseFragment;
 import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.support.adapter.NewsPagerAdapter;
+import com.csmy.minyuanplus.ui.fragment.BaseFragment;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -46,4 +46,5 @@ public class NewsFragment extends BaseFragment{
     public void onUserEvent(EventModel eventModel){
 
     }
+
 }

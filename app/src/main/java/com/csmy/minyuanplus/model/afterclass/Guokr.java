@@ -3,6 +3,7 @@ package com.csmy.minyuanplus.model.afterclass;
 import java.util.ArrayList;
 
 /**
+ * Gson解析果壳热门的实体
  * Created by Zero on 16/8/14.
  */
 public class Guokr {

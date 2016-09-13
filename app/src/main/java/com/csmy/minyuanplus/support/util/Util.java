@@ -7,15 +7,9 @@ import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.csmy.minyuanplus.application.App;
-
 import org.litepal.LitePalApplication;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,14 +17,18 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
+ * 民院+工具类
  * Created by Zero on 16/6/24.
  */
 public class Util {
 
     protected static Context context = LitePalApplication.getContext();
     private static int dayOfMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+//    //是否第一次进入app的常量
+//    private static final String IS_FIRST_ENTER_APP = "isFirstEnterApp";
+    //当前版本号
+    private static final String CURRENT_VERSION_CODE = "current_version_code";
 
-    protected static App mApp = (App) context;
 
     /**
      * @return 格式化后的日期
@@ -50,6 +48,38 @@ public class Util {
         fDay += day;
 
         return fDay;
+    }
+
+//    /**
+//     * 设置是否第一次进入应用
+//     *
+//     * @param isFirstEnterApp
+//     */
+//    public static void setFirstEnterApp(boolean isFirstEnterApp) {
+//        SPUtil.put(IS_FIRST_ENTER_APP, IS_FIRST_ENTER_APP);
+//    }
+//
+//    /**
+//     * @return 是否第一次进入应用
+//     */
+//    public static boolean getFirstEnterApp() {
+//        return (boolean) SPUtil.get(IS_FIRST_ENTER_APP, true);
+//    }
+
+    /**
+     * 设置当前版本号
+     * @param versionCode
+     */
+    public static void setCurrentVersionCode(int versionCode) {
+        SPUtil.put(CURRENT_VERSION_CODE, versionCode);
+    }
+
+    /**
+     *
+     * @return 当前版本号
+     */
+    public static int getCurrentVersionCode() {
+        return (int) SPUtil.get(CURRENT_VERSION_CODE, 0);
     }
 
     /**
@@ -101,30 +131,7 @@ public class Util {
         return isLeapYear;
     }
 
-    /**
-     * 保存信息到本地
-     */
-    public static void write(String path, String info) {
-        File file = new File(path);
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(file);
-            byte[] bytes = info.getBytes();
-            fos.write(bytes);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (fos != null)
-                    fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
 
-    }
 
     /**
      * 获取网络类型
@@ -133,7 +140,7 @@ public class Util {
      */
     public static int getNetWorkType() {
         int networkType = NetworkType.NETWORKTYPE_INVAILD;
-        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
             String type = networkInfo.getTypeName();
@@ -181,7 +188,8 @@ public class Util {
     public static String getVersionName() {
         String versionName = "";
         try {
-            versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+            versionName = context.getPackageManager().getPackageInfo(context.getPackageName()
+                    , PackageManager.GET_CONFIGURATIONS).versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -196,7 +204,9 @@ public class Util {
      */
     public static byte[] Bitmap2Bytes(Bitmap bm) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        if (bm != null) {
+            bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        }
         return baos.toByteArray();
     }
 
@@ -207,7 +217,7 @@ public class Util {
      * @return
      */
     public static Bitmap Bytes2Bitmap(byte[] b) {
-        if (b.length != 0) {
+        if (b != null && b.length >0) {
             return BitmapFactory.decodeByteArray(b, 0, b.length);
         } else {
             return null;
@@ -301,7 +311,7 @@ public class Util {
     /**
      * @return 当天的日期，格式如：2016-9-5
      */
-    public static String getCurrentDate(){
+    public static String getCurrentDate() {
         Calendar cal = Calendar.getInstance();
         return cal.get(Calendar.YEAR) + "-"
                 + cal.get(Calendar.MONTH) + "-"

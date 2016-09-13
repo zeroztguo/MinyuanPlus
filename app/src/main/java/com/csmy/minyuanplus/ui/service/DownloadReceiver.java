@@ -16,6 +16,7 @@ import org.litepal.LitePalApplication;
 import java.util.Map;
 
 /**
+ * 下载的广播接收者，暂时弃用
  * Created by Zero on 16/8/25.
  */
 public class DownloadReceiver extends BroadcastReceiver {

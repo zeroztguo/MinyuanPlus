@@ -20,33 +20,46 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 
+
 /**
+ * 实现LitePal的Application
  * Created by Zero on 16/5/25.
  */
-public class App extends LitePalApplication{
-    public static final String TAG = "CollegePlus";
+public class App extends LitePalApplication {
+    public static final String TAG = "MyPlus";
 
     @Override
     public void onCreate() {
         super.onCreate();
         LitePalApplication.initialize(this);
-        /**
+
+        /*
          * 初始化OkHttp
          */
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(10000L, TimeUnit.MILLISECONDS)
-                .readTimeout(10000L,TimeUnit.MILLISECONDS)
+                .readTimeout(10000L, TimeUnit.MILLISECONDS)
                 .followRedirects(false)
                 .build();
         OkHttpUtils.initClient(okHttpClient);
 
+
+        /*
+         * 初始化RxVolley缓存位置
+         */
         RxVolley.setRequestQueue(RequestQueue.newRequestQueue(getCacheDir()));
+
+        /*
+        初始化控制台打印框架Logger
+         */
         Logger.init(TAG);
 
+        /*
+        初始化图片加载框架Fresco
+         */
         Fresco.initialize(this);
 
         initLanguage();
-
     }
 
     /**
@@ -75,9 +88,6 @@ public class App extends LitePalApplication{
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
-
-
-
 
 
 }
