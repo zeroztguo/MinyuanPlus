@@ -1,14 +1,20 @@
 package com.csmy.minyuanplus.ui.activity;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 
-import com.csmy.minyuanplus.ui.dialog.WaitDialog;
+import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.support.SettingConfig;
 import com.csmy.minyuanplus.ui.SwipeBackActivity;
+import com.csmy.minyuanplus.ui.dialog.WaitDialog;
 import com.csmy.minyuanplus.ui.fragment.BaseFragment;
+
+import java.util.Locale;
 
 import butterknife.ButterKnife;
 
@@ -28,14 +34,42 @@ public abstract class BaseActivity extends SwipeBackActivity {
     protected WaitDialog waitDialog;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(SettingConfig.themeArray[SettingConfig.getThemeIndex()]);
+        /*
+        设置主题
+         */
+        if (SettingConfig.isNightMode()) {
+            setTheme(R.style.AppTheme_Night);
+        } else {
+            setTheme(SettingConfig.themeArray[SettingConfig.getThemeIndex()]);
+        }
+        initLanguage();
         setContentView(getContentViewId());
         ButterKnife.bind(this);
         initView(savedInstanceState);
+    }
+
+
+    /**
+     * 初始化语言
+     */
+    private void initLanguage() {
+        Resources resources = getResources();
+        Configuration config = resources.getConfiguration();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        String language = SettingConfig.getLanguage();
+        if (language.equals(SettingConfig.ZH_SIMPLE)) {
+            config.locale = Locale.SIMPLIFIED_CHINESE;
+        } else if (language.equals(SettingConfig.ZH_TW)) {
+            config.locale = Locale.TRADITIONAL_CHINESE;
+        } else if (language.equals(SettingConfig.EN)) {
+            config.locale = Locale.ENGLISH;
+        } else {
+            config.locale = Locale.getDefault();
+        }
+        resources.updateConfiguration(config, dm);
     }
 
 

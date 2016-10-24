@@ -23,25 +23,48 @@
         <item>@color/yuebai</item>
     </array>
 
-    <array name="material_design_color">
-        <item>@color/red</item>
-        <item>@color/pink</item>
-        <item>@color/purple</item>
-        <item>@color/deep_purple</item>
-        <item>@color/indigo</item>
-        <item>@color/blue</item>
-        <item>@color/light_blue</item>
-        <item>@color/cyan</item>
-        <item>@color/teal</item>
-        <item>@color/green</item>
-        <item>@color/light_green</item>
-        <item>@color/lime</item>
-        <!--<item>@color/yellow</item>-->
-        <item>@color/amber</item>
-        <item>@color/orange</item>
-        <item>@color/deep_orange</item>
-        <item>@color/brown</item>
-        <item>@color/blue_grey</item>
+
+    <array name="google_material_design_color_500">
+        <item>@color/material_red_500</item>
+        <item>@color/material_pink_500</item>
+        <item>@color/material_purple_500</item>
+        <item>@color/material_deepPurple_500</item>
+        <item>@color/material_indigo_500</item>
+        <item>@color/material_blue_500</item>
+        <item>@color/material_lightBlue_500</item>
+        <item>@color/material_cyan_500</item>
+        <item>@color/material_teal_500</item>
+        <item>@color/material_green_500</item>
+        <item>@color/material_lightGreen_500</item>
+        <item>@color/material_yellow_600</item>
+        <item>@color/material_amber_500</item>
+        <item>@color/material_orange_500</item>
+        <item>@color/material_deepOrange_500</item>
+        <item>@color/material_brown_500</item>
+        <item>@color/material_grey_500</item>
+        <item>@color/material_blueGrey_500</item>
+    </array>
+
+
+    <array name="google_material_design_color_700">
+        <item>@color/material_red_700</item>
+        <item>@color/material_pink_700</item>
+        <item>@color/material_purple_700</item>
+        <item>@color/material_deepPurple_700</item>
+        <item>@color/material_indigo_700</item>
+        <item>@color/material_blue_700</item>
+        <item>@color/material_lightBlue_700</item>
+        <item>@color/material_cyan_700</item>
+        <item>@color/material_teal_700</item>
+        <item>@color/material_green_700</item>
+        <item>@color/material_lightGreen_700</item>
+        <item>@color/material_yellow_700</item>
+        <item>@color/material_amber_700</item>
+        <item>@color/material_orange_700</item>
+        <item>@color/material_deepOrange_700</item>
+        <item>@color/material_brown_700</item>
+        <item>@color/material_grey_700</item>
+        <item>@color/material_blueGrey_700</item>
     </array>
 
     <string-array name="week">

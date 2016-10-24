@@ -26,7 +26,7 @@ public class CourseLayout extends ViewGroup {
     private int width;
     private int height;
 
-    private int[] mColorArray = getResources().getIntArray(R.array.material_design_color);
+    private int[] mColorArray = getResources().getIntArray(R.array.google_material_design_color_500);
     private List<Integer> mColors;
     private List<CourseView> mCourseViewList;
 
@@ -70,7 +70,6 @@ public class CourseLayout extends ViewGroup {
             height = MeasureSpec.getSize(heightMeasureSpec);
         }
         setMeasuredDimension(width, height);
-        Logger.d("measure width:" + width + "  measure height:" + height);
     }
 
     @Override
@@ -199,7 +198,6 @@ public class CourseLayout extends ViewGroup {
 
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(mContext);
         builder.setTitle(getContext().getString(R.string.course_info));
-//        暂时取消民院地图功能，导致app卡顿
         builder.setNeutralButton(mContext.getString(R.string.map), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorPrimaryBg"
+    android:orientation="vertical">
+
+
+    <com.jaredrummler.materialspinner.MaterialSpinner
+        android:id="@+id/id_grade_gpa_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:ms_background_color="?attr/colorPrimary"
+        app:ms_text_color="?attr/textOrIcon" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/id_query_grade_gpa_btn"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/query_term_gpa" />
+
+    <com.loopeer.cardstack.CardStackView
+        android:id="@+id/id_grade_gpa_csv"
+        android:paddingLeft="40px"
+        android:paddingRight="40px"
+        android:paddingTop="40px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" /><!--</LinearLayout>-->
+
+    <!--<com.zhy.autolayout.AutoLinearLayout--><!--android:id="@+id/id_grade_gpa_ll"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_centerInParent="true"--><!--android:gravity="center"--><!--android:orientation="vertical"--><!--android:visibility="gone">-->
+
+    <!--<android.support.v7.widget.AppCompatTextView--><!--android:id="@+id/id_grade_gpa_prompt_tv"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_above="@+id/id_grade_gpa_tv"--><!--android:textColor="?attr/textSecond"--><!--android:textSize="66px" />-->
+
+    <!--<android.support.v7.widget.AppCompatTextView--><!--android:id="@+id/id_grade_gpa_tv"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:text="@string/gpa"--><!--android:textColor="?attr/colorPrimary"--><!--android:textSize="111px" />--><!--</com.zhy.autolayout.AutoLinearLayout>-->
+
+</LinearLayout>

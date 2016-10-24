@@ -7,7 +7,6 @@ import org.litepal.crud.DataSupport;
  * Created by Zero on 16/5/31.
  */
 public class Course extends DataSupport {
-
     private int id;
     //课程名
     private String courseName;
@@ -135,4 +134,6 @@ public class Course extends DataSupport {
                 ", term='" + term + '\'' +
                 '}';
     }
+
 }
+

@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatImageView;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -46,7 +47,7 @@ public class SplashActivity extends BaseActivity implements ViewPager.OnPageChan
     private int[] mImgIdArray;
 
 
-    private static final int COUNT = 6;
+    private static final int COUNT = 7;
 
     private int mCurrentItem = 0;
 
@@ -63,18 +64,18 @@ public class SplashActivity extends BaseActivity implements ViewPager.OnPageChan
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        setSwipeEnabled(false);
+
         /*
         本地保存的版本号小于当前应用版本号则跳转到主页面
          */
         if (Util.getCurrentVersionCode() < Util.getVersionCode()) {
             Util.setCurrentVersionCode(Util.getVersionCode());
-        }else{
+        } else {
             forward2Main();
         }
 
-//        setSwipeBackEnable(false);
-
-        mImgIdArray = new int[]{R.mipmap.splash_01, R.mipmap.splash_02
+        mImgIdArray = new int[]{R.mipmap.splash_01, R.mipmap.splash_02, R.mipmap.splash_07
                 , R.mipmap.splash_03, R.mipmap.splash_04
                 , R.mipmap.splash_05, R.mipmap.splash_06};
 
@@ -87,8 +88,10 @@ public class SplashActivity extends BaseActivity implements ViewPager.OnPageChan
             mTips[i] = imageView;
             mTips[i].setBackgroundResource(
                     i == 0 ? R.mipmap.tip_select : R.mipmap.tip_unselect);
+
+            int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    new ViewGroup.LayoutParams(40, 40));
+                    new ViewGroup.LayoutParams(width, width));
             layoutParams.leftMargin = 5;
             layoutParams.rightMargin = 5;
             mTipsLayout.addView(imageView, layoutParams);

@@ -24,8 +24,7 @@ public class Util {
 
     protected static Context context = LitePalApplication.getContext();
     private static int dayOfMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-//    //是否第一次进入app的常量
-//    private static final String IS_FIRST_ENTER_APP = "isFirstEnterApp";
+    //    //是否第一次进入app的常量
     //当前版本号
     private static final String CURRENT_VERSION_CODE = "current_version_code";
 
@@ -68,6 +67,7 @@ public class Util {
 
     /**
      * 设置当前版本号
+     *
      * @param versionCode
      */
     public static void setCurrentVersionCode(int versionCode) {
@@ -75,7 +75,6 @@ public class Util {
     }
 
     /**
-     *
      * @return 当前版本号
      */
     public static int getCurrentVersionCode() {
@@ -130,7 +129,6 @@ public class Util {
         }
         return isLeapYear;
     }
-
 
 
     /**
@@ -217,7 +215,7 @@ public class Util {
      * @return
      */
     public static Bitmap Bytes2Bitmap(byte[] b) {
-        if (b != null && b.length >0) {
+        if (b != null && b.length > 0) {
             return BitmapFactory.decodeByteArray(b, 0, b.length);
         } else {
             return null;
@@ -248,50 +246,11 @@ public class Util {
             return 8;
         } else if (s.equals("九")) {
             return 9;
+        } else if (s.equals("日")) {
+            return 7;
         }
         return 1;
     }
-
-
-    // MD5加密，32位
-    public static String MD5(String str) {
-        MessageDigest md5 = null;
-        try {
-            md5 = MessageDigest.getInstance("MD5");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "";
-        }
-
-        char[] charArray = str.toCharArray();
-        byte[] byteArray = new byte[charArray.length];
-
-        for (int i = 0; i < charArray.length; i++) {
-            byteArray[i] = (byte) charArray[i];
-        }
-        byte[] md5Bytes = md5.digest(byteArray);
-
-        StringBuffer hexValue = new StringBuffer();
-        for (int i = 0; i < md5Bytes.length; i++) {
-            int val = ((int) md5Bytes[i]) & 0xff;
-            if (val < 16) {
-                hexValue.append("0");
-            }
-            hexValue.append(Integer.toHexString(val));
-        }
-        return hexValue.toString();
-    }
-
-    // 可逆的加密算法
-    public static String encryptmd5(String str) {
-        char[] a = str.toCharArray();
-        for (int i = 0; i < a.length; i++) {
-            a[i] = (char) (a[i] ^ 'l');
-        }
-        String s = new String(a);
-        return s;
-    }
-
 
     /**
      * 格式化从Calendar中获取的星期数

@@ -26,32 +26,24 @@ public class GradeAdapter extends StackAdapter<Map<String, String>> {
     public static final String KEY_CONTENT = "content";
 
     public int[] colorArray = new int[]{
-            R.color.color_1,
-            R.color.color_2,
-            R.color.color_3,
-            R.color.color_4,
-            R.color.color_5,
-            R.color.color_6,
-            R.color.color_7,
-            R.color.color_8,
-            R.color.color_9,
-            R.color.color_10,
-            R.color.color_11,
-            R.color.color_12,
-            R.color.color_13,
-            R.color.color_14,
-            R.color.color_15,
-            R.color.color_16,
-            R.color.color_17,
-            R.color.color_18,
-            R.color.color_19,
-            R.color.color_20,
-            R.color.color_21,
-            R.color.color_22,
-            R.color.color_23,
-            R.color.color_24,
-            R.color.color_25,
-            R.color.color_26
+            R.color.material_red_500,
+            R.color.material_pink_500,
+            R.color.material_purple_500,
+            R.color.material_deepPurple_500,
+            R.color.material_indigo_500,
+            R.color.material_blue_500,
+            R.color.material_lightBlue_500,
+            R.color.material_cyan_500,
+            R.color.material_teal_500,
+            R.color.material_green_500,
+            R.color.material_lightGreen_500,
+            R.color.material_yellow_600,
+            R.color.material_amber_500,
+            R.color.material_orange_500,
+            R.color.material_deepOrange_500,
+            R.color.material_brown_500,
+            R.color.material_grey_500,
+            R.color.material_blueGrey_500
     };
 
     private List<Integer> mColors;
@@ -59,14 +51,13 @@ public class GradeAdapter extends StackAdapter<Map<String, String>> {
 
     public GradeAdapter(Context context) {
         super(context);
-//        int[] array = context.getResources().getIntArray(R.array.chinese_style_color);
+
         mColors = new ArrayList<>();
         for (int i = 0; i < colorArray.length; i++) {
             mColors.add(colorArray[i]);
         }
         //打乱顺序
         Collections.shuffle(mColors);
-        colorArray = null;
     }
 
     @Override
@@ -89,7 +80,7 @@ public class GradeAdapter extends StackAdapter<Map<String, String>> {
         return R.layout.list_card_item;
     }
 
-     class ColorItemViewHolder extends CardStackView.ViewHolder {
+    class ColorItemViewHolder extends CardStackView.ViewHolder {
         View mLayout;
         View mContainerContent;
         TextView mTextTitle;

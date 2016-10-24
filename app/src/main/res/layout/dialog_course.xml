@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/id_dialog_course"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -20,8 +21,8 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:gravity="center"
-            android:text="名称"
-            android:textColor="?attr/textPrimary"
+            android:text="@string/course_name"
+            android:textColor="?attr/textSecond"
             android:textSize="@dimen/dialog_text_size_plus"/>
 
         <android.support.v7.widget.AppCompatTextView
@@ -31,7 +32,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="@dimen/dialog_text_size"
-
             />
     </LinearLayout>
 
@@ -51,9 +51,9 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:gravity="center"
-            android:text="教室"
-            android:textColor="?attr/textPrimary"
-            android:textSize="@dimen/dialog_text_size_plus" />
+            android:text="@string/classroom"
+            android:textColor="?attr/textSecond"
+            android:textSize="@dimen/dialog_text_size_plus"/>
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/id_dialog_course_classroom"
@@ -62,7 +62,6 @@
             android:layout_weight="1"
             android:textColor="?attr/textSecond"
             android:gravity="left|center_vertical"
-
             android:textSize="@dimen/dialog_text_size" />
     </LinearLayout>
 
@@ -73,7 +72,6 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="5dp"
-
         >
 
 
@@ -83,8 +81,8 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:gravity="center"
-            android:text="老师"
-            android:textColor="?attr/textPrimary"
+            android:text="@string/teacher"
+            android:textColor="?attr/textSecond"
             android:textSize="@dimen/dialog_text_size_plus" />
 
         <android.support.v7.widget.AppCompatTextView
@@ -119,9 +117,9 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:gravity="center"
-            android:text="节数"
-            android:textColor="?attr/textPrimary"
-            android:textSize="@dimen/dialog_text_size_plus"/>
+            android:text="@string/class_num"
+            android:textColor="?attr/textSecond"
+            android:textSize="@dimen/dialog_text_size_plus" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/id_dialog_course_class_num"

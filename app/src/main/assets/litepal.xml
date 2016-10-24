@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
-    <dbname value="college_plus"/>
+    <dbname value="college_plus" />
 
-    <version value="22"/>
+    <version value="1" />
 
     <list>
-        <mapping class="com.csmy.minyuanplus.model.education.Course"/>
-        <mapping class="com.csmy.minyuanplus.model.education.PersonalInfo"/>
-        <mapping class="com.csmy.minyuanplus.model.education.AcademicYear"/>
-        <mapping class="com.csmy.minyuanplus.model.collegenews.CollegeNews"/>
-        <mapping class="com.csmy.minyuanplus.model.collegenews.CollegeDynamic"/>
-        <mapping class="com.csmy.minyuanplus.model.collegenews.HotLine"/>
-        <mapping class="com.csmy.minyuanplus.model.collegenews.CollegeBooth"/>
-        <mapping class="com.csmy.minyuanplus.model.collegenews.Job"/>
-        <mapping class="com.csmy.minyuanplus.model.collegenews.CollegeCulture"/>
-        <mapping class="com.csmy.minyuanplus.model.afterclass.Daily"/>
-        <mapping class="com.csmy.minyuanplus.model.afterclass.GuokrHeader"/>
-        <mapping class="com.csmy.minyuanplus.model.afterclass.Weixin"/>
-        <mapping class="com.csmy.minyuanplus.model.NotifyContent"/>
-        <mapping class="com.csmy.minyuanplus.model.college.ATM"/>
-        <mapping class="com.csmy.minyuanplus.model.college.Express"/>
-
+        <mapping class="com.csmy.minyuanplus.model.education.Course" />
+        <mapping class="com.csmy.minyuanplus.model.education.PersonalInfo" />
+        <mapping class="com.csmy.minyuanplus.model.education.AcademicYear" />
+        <mapping class="com.csmy.minyuanplus.model.collegenews.CollegeNews" />
+        <mapping class="com.csmy.minyuanplus.model.collegenews.CollegeDynamic" />
+        <mapping class="com.csmy.minyuanplus.model.collegenews.HotLine" />
+        <mapping class="com.csmy.minyuanplus.model.collegenews.CollegeBooth" />
+        <mapping class="com.csmy.minyuanplus.model.collegenews.Job" />
+        <mapping class="com.csmy.minyuanplus.model.collegenews.CollegeCulture" />
+        <mapping class="com.csmy.minyuanplus.model.afterclass.Daily" />
+        <mapping class="com.csmy.minyuanplus.model.afterclass.GuokrHeader" />
+        <mapping class="com.csmy.minyuanplus.model.afterclass.Weixin" />
+        <mapping class="com.csmy.minyuanplus.model.NotifyContent" />
+        <mapping class="com.csmy.minyuanplus.model.college.ATM" />
+        <mapping class="com.csmy.minyuanplus.model.college.Express" />
     </list>
 
 </litepal>
+
+
+

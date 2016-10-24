@@ -15,3 +15,6 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-libraryjars libs/BmobStat_v1.0_0929.jar
+		-keep class cn.bmob.statistics.AppStat { *; }

@@ -9,21 +9,20 @@ import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.ui.fragment.college.ATMFragment;
 import com.csmy.minyuanplus.ui.fragment.college.ExpressFragment;
 
-import org.litepal.LitePalApplication;
-
 /**
  * 民院页面适配器
  * Created by Zero on 16/7/15.
  */
 public class CollegePagerAdapter extends FragmentStatePagerAdapter {
     public static final int COUNT = 2;
-    private Context context = LitePalApplication.getContext();
     private ATMFragment mATMFragment;
     private ExpressFragment mExpressFragment;
+    private Context mContext;
 
 
-    public CollegePagerAdapter(FragmentManager fm) {
+    public CollegePagerAdapter(Context context,FragmentManager fm) {
         super(fm);
+        this.mContext = context;
     }
 
     @Override
@@ -53,9 +52,9 @@ public class CollegePagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return context.getString(R.string.atm);
+                return mContext.getString(R.string.atm);
             case 1:
-                return context.getString(R.string.express);
+                return mContext.getString(R.string.express);
         }
         return "";
     }

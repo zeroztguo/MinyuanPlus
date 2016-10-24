@@ -14,6 +14,8 @@ import org.litepal.crud.DataSupport;
 public class SettingConfig {
     //是否省流量
     private static final String IS_SAVE_FLOW = "is_save_flow";
+    //是否夜间模式
+    private static final String IS_NIGHT_MODE = "is_night_mode";
     //头像下标
     private static final String USER_ICON_INDEX = "user_icon_index";
     //主题下标
@@ -33,10 +35,12 @@ public class SettingConfig {
      * 头像
      */
     public static Integer[] userIconArray = new Integer[]{
-            R.mipmap.logo_blue_tiny,R.mipmap.logo_red_tiny,
-            R.mipmap.baike, R.mipmap.konglianshun
-            , R.mipmap.erkang, R.mipmap.rongmomo
-            , R.mipmap.wangzaiboy, R.mipmap.wangzaigirl
+            R.mipmap.logo_blue, R.mipmap.logo_red,
+            R.mipmap.baike, R.mipmap.konglianshun,
+            R.mipmap.gaoguai_boy, R.mipmap.gaoguai_girl,
+            R.mipmap.shashou_boy, R.mipmap.shashou_girl,
+            R.mipmap.erkang, R.mipmap.rongmomo,
+            R.mipmap.wangzaiboy, R.mipmap.wangzaigirl
     };
 
     /**
@@ -67,6 +71,20 @@ public class SettingConfig {
 
     public static Integer[] getUserIconArray() {
         return userIconArray;
+    }
+
+    /**
+     * @return 是否夜间模式
+     */
+    public static boolean isNightMode() {
+        return (boolean) SPUtil.get(IS_NIGHT_MODE, false);
+    }
+
+    /**
+     * 设置是否夜间模式
+     */
+    public static void setNightMode(boolean nightMode) {
+        SPUtil.put(IS_NIGHT_MODE, nightMode);
     }
 
     /**

@@ -32,7 +32,7 @@ public class CollegeFragment extends BaseFragment {
 
     @Override
     protected void initView(View view, Bundle saveInstanceState) {
-        mCollegeagerAdapter = new CollegePagerAdapter(getChildFragmentManager());
+        mCollegeagerAdapter = new CollegePagerAdapter(getContext(),getChildFragmentManager());
         mViewPager.setAdapter(mCollegeagerAdapter);
         mViewPager.setOffscreenPageLimit(CollegePagerAdapter.COUNT);
         mTabLayout.setupWithViewPager(mViewPager);

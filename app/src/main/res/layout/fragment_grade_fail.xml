@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="?attr/colorPrimaryBg"
     android:layout_height="match_parent"
+    android:background="?attr/colorPrimaryBg"
     android:orientation="vertical">
 
 
@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/card_elevation"
         android:text="@string/query_grade_fail" />
+
     <com.loopeer.cardstack.CardStackView
         android:id="@+id/id_grade_fail_csv"
         android:layout_width="match_parent"

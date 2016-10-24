@@ -14,6 +14,7 @@ import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.model.college.Express;
 import com.csmy.minyuanplus.model.college.ExpressList;
 import com.csmy.minyuanplus.support.API;
+import com.csmy.minyuanplus.support.SettingConfig;
 import com.csmy.minyuanplus.support.util.ToastUtil;
 import com.csmy.minyuanplus.support.util.Util;
 import com.csmy.minyuanplus.ui.fragment.BaseFragment;
@@ -63,7 +64,7 @@ public class ExpressFragment extends BaseFragment implements SwipeRefreshLayout.
     @Override
     protected void initView(final View view, Bundle saveInstanceState) {
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent, R.color.colorRed);
+        mSwipeRefreshLayout.setColorSchemeResources(SettingConfig.themeColorArray[SettingConfig.getThemeIndex()]);
 
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
@@ -95,12 +96,12 @@ public class ExpressFragment extends BaseFragment implements SwipeRefreshLayout.
 //                    /*
 //                    根据ID将Express查出来是因为图片是异步加载的
 //                     */
-                    Express Express = DataSupport.find(Express.class, idList.get(position));
-                    Logger.d("更新时的id：" + Express.getId());
-                    if (Express != null && Express.isHaveImg()) {
+                    Express express = DataSupport.find(Express.class, idList.get(position));
+                    Logger.d("更新时的id：" + express.getId());
+                    if (express != null && express.isHaveImg()) {
                         SimpleDraweeView draweeView = viewHolder.getView(R.id.id_express_pic_sdv);
                         draweeView.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.FIT_CENTER);
-                        draweeView.setImageBitmap(Util.Bytes2Bitmap(Express.getImg()));
+                        draweeView.setImageBitmap(Util.Bytes2Bitmap(express.getImg()));
                         Logger.d("从本地加载Express图片~~~~~~~~~" + position);
                     }
                 } else {

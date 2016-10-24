@@ -14,6 +14,7 @@ import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.model.college.ATM;
 import com.csmy.minyuanplus.model.college.ATMs;
 import com.csmy.minyuanplus.support.API;
+import com.csmy.minyuanplus.support.SettingConfig;
 import com.csmy.minyuanplus.support.util.ToastUtil;
 import com.csmy.minyuanplus.support.util.Util;
 import com.csmy.minyuanplus.ui.fragment.BaseFragment;
@@ -64,8 +65,7 @@ public class ATMFragment extends BaseFragment implements SwipeRefreshLayout.OnRe
     @Override
     protected void initView(final View view, Bundle saveInstanceState) {
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent, R.color.colorRed);
-
+        mSwipeRefreshLayout.setColorSchemeResources(SettingConfig.themeColorArray[SettingConfig.getThemeIndex()]);
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
@@ -240,9 +240,4 @@ public class ATMFragment extends BaseFragment implements SwipeRefreshLayout.OnRe
         mSwipeRefreshLayout.setRefreshing(isRefresh);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        DataSupport.deleteAll(ATM.class);
-    }
 }

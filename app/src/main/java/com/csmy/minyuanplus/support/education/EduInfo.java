@@ -2,7 +2,6 @@ package com.csmy.minyuanplus.support.education;
 
 import com.csmy.minyuanplus.model.education.PersonalInfo;
 import com.csmy.minyuanplus.support.util.SPUtil;
-import com.csmy.minyuanplus.support.util.Util;
 import com.orhanobut.logger.Logger;
 
 import org.litepal.crud.DataSupport;
@@ -98,19 +97,19 @@ public class EduInfo {
     }
 
     public static void saveEducationUserName(String username) {
-        SPUtil.put(EDUCATION_USER_NAME, Util.encryptmd5(username));
+        SPUtil.put(EDUCATION_USER_NAME, username);
     }
 
     public static String getEducationUserName() {
-        return Util.encryptmd5((String) SPUtil.get(EDUCATION_USER_NAME, ""));
+        return (String) SPUtil.get(EDUCATION_USER_NAME, "");
     }
 
     public static void saveEducationPassword(String password) {
-        SPUtil.put(EDUCATION_PASSWORD, Util.encryptmd5(password));
+        SPUtil.put(EDUCATION_PASSWORD, password);
     }
 
     public static String getEducationPassword() {
-        return Util.encryptmd5((String) SPUtil.get(EDUCATION_PASSWORD, ""));
+        return (String) SPUtil.get(EDUCATION_PASSWORD, "");
     }
 
     /**

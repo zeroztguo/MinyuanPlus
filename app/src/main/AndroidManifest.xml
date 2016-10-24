@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -39,11 +40,9 @@
 
         <activity
             android:name=".ui.activity.DailyActivity"
-            android:label="@string/title_activity_after_class_news"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.activity.CollegeNewsActivity"
-            android:label="@string/title_activity_news"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.activity.GradeActivity"

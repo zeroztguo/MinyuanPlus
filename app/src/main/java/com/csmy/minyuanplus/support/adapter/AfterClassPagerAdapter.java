@@ -10,21 +10,20 @@ import com.csmy.minyuanplus.ui.fragment.afterclass.DailyFragment;
 import com.csmy.minyuanplus.ui.fragment.afterclass.GuokrFragment;
 import com.csmy.minyuanplus.ui.fragment.afterclass.WeixinFragment;
 
-import org.litepal.LitePalApplication;
-
 /**
  * 课外页面的适配器
  * Created by Zero on 16/7/15.
  */
 public class AfterClassPagerAdapter extends FragmentStatePagerAdapter {
     public static final int COUNT = 3;
-    private Context context = LitePalApplication.getContext();
+    private Context mContext;
     private DailyFragment mDailyFragment;
     private GuokrFragment mGuokrFragmnet;
     private WeixinFragment mWeixinFragment;
 
-    public AfterClassPagerAdapter(FragmentManager fm) {
+    public AfterClassPagerAdapter(Context context,FragmentManager fm) {
         super(fm);
+        this.mContext = context;
     }
 
     @Override
@@ -60,11 +59,11 @@ public class AfterClassPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return context.getString(R.string.zhihu);
+                return mContext.getString(R.string.zhihu);
             case 1:
-                return context.getString(R.string.weixin_special);
+                return mContext.getString(R.string.weixin_special);
             case 2:
-                return context.getString(R.string.guokr);
+                return mContext.getString(R.string.guokr);
         }
         return "";
     }

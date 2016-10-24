@@ -1,12 +1,9 @@
 package com.csmy.minyuanplus.application;
 
 import android.content.Context;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.support.multidex.MultiDex;
-import android.util.DisplayMetrics;
 
-import com.csmy.minyuanplus.support.SettingConfig;
+import com.csmy.minyuanplus.support.API;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.kymjs.rxvolley.RxVolley;
 import com.kymjs.rxvolley.http.RequestQueue;
@@ -15,7 +12,6 @@ import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.litepal.LitePalApplication;
 
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -31,7 +27,11 @@ public class App extends LitePalApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
+
         LitePalApplication.initialize(this);
+
+        boolean bmob = cn.bmob.statistics.AppStat.i(API.APP_KEY, null);
 
         /*
          * 初始化OkHttp
@@ -59,28 +59,12 @@ public class App extends LitePalApplication {
          */
         Fresco.initialize(this);
 
-        initLanguage();
+        Logger.d(bmob);
+
+
     }
 
-    /**
-     * 初始化语言
-     */
-    private void initLanguage() {
-        Resources resources = getResources();
-        Configuration config = resources.getConfiguration();
-        DisplayMetrics dm = resources.getDisplayMetrics();
-        String language = SettingConfig.getLanguage();
-        if (language.equals(SettingConfig.ZH_SIMPLE)) {
-            config.locale = Locale.SIMPLIFIED_CHINESE;
-        } else if (language.equals(SettingConfig.ZH_TW)) {
-            config.locale = Locale.TRADITIONAL_CHINESE;
-        } else if (language.equals(SettingConfig.EN)) {
-            config.locale = Locale.ENGLISH;
-        } else {
-            config.locale = Locale.getDefault();
-        }
-        resources.updateConfiguration(config, dm);
-    }
+
 
 
     @Override

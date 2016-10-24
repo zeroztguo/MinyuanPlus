@@ -1,6 +1,7 @@
 package com.csmy.minyuanplus.support.education;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.csmy.minyuanplus.R;
@@ -71,7 +72,7 @@ public class EduSchedule extends Util {
 
 
     /**
-     * 保存课表html远吗
+     * 保存课表html源码
      */
     public static void saveScheduleHtml(String schedule) {
         SPUtil.put(SCHEDULE, schedule);
@@ -144,7 +145,6 @@ public class EduSchedule extends Util {
           把页面上课程信息存入集合
          */
         List<Course> courseList = new ArrayList<>();
-
         /*
          * 起始和结束节次
          */
@@ -169,109 +169,117 @@ public class EduSchedule extends Util {
                 /*
                 第二列
                  */
-                String secondTd = trs.get(i1).select("td").get(1).text().trim();
+                String secondTd = "";
+                if (trs.get(i1).select("td").size() > 1) {
+                    secondTd = trs.get(i1).select("td").get(1).text().trim();
+                }
                 /*
                 如果第一列是节次，则解析并保存
                 */
                 if (firstTd.indexOf("第") == 0) {
                     commonBeginClass = Util.numberString2int(firstTd.substring(1, 2));
                 } else {
-                    commonBeginClass = Util.numberString2int(secondTd.substring(1, 2));
+                    if (!TextUtils.isEmpty(secondTd)) {
+                        commonBeginClass = Util.numberString2int(secondTd.substring(1, 2));
+                    }
                 }
 
                 /*
                 每列的课程信息
                  */
                 Elements tds = trs.get(i1).select("td");
+                Logger.d(tds.toString());
                 for (int i3 = 0; i3 < tds.size(); i3++) {
-
                     /*
                     具体某门课的课程信息字符串，待解析
                      */
                     String courseStr = tds.get(i3).toString();
 
-                    Logger.d(i3 + ":" + courseStr.toString());
                     if (courseStr.contains("align=\"Center\" rowspan=\"2\"")) {
 
                         String[] courses = courseStr.split("<br><br><br><br>");
                         for (int i2 = 0; i2 < courses.length; i2++) {
                             courseStr = courses[i2];
 
-                    /*
-                    课程信息每个部分集合
-                     */
+                            /*
+                            课程信息每个部分集合
+                             */
                             String[] coursePart = courseStr.split("<br>");
-                    /*
-                    课程实体
-                     */
+                            /*
+                            课程实体
+                             */
                             Course course = new Course();
-                    /*
-                    课程名
-                     */
+                            /*
+                            课程名
+                             */
                             if (coursePart[0].trim().contains("align=\"Center\" rowspan=\"2\"")) {
                                 course.setCourseName(coursePart[0].trim().split(">")[1]);
                             } else {
                                 course.setCourseName(coursePart[0].trim());
                             }
-                    /*
-                    教师
-                     */
+                            /*
+                            教师
+                             */
                             course.setTeacher(coursePart[2].trim());
-                    /*
-                    教室
-                     */
+                            /*
+                            教室
+                             */
                             course.setClassroom(coursePart[3].trim());
 
-                    /*
-                    解析周几，节次，周次
-                     */
-                            String detail = coursePart[1].trim();
-                     /*
-                     非普通情况，比如 院长讲坛 ,{第12-12周|2节/周} ,刘晓,影视厅01
-                     */
-                            if (detail.indexOf("{") == 0) {
                             /*
-                            周几
-                            */
-                                course.setDay(i3 - 1);
+                            解析周几，节次，周次
+                             */
+                            String detail = coursePart[1].trim();
+                             /*
+                             非普通情况，比如 院长讲坛 ,{第12-12周|2节/周} ,XX,影视厅01
+                             */
+                            if (detail.indexOf("{") == 0) {
+                                /*
+                                周几
+                                */
+                                if (tds.size() == 9) {
+                                    course.setDay(i3 - 1);
+                                } else {
+                                    course.setDay(i3);
+                                }
 
                                 String[] d1 = detail.split("周\\|");
                                 String[] d2 = d1[0].split("第")[1].split("-");
 
-                            /*
-                            起始和结束周次
-                            */
+                                /*
+                                起始和结束周次
+                                */
                                 course.setBeginWeek(Integer.valueOf(d2[0]));
                                 course.setEndWeek(Integer.valueOf(d2[1]));
 
-                            /*
-                            起始和结束节次
-                            */
+                                /*
+                                起始和结束节次
+                                */
                                 course.setBeginClass(commonBeginClass);
                                 commonEndClass = commonBeginClass + Integer.valueOf(d1[1].substring(0, 1)) - 1;
                                 course.setEndClass(commonEndClass);
 
                             }
-                    /*
-                    普通情况，比如 软件技术基础，周四第1,2节{第8-19周}，刘淳，S19-210
-                    */
+                            /*
+                            普通情况，比如 软件技术基础，周四第1,2节{第8-19周}，XX，S19-210
+                            */
                             else {
-                        /*
-                        周几
-                         */
+                                /*
+                                周几
+                                 */
                                 course.setDay(Util.numberString2int(detail.substring(1, 2)));
 
                                 String[] d1 = detail.split("节\\{第");
                                 String[] d2 = d1[0].split("第")[1].split(",");
                                 String[] d3 = d1[1].split("周")[0].split("-");
-                        /*
-                        起始和结束节次
-                         */
+                                /*
+                                起始和结束节次
+                                 */
                                 course.setBeginClass(Integer.valueOf(d2[0]));
                                 course.setEndClass(Integer.valueOf(d2[1]));
-                        /*
-                        起始和结束周次
-                         */
+                                /*
+                                起始和结束周次
+                                 */
                                 course.setBeginWeek(Integer.valueOf(d3[0]));
                                 course.setEndWeek(Integer.valueOf(d3[1]));
 

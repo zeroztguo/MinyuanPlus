@@ -10,6 +10,10 @@
         android:title="@string/switch_term"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_refresh_schedule"
+        android:title="@string/refresh_schedule"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_timetable"
         android:title="@string/timetable"
         app:showAsAction="never" />
@@ -18,6 +22,7 @@
         app:actionProviderClass="com.csmy.minyuanplus.support.BadgeActionProvider"
         android:title="@string/notification"
         app:showAsAction="always" />
+
     <item
         android:id="@+id/action_grade"
         android:icon="@mipmap/grade"

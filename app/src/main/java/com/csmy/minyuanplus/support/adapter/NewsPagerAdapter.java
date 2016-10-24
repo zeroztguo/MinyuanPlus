@@ -13,15 +13,13 @@ import com.csmy.minyuanplus.ui.fragment.collegenews.CollegeNewsFragment;
 import com.csmy.minyuanplus.ui.fragment.collegenews.HotLineFragment;
 import com.csmy.minyuanplus.ui.fragment.collegenews.JobFragment;
 
-import org.litepal.LitePalApplication;
-
 /**
  * 民院新闻页面适配器
  * Created by Zero on 16/7/15.
  */
 public class NewsPagerAdapter extends FragmentPagerAdapter{
-    private static final int count = 6;
-    private Context context = LitePalApplication.getContext();
+    public static final int COUNT = 6;
+    private Context mContext;
     private CollegeNewsFragment mCollegeNewsFragment;
     private CollegeDynamicFragment mCollegeDynamicFragment;
     private HotLineFragment mHotLineFragment;
@@ -32,8 +30,9 @@ public class NewsPagerAdapter extends FragmentPagerAdapter{
 
 
 
-    public NewsPagerAdapter(FragmentManager fm) {
+    public NewsPagerAdapter(Context context,FragmentManager fm) {
         super(fm);
+        this.mContext = context;
     }
 
     @Override
@@ -76,24 +75,24 @@ public class NewsPagerAdapter extends FragmentPagerAdapter{
 
     @Override
     public int getCount() {
-        return count;
+        return COUNT;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return context.getString(R.string.my_news);
+                return mContext.getString(R.string.my_news);
             case 1:
-                return context.getString(R.string.college_dynamic);
+                return mContext.getString(R.string.college_dynamic);
             case 2:
-                return context.getString(R.string.hot_line);
+                return mContext.getString(R.string.hot_line);
             case 3:
-                return context.getString(R.string.college_booth);
+                return mContext.getString(R.string.college_booth);
             case 4:
-                return context.getString(R.string.job);
+                return mContext.getString(R.string.job);
             case 5:
-                return context.getString(R.string.college_culture);
+                return mContext.getString(R.string.college_culture);
         }
         return "";
     }

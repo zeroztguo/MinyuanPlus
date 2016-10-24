@@ -12,6 +12,7 @@ import com.csmy.minyuanplus.model.Notify;
 import com.csmy.minyuanplus.model.NotifyContent;
 import com.csmy.minyuanplus.support.API;
 import com.csmy.minyuanplus.support.Notification;
+import com.csmy.minyuanplus.support.SettingConfig;
 import com.csmy.minyuanplus.support.education.EduLogin;
 import com.csmy.minyuanplus.support.util.SnackbarUtil;
 import com.csmy.minyuanplus.ui.fragment.MoreFragment;
@@ -23,10 +24,13 @@ import com.csmy.minyuanplus.ui.fragment.education.ScheduleFragment;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
+
 import butterknife.Bind;
 import me.majiajie.pagerbottomtabstrip.Controller;
 import me.majiajie.pagerbottomtabstrip.PagerBottomTabLayout;
@@ -37,7 +41,6 @@ import okhttp3.Call;
  * 主页面
  */
 public class MainActivity extends BaseActivity {
-
     @Bind(R.id.tab)
     PagerBottomTabLayout mBottomTabLayout;
     int textBottomTabSelected;
@@ -59,6 +62,10 @@ public class MainActivity extends BaseActivity {
         EventBus.getDefault().register(this);
 
         setSwipeEnabled(false);
+
+        if(SettingConfig.isNightMode()){
+            mBottomTabLayout.setBackgroundColor(getResources().getColor(R.color.colorNightPrimary));
+        }
 
         /*
         获取自定的颜色属性
@@ -101,18 +108,14 @@ public class MainActivity extends BaseActivity {
                                 mHomeFragemnt = ScheduleFragment.newInstance();
                                 addFragment(mHomeFragemnt);
                             } else {
-
                                 switchFragemnt(mHomeFragemnt);
                             }
                         } else {
 
                             if (mEducationLoginFragment == null) {
-
                                 mEducationLoginFragment = EducationLoginFragment.newInstance();
                                 addFragment(mEducationLoginFragment);
                             } else {
-
-
                                 switchFragemnt(mEducationLoginFragment);
                             }
                         }
@@ -240,7 +243,7 @@ public class MainActivity extends BaseActivity {
                 SnackbarUtil.showSnackShort(mBottomTabLayout, getString(R.string.press_again));
                 mExitTime = System.currentTimeMillis();
             } else {
-                finish();
+                System.exit(0);
             }
             return true;
         }

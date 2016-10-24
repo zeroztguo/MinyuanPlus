@@ -19,6 +19,26 @@
         <item name="android:actionMenuTextColor">@color/textOrIcon</item>
     </style>
 
+    <style name="AppTheme.Night" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorNightPrimary</item>
+        <item name="colorPrimaryDark">@color/colorNightPrimaryDark</item>
+        <item name="colorPrimaryLight">@color/colorNightPrimaryLight</item>
+        <item name="textOrIcon">@color/nightTextOrIcon</item>
+        <item name="colorAccent">@color/colorNightAccent</item>
+        <item name="textPrimary">@color/textNightPrimary</item>
+        <item name="textSecond">@color/textNightSecond</item>
+        <item name="colorPrimaryBg">@color/colorNightPrimaryBg</item>
+        <item name="colorCardBg">@color/colorNightCardBg</item>
+        <item name="textBottomTab">@color/nightTextBottomTab</item>
+        <item name="textBottomTabSelected">@color/nightTextBottomTabSelected</item>
+        <item name="textTab">@color/nightTextTab</item>
+        <item name="textSpinner">@color/nightTextOrIcon</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="android:actionMenuTextColor">@color/textOrIcon</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
     <!-- RED主题 1-->
     <style name="AppTheme.Red" parent="Theme.Swipe">
         <item name="colorPrimary">@color/colorRed</item>

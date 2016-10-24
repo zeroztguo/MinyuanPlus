@@ -155,7 +155,7 @@ public class DataCleanManager {
     /**
      * 删除某个文件夹下的文件，如果传入的是个文件，将不做处理
      */
-    private static boolean deleteFilesByDirectory(File dir) {
+    public static boolean deleteFilesByDirectory(File dir) {
         if (dir != null && dir.isDirectory()) {
             String[] children = dir.list();
             for (int i = 0; i < children.length; i++) {

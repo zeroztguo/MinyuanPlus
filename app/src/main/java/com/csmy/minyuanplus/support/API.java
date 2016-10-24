@@ -7,6 +7,14 @@ package com.csmy.minyuanplus.support;
 public class API {
 
     /**
+     * Bmob Application key
+     */
+    public static final String APP_KEY = "7e1c6595f8a40e52f7d1d30d6c22bec4";
+    /**
+     * Bmob 官网
+     */
+    public static final String APP_BMOB = "http://myplus.bmob.cn/";
+    /**
      * 当天知乎日报列表
      */
     public static final String ZHIHU_DAILY_LATEST_LIST = "http://news-at.zhihu.com/api/4/news/latest";

@@ -83,7 +83,7 @@
     <string name="from_college">抓取自民政學院教務系統和官網，版權歸學校所有</string>
     <string name="from_net">數據來自于網上api，版權歸原作者所有</string>
     <string name="feedback_message">民院+現在屬於初期版本，用起來不爽，數據獲取失敗，發現bug，或者有好的idea，都歡迎給作者提供意見。\n \n 方式：\n 1.email:zeroztguo@163.com \n 2.在作者大學城空間留言建議</string>
-    <string name="share_app_message">歡迎使用【民院+】，它是一款民院師生專屬的應用。它集課表、成績查詢，民院新聞，課外新聞，校園信息等功能于一體，希望它能給你的民院生活，帶來些許便利。你可以到~~~下載</string>
+    <string name="share_app_message">歡迎使用【民院+】，它是一款民院師生專屬的應用。它集課表、成績查詢，民院新聞，課外新聞，校園信息等功能于一體，希望它能給你的民院生活，帶來些許便利。你可以到【http://myplus.bmob.cn/】下載</string>
     <string name="obtain_update_message_fail">獲取更新信息失敗</string>
     <string name="already_latest_version">當前已是最新版本</string>
     <string name="prompt">提示</string>
@@ -123,5 +123,18 @@
     <string name="atm_pic_load_fail">ATM圖片加載失敗...</string>
     <string name="press_again">再按一次退出程序</string>
     <string name="map_simple">地圖</string>
+    <string name="update_schedule_success">課表更新成功</string>
+    <string name="course_name">名稱</string>
+    <string name="classroom">教室</string>
+    <string name="teacher">老師</string>
+    <string name="class_num">節數</string>
+    <string name="gpa_query">绩点查询</string>
+    <string name="gpa_query_success">績點查詢成功</string>
+    <string name="gpa_query_fail">績點查詢失敗</string>
+    <string name="this_week_not_course">當前周還沒有課</string>
+    <string name="night_mode">夜間模式</string>
+    <string name="night_mode_prompt">弱光環境下使用夜間模式更加護眼</string>
+    <string name="query_term_gpa">查詢學年或學期績點</string>
+    <string name="refresh_schedule">刷新課表</string>
 
 </resources>

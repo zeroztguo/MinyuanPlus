@@ -31,7 +31,7 @@ public class AfterClassFragment extends BaseFragment {
 
     @Override
     protected void initView(View view, Bundle saveInstanceState) {
-        mAfterClassagerAdapter = new AfterClassPagerAdapter(getChildFragmentManager());
+        mAfterClassagerAdapter = new AfterClassPagerAdapter(getContext(),getChildFragmentManager());
         mViewPager.setAdapter(mAfterClassagerAdapter);
         mViewPager.setOffscreenPageLimit(AfterClassPagerAdapter.COUNT);
         mTabLayout.setupWithViewPager(mViewPager);

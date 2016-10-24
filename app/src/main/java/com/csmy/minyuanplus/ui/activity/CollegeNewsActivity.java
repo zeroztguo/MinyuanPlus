@@ -17,6 +17,7 @@ import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.model.collegenews.NewsBean;
 import com.csmy.minyuanplus.model.collegenews.NewsDetail;
 import com.csmy.minyuanplus.support.API;
+import com.csmy.minyuanplus.support.CollegeNewsHelper;
 import com.csmy.minyuanplus.support.util.Util;
 import com.csmy.minyuanplus.ui.BaseProgressView;
 import com.csmy.minyuanplus.ui.BaseToolbarView;
@@ -117,8 +118,13 @@ public class CollegeNewsActivity extends BaseActivity implements BaseToolbarView
             @Override
             public void convert(ViewHolder holder, NewsDetail newsDetail, int position) {
                 AppCompatTextView textView = holder.getView(R.id.id_news_text);
+                //富文本显示html
 //                RichText.from(newsDetail.getText()).into(textView);
+                //TextView显示解析过后的文字
                 textView.setText(newsDetail.getText());
+                //TextView显示html
+//                textView.setText(Html.fromHtml(newsDetail.getText()));
+
             }
         };
 
@@ -203,13 +209,14 @@ public class CollegeNewsActivity extends BaseActivity implements BaseToolbarView
     private void obtainCollegeNews(String id) {
         showProgress();
 
+
         mDatas.clear();
         OkHttpUtils
                 .get()
                 .url(API.COLLEGE_NEWS)
-                .addParams("cmd", "9")
-                .addParams("v1", id)
-                .addParams("tempData", new Date().toString())
+                .addParams(CollegeNewsHelper.CMD, CollegeNewsHelper.CMD_COLLEGE_NEWS_CONTENT_VALUE)
+                .addParams(CollegeNewsHelper.V_ONE, id)
+                .addParams(CollegeNewsHelper.TEMP_DATE, new Date().toString())
                 .tag(this)
                 .build()
                 .execute(new StringCallback() {

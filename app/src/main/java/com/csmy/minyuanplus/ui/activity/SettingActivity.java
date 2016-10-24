@@ -78,7 +78,7 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
     String[] mBasicTitles;
     String[] mBasicSubTitles;
     String[] mLanguages;
-    boolean[] mIsSwitchArray = {true, false};
+    boolean[] mIsSwitchArray = {true, true,false};
     AlertDialog mUserIconDialog;
     int mUserIconIndex;
 
@@ -86,8 +86,8 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
     @Override
     protected void initView(Bundle savedInstanceState) {
         mPrefTitles = new String[]{getString(R.string.language), getString(R.string.head)};
-        mBasicTitles = new String[]{getString(R.string.save_flow_mode), getString(R.string.clear_cache)};
-        mBasicSubTitles = new String[]{getString(R.string.only_wifi), getString(R.string.clear_app_cache)};
+        mBasicTitles = new String[]{getString(R.string.save_flow_mode), getString(R.string.night_mode), getString(R.string.clear_cache)};
+        mBasicSubTitles = new String[]{getString(R.string.only_wifi), getString(R.string.night_mode_prompt), getString(R.string.clear_app_cache)};
         mLanguages = new String[]{getString(R.string.zh_simple), getString(R.string.zh_tw), getString(R.string.en)};
 
         if (EduLogin.isEducationLogined()) {
@@ -110,11 +110,7 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
         DataSupport.deleteAll(PersonalInfo.class);
         EduLogin.setEducationLogin(false);
 
-        finish();
-        Intent it = new Intent(SettingActivity.this, MainActivity.class);
-        //清空任务栈确保当前打开activity为前台任务栈栈顶
-        it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(it);
+        recreateActivity();
     }
 
 
@@ -228,6 +224,13 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
         SettingConfig.setLanguage(language);
 
         ToastUtil.showShort(SettingActivity.this, getString(R.string.language_setting_success));
+        recreateActivity();
+    }
+
+    /**
+     * 重启应用
+     */
+    private void recreateActivity() {
         finish();
 
         Intent it = new Intent(SettingActivity.this, MainActivity.class);
@@ -332,7 +335,7 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
                 subtitleTextView.setText(setting.getSubTitle());
 
                 switch (position) {
-                    case 1:
+                    case 2:
                         try {
                             subtitleTextView.setText(subtitleTextView.getText() + "   " + DataCleanManager.getCacheSize(getBaseContext()));
                         } catch (Exception e) {
@@ -364,11 +367,27 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
                 SwitchCompat switchButton = holder.getView(R.id.id_setting_text_switch_switch);
                 switch (position) {
                     case 0:
+                        /*
+                        是否省流量
+                         */
                         switchButton.setChecked(SettingConfig.isSaveFlow());
                         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                             @Override
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                 SettingConfig.setSaveFlow(isChecked);
+                            }
+                        });
+                        break;
+                    case 1:
+                        /*
+                        夜间模式
+                         */
+                        switchButton.setChecked(SettingConfig.isNightMode());
+                        switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                SettingConfig.setNightMode(isChecked);
+                                recreateActivity();
                             }
                         });
                         break;
@@ -383,10 +402,10 @@ public class SettingActivity extends BaseActivity implements BaseToolbarView {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
                 switch (position) {
-                    case 1:
+                    case 2:
                         DataCleanManager.cleanAllCache(getBaseContext());
                         SnackbarUtil.showSnackShort(mBasicRecyclerView, getString(R.string.clear_cache_success));
-                        mBasicAdapter.notifyItemChanged(1);
+                        mBasicAdapter.notifyItemChanged(2);
                         break;
                 }
             }

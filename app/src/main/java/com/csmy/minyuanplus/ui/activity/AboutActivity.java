@@ -2,6 +2,7 @@ package com.csmy.minyuanplus.ui.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.model.VersionInfo;
@@ -57,8 +59,8 @@ public class AboutActivity extends BaseActivity {
     private String[] mCopyrightTitles;
     private String[] mCopyrightContents;
     private String mVersionCode;
-    //    private String mLatestVersionUrl;
     private String mUpdateMessage;
+    private String mLatestVersionUrl;
 
 
     @Override
@@ -204,7 +206,7 @@ public class AboutActivity extends BaseActivity {
                         Gson gson = new Gson();
                         VersionInfo versionInfo = gson.fromJson(response, VersionInfo.class);
                         mVersionCode = versionInfo.getVersionCode().trim();
-//                        mLatestVersionUrl = versionInfo.getLatestVersionUrl().trim();
+                        mLatestVersionUrl = versionInfo.getLatestVersionUrl().trim();
                         mUpdateMessage = versionInfo.getUpdateMessage().trim();
 
                         if (Integer.parseInt(mVersionCode) > Util.getVersionCode()) {
@@ -224,10 +226,24 @@ public class AboutActivity extends BaseActivity {
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.prompt));
         builder.setMessage(mUpdateMessage);
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
         builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                //开启下载APK的服务
+//                Intent intent = new Intent(AboutActivity.this, DownloadService.class);
+//                intent.putExtra(DownloadService.UPDATE_URL, mLatestVersionUrl);
+//                startService(intent);
+                //打开浏览器,进入官网
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(API.APP_BMOB));
+                intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity");
+                startActivity(intent);
             }
         });
         builder.create().show();

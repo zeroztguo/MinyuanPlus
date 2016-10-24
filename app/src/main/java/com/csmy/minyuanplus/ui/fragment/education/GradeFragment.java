@@ -94,18 +94,18 @@ public class GradeFragment extends BaseFragment {
                     for (Grade grade : gradeList) {
                         Map<String, String> data = new HashMap<>();
                         data.put(GradeAdapter.KEY_TITLE, grade.getCourseName() + "\n" + grade.getLevel());
-                        data.put(GradeAdapter.KEY_CONTENT, grade.getAcademicYear() + getHoldingActivity().getString(R.string.the) + grade.getTerm() + getHoldingActivity().getString(R.string.term) + "\n" +
+                        data.put(GradeAdapter.KEY_CONTENT, grade.getAcademicYear() + getString(R.string.the) + grade.getTerm() + getString(R.string.term) + "\n" +
                                 grade.getCourseName() + "(" + grade.getCourseType() + ")" + "\n" +
-                                getHoldingActivity().getString(R.string.gpa) + grade.getGpa() + "\n" +
-                                getHoldingActivity().getString(R.string.ordinary_level) + grade.getOrdinaryLevel() + "\n" +
-                                getHoldingActivity().getString(R.string.terminal_level) + grade.getTerminalLevel() + "\n" +
-                                getHoldingActivity().getString(R.string.level) + grade.getLevel() + "\n");
+                                getString(R.string.gpa) + grade.getGpa() + "\n" +
+                                getString(R.string.ordinary_level) + grade.getOrdinaryLevel() + "\n" +
+                                getString(R.string.terminal_level) + grade.getTerminalLevel() + "\n" +
+                                getString(R.string.level) + grade.getLevel() + "\n");
                         mDatas.add(data);
                     }
                 } else {
                     Map<String, String> data = new HashMap<>();
-                    data.put(GradeAdapter.KEY_TITLE, getHoldingActivity().getString(R.string.no_grade));
-                    data.put(GradeAdapter.KEY_CONTENT, getHoldingActivity().getString(R.string.query_other_term));
+                    data.put(GradeAdapter.KEY_TITLE, getString(R.string.no_grade));
+                    data.put(GradeAdapter.KEY_CONTENT, getString(R.string.query_other_term));
                     mDatas.add(data);
                 }
                 mStackAdapter.updateData(mDatas);
@@ -150,8 +150,8 @@ public class GradeFragment extends BaseFragment {
         String[] terms = new String[6];
 
         for (int i = 0; i < 3; i++) {
-            terms[2 * i] = EduInfo.getSchoolYear(ayList.get(i) + " ") + getHoldingActivity().getString(R.string.the) + 1 + getHoldingActivity().getString(R.string.term);
-            terms[2 * i + 1] = EduInfo.getSchoolYear(ayList.get(i) + " ") + getHoldingActivity().getString(R.string.the) + 2 + getHoldingActivity().getString(R.string.term);
+            terms[2 * i] = EduInfo.getSchoolYear(ayList.get(i) + " ") + getString(R.string.the) + 1 + getString(R.string.term);
+            terms[2 * i + 1] = EduInfo.getSchoolYear(ayList.get(i) + " ") + getString(R.string.the) + 2 + getString(R.string.term);
         }
         mSpinner.setItems(terms);
         //设置spinner初始选择索引

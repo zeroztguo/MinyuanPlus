@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-
 import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.event.EventModel;
 import com.csmy.minyuanplus.support.adapter.NewsPagerAdapter;
@@ -18,7 +17,7 @@ import butterknife.Bind;
 /**
  * Created by Zero on 16/7/15.
  */
-public class NewsFragment extends BaseFragment{
+public class NewsFragment extends BaseFragment {
     @Bind(R.id.id_news_tab_layout)
     TabLayout mTabLayout;
     @Bind(R.id.id_news_view_pager)
@@ -26,11 +25,14 @@ public class NewsFragment extends BaseFragment{
 
     private NewsPagerAdapter mNewsPagerAdapter;
 
-    public static NewsFragment newInstance(){return new NewsFragment();}
+    public static NewsFragment newInstance() {
+        return new NewsFragment();
+    }
 
     @Override
     protected void initView(View view, Bundle saveInstanceState) {
-        mNewsPagerAdapter = new NewsPagerAdapter(getChildFragmentManager());
+        mNewsPagerAdapter = new NewsPagerAdapter(getContext(), getChildFragmentManager());
+        mViewPager.setOffscreenPageLimit(NewsPagerAdapter.COUNT);
         mViewPager.setAdapter(mNewsPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -43,7 +45,7 @@ public class NewsFragment extends BaseFragment{
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onUserEvent(EventModel eventModel){
+    public void onUserEvent(EventModel eventModel) {
 
     }
 

@@ -16,6 +16,20 @@
 
     <color name="colorScheme">?attr/colorAccent</color>
 
+    <!-- 夜间主题-->
+    <color name="colorNightPrimary">#263238</color>
+    <color name="colorNightPrimaryDark">#1E282D</color>
+    <color name="colorNightPrimaryLight">#222D32</color>
+    <color name="nightTextOrIcon">#FFFFFF</color>
+    <color name="colorNightAccent">#546E7A</color>
+    <color name="textNightPrimary">#FFFFFF</color>
+    <color name="textNightSecond">#979D9F</color>
+    <color name="colorNightPrimaryBg">#212B30</color>
+    <color name="colorNightCardBg">#37474F</color>
+    <color name="nightTextTab">#9BA1A4</color>
+    <color name="nightTextBottomTab">#496876</color>
+    <color name="nightTextBottomTabSelected">#0F88EB</color>
+
     <!-- RED主题-->
     <color name="colorRed">#F44336</color>
     <color name="colorRedDark">#D32F2F</color>

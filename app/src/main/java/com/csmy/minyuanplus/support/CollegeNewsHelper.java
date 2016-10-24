@@ -19,6 +19,7 @@ public class CollegeNewsHelper {
 
     public static final String CMD = "cmd";
     public static final String CMD_VALUE  = "7";
+    public static final String CMD_COLLEGE_NEWS_CONTENT_VALUE = "9";
     public static final String V_ONE = "v1";
     public static final String V_TWO = "v2";
     public static final String V_TWO_VALUE = "1";

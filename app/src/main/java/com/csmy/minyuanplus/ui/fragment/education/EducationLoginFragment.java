@@ -192,11 +192,6 @@ public class EducationLoginFragment extends BaseFragment implements BaseToolbarV
                 DataSupport.deleteAll(Course.class);
                 DataSupport.saveAll(courseList);
 
-                List<Course> courses = DataSupport.findAll(Course.class);
-
-                for (Course course : courses) {
-                    Logger.d("0831：" + course.toString());
-                }
 
                 EduLogin.setEducationLogin(true);
 

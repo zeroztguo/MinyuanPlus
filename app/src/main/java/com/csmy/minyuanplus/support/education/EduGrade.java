@@ -1,5 +1,6 @@
 package com.csmy.minyuanplus.support.education;
 
+import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.model.education.Grade;
 import com.csmy.minyuanplus.model.education.GradeCourseStatistical;
 import com.csmy.minyuanplus.model.education.GradeInfoStatistical;
@@ -10,6 +11,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.litepal.LitePalApplication;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -26,7 +28,10 @@ public class EduGrade {
     public static final String VIEW_STATE = "view_state";
     public static final String GRADE_ACADEMIC_YEAR = "grade_academic_year";
     public static final String GRADE_TERM = "grade_term";
+    public static final String GPA_ACADEMIC_YEAR = "gpa_academic_year";
+    public static final String GPA_TERM = "gpa_term";
     public static final String GRADE_STATISTICAL = "grade_statistical";
+
 
     /**
      * 保存成绩html源码
@@ -88,6 +93,36 @@ public class EduGrade {
 
 
     /**
+     * 保存查询绩点的学年
+     */
+    public static void saveGpaAcadamicYear(String year) {
+        SPUtil.put(GPA_ACADEMIC_YEAR, year);
+    }
+
+    /**
+     * @return 获取查询绩点的学年
+     */
+    public static String getGpaAcadamicYear() {
+        return SPUtil.get(GPA_ACADEMIC_YEAR, EduInfo.getCurrentAcademicYear()).toString();
+    }
+
+
+    /**
+     * 保存查询绩点的学期
+     */
+    public static void saveGpaTerm(String term) {
+        SPUtil.put(GPA_TERM, term);
+    }
+
+    /**
+     * @return 获取查询绩点的学期
+     */
+    public static String getGpaTerm() {
+        return SPUtil.get(GPA_TERM, EduInfo.getCurrentTerm()).toString();
+    }
+
+
+    /**
      * 保存查询成绩用的VIEWSTATE
      */
     public static void saveViewState() {
@@ -143,9 +178,24 @@ public class EduGrade {
 
 
     /**
+     * @return 获取学年或学期绩点
+     */
+    public static String getGradeGpa() {
+        Document document = Jsoup.parse(getGradeStatisticalHtml());
+        String[] gpaArray = document.select("span#pjxfjd").text().split("：");
+        String pjxfjd;
+        if (gpaArray.length > 1) {
+            pjxfjd = gpaArray[1];
+        } else {
+            pjxfjd = LitePalApplication.getContext().getString(R.string.no_grade);
+        }
+        return pjxfjd;
+    }
+
+    /**
      * @return 获取成绩统计数据
      */
-    public static List getGradeStatistical(){
+    public static List getGradeStatistical() {
         List gsList = new ArrayList();
         Document document = Jsoup.parse(getGradeStatisticalHtml());
 
@@ -153,31 +203,40 @@ public class EduGrade {
          * 解析成绩信息统计并保存
          */
         GradeInfoStatistical gradeIS = new GradeInfoStatistical();
-        String  xftj = document.select("span#xftj").text();
+        String xftj = document.select("span#xftj").text();
         String[] attrs = xftj.split("；");
         for (String s : attrs) {
         }
         for (int i = 0; i < attrs.length; i++) {
             String[] attr = attrs[i].split("分");
             String value = attr[1];
-            switch (i){
-                case 0 :
+            switch (i) {
+                case 0:
                     gradeIS.setCreditSelect(value);
                     break;
-                case 1 :
+                case 1:
                     gradeIS.setCreditObtain(value);
                     break;
-                case 2 :
+                case 2:
                     gradeIS.setCreditRestudy(value);
                     break;
-                case 3 :
+                case 3:
                     value = value.split("。")[0].trim();
                     gradeIS.setCreditFail(value);
                     break;
             }
         }
-        String pjxfjd = document.select("span#pjxfjd").text().split("：")[1];
-        String xfjdzh = document.select("span#xfjdzh").text().split("：")[1];
+
+        String pjxfjd;
+        String xfjdzh;
+        String[] gpa = document.select("span#pjxfjd").text().trim().split("：");
+        if (gpa.length < 2) {
+            pjxfjd = 0 + "";
+            xfjdzh = 0 + "";
+        } else {
+            pjxfjd = gpa[1];
+            xfjdzh = document.select("span#xfjdzh").text().trim().split("：")[1];
+        }
         gradeIS.setGpaAverage(pjxfjd);
         gradeIS.setGpaSum(xfjdzh);
 //        Logger.d(xftj);
@@ -188,12 +247,12 @@ public class EduGrade {
          * 解析公共任选课信息并保存
          */
         Elements trs2 = document.select("table#DataGrid6").select("tr");
-        for (int i = 1; i <trs2.size(); i++) {
+        for (int i = 1; i < trs2.size(); i++) {
             Elements tds = trs2.get(i).select("td");
             GradeCourseStatistical gradeCS = new GradeCourseStatistical();
             for (int j = 0; j < tds.size(); j++) {
                 String td = tds.get(j).text();
-                switch (j){
+                switch (j) {
                     case 0:
                         gradeCS.setCourseProperty(td);
                         break;
@@ -219,12 +278,12 @@ public class EduGrade {
          * 解析课程学分统计并保存
          */
         Elements trs = document.select("table#Datagrid2").select("tr");
-        for (int i = 1; i <=5; i++) {
+        for (int i = 1; i <= 5; i++) {
             Elements tds = trs.get(i).select("td");
             GradeCourseStatistical gradeCS = new GradeCourseStatistical();
             for (int j = 0; j < tds.size(); j++) {
                 String td = tds.get(j).text();
-                switch (j){
+                switch (j) {
                     case 0:
                         gradeCS.setCourseProperty(td);
                         break;
@@ -251,10 +310,9 @@ public class EduGrade {
 
 
     /**
-     *
      * @return 至今未通过成绩集合
      */
-    public static List<Grade> getGradeFail(){
+    public static List<Grade> getGradeFail() {
         List<Grade> gradeList = new ArrayList<Grade>();
         Document doucument = Jsoup.parse(getGradeHomeHtml());
         Elements elements = doucument.select("table#Datagrid3").select("tr");
@@ -280,7 +338,6 @@ public class EduGrade {
     }
 
     /**
-     *
      * @return 成绩集合
      */
     public static List<Grade> getGrade() {

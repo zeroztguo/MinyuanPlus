@@ -27,6 +27,10 @@ public class EventTag {
      * 查询未通过成绩
      */
     public static final int QUERY_GRADE_FAIL = 4;
+    /**
+     * 查询绩点
+     */
+    public static final int QUERY_GRADE_GPA = 5;
 
 
     private static final String CURRENT_TAG = "current_tag";

@@ -16,8 +16,6 @@ import butterknife.Bind;
 public class MapActivity extends BaseActivity implements BaseToolbarView {
     @Bind(R.id.id_base_tool_bar)
     Toolbar mToolbar;
-    @Bind(R.id.id_map_piv)
-    com.csmy.minyuanplus.ui.view.PinchImageView mPinchImageView;
 
     @Override
     protected int getContentViewId() {

@@ -34,10 +34,10 @@ public class Event {
     public static final int EDUCATION_GRADE_STATISTICAL_SUCCESS = 15;
     //查询成绩统计失败
     public static final int EDUCATION_GRADE_STATISTICAL_FAIL = 16;
-    //新闻内容开始更新
-    public static final int NEWS_CONTENT_UPDATE_START = 17;
-    //新闻内容更新成功
-    public static final int NEWS_CONTENT_UPDATE_SUCCESS = 18;
+    //查询绩点成功
+    public static final int EDUCATION_QUERY_GRADE_GPA_SUCCESS = 17;
+    //查询绩点失败
+    public static final int EDUCATION_QUERY_GRADE_GPA_FAIL = 18;
     //获取学院新闻
     public static final int NEWS_COLLEGE = 19;
 

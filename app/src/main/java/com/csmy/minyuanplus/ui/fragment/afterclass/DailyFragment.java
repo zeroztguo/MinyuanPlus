@@ -71,6 +71,8 @@ public class DailyFragment extends SwipeRereshFragment<Daily> {
 
                     @Override
                     public void onResponse(String response) {
+                        setRefresh(false);
+
                         Gson gson = new Gson();
                         Dailies dailies = gson.fromJson(response, Dailies.class);
                         List<Stories> storiesList = dailies.getStories();

@@ -5,12 +5,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.event.EventModel;
+import com.csmy.minyuanplus.support.SettingConfig;
 import com.csmy.minyuanplus.support.util.NetworkType;
 import com.csmy.minyuanplus.support.util.Util;
 import com.orhanobut.logger.Logger;
@@ -32,6 +32,7 @@ import butterknife.Bind;
  * Created by Zero on 16/7/27.
  */
 public abstract class SwipeRereshFragment<T> extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+    boolean mIsRefresh = false;
     /**
      * 被下拉的RecyclerView
      */
@@ -85,12 +86,12 @@ public abstract class SwipeRereshFragment<T> extends BaseFragment implements Swi
         /**
          * 初始化SwipeRefreshLayout
          */
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent, R.color.colorRed);
+        mSwipeRefreshLayout.setColorSchemeResources(SettingConfig.themeColorArray[SettingConfig.getThemeIndex()]);
 
         // 这句话是为了，第一次进入页面的时候显示加载进度条
-        mSwipeRefreshLayout.setProgressViewOffset(false, 0, (int) TypedValue
-                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
-                        .getDisplayMetrics()));
+//        mSwipeRefreshLayout.setProgressViewOffset(false, 0, (int) TypedValue
+//                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
+//                        .getDisplayMetrics()));
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -103,15 +104,19 @@ public abstract class SwipeRereshFragment<T> extends BaseFragment implements Swi
 //                }
             }
 
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                mLastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
+//                mLastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
                 //不能再往上滑动，上拉刷新
+
+                /*暂时注释,上啦刷新
                 if (!recyclerView.canScrollVertically(-1)
                         && mLastVisibleItem + 1 == mAdapter.getItemCount()) {
                     setRefresh(true);
                 }
+                */
 //                //不能再往下滑动，下拉加载
 //                else if (!recyclerView.canScrollVertically(1)) {
 //
@@ -268,8 +273,17 @@ public abstract class SwipeRereshFragment<T> extends BaseFragment implements Swi
      */
     protected void setRefresh(boolean isRefresh) {
 //        isRefresh = !isRefresh;
+//        Logger.d("下拉刷新状态,mIsRefresh：" + isRefresh);
+
+//        /*
+//        如果正在刷新则不设置
+//         */
+//        if (isRefresh && mIsRefresh)
+//            return;
         mSwipeRefreshLayout.setRefreshing(isRefresh);
-        Logger.d("下拉刷新状态：" + isRefresh);
+
+//        mIsRefresh = isRefresh;
+        Logger.d("下拉刷新状态,isRefresh：" + isRefresh);
     }
 
     protected void setLoadMore() {

@@ -82,7 +82,8 @@ public class GradeStatisticalFragment extends BaseFragment {
                         data.put(GradeAdapter.KEY_CONTENT, "所选学分：" + info.getCreditSelect() + "\n" +
                                 "获得学分：" + info.getCreditObtain() + "\n" +
                                 "重修学分：" + info.getCreditRestudy() + "\n" +
-                                "正考未通过学分：" + info.getCreditFail());
+                                "正考未通过学分：" + info.getCreditFail() +
+                                "\n\n（提示：绩点为所有已修课程的平均学分绩点，如需查询学年或学期绩点请前往绩点查询页面）");
                     } else {
                         String prompt = "";
                         GradeCourseStatistical course = (GradeCourseStatistical) datas.get(i);
@@ -101,8 +102,7 @@ public class GradeStatisticalFragment extends BaseFragment {
                                 "还需学分：" + course.getCreditNeed() + prompt);
                     }
                     mDatas.add(data);
-                    //手动回收
-                    data = null;
+
                 }
                 mAdapter.updateData(mDatas);
                 mGradeStatisticalBtn.setVisibility(View.GONE);
@@ -117,12 +117,6 @@ public class GradeStatisticalFragment extends BaseFragment {
         }
     }
 
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mAdapter = null;
-    }
 
     /**
      * 查询成绩统计

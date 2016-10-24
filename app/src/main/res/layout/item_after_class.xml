@@ -6,6 +6,7 @@
     android:layout_marginTop="5dp"
     app:cardCornerRadius="0dp"
     app:cardElevation="1dp"
+    app:cardBackgroundColor="?attr/colorCardBg"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="false">
 
@@ -41,12 +42,14 @@
                     android:id="@+id/id_after_class_author_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:textColor="?attr/textSecond"
                     android:layout_weight="1"
                     android:textSize="40px" />
 
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/id_after_class_time_tv"
+                    android:textColor="?attr/textSecond"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="40px" />

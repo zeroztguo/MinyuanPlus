@@ -16,7 +16,6 @@
         app:cardUseCompatPadding="false">
 
         <com.csmy.minyuanplus.ui.view.PinchImageView
-            android:id="@+id/id_map_piv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@mipmap/minyuan" />

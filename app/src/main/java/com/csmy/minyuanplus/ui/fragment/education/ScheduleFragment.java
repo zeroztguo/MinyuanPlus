@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,8 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.csmy.minyuanplus.R;
 import com.csmy.minyuanplus.event.Event;
@@ -25,7 +24,6 @@ import com.csmy.minyuanplus.support.Notification;
 import com.csmy.minyuanplus.support.education.EduInfo;
 import com.csmy.minyuanplus.support.education.EduRxVolley;
 import com.csmy.minyuanplus.support.education.EduSchedule;
-import com.csmy.minyuanplus.support.util.SnackbarUtil;
 import com.csmy.minyuanplus.support.util.ToastUtil;
 import com.csmy.minyuanplus.support.util.Util;
 import com.csmy.minyuanplus.ui.activity.GradeActivity;
@@ -36,7 +34,6 @@ import com.csmy.minyuanplus.ui.view.CourseView;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.orhanobut.logger.Logger;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.litepal.crud.DataSupport;
@@ -81,8 +78,6 @@ public class ScheduleFragment extends BaseFragment {
     private String mAcademicYear;
     private String mTerm;
     private int mSelectedWeek;
-    private boolean mIsInit = true;
-    private List mAyList;
 
 
     /**
@@ -130,16 +125,22 @@ public class ScheduleFragment extends BaseFragment {
      * 初始化当前周
      */
     private void initCurrentWeek() {
+        //设置时周数加间隔周数等于当前周数
+        EduSchedule.saveScheduleWeek(EduSchedule.getScheduleWeek() + getSpaceWeek());
+        EduSchedule.setCurrentWeekDate();
+        Logger.d("间隔的周数:" + getSpaceWeek());
+    }
+
+    /**
+     * 获取今天日期与设置当前周时的日期的间隔天数
+     */
+    private int getSpaceDay() {
         String[] dateInfo = EduSchedule.getSettingCurrentWeekDate().split("-");
         //设置当前周时的日期
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, Integer.valueOf(dateInfo[0]));
         cal.set(Calendar.MONTH, Integer.valueOf(dateInfo[1]));
         cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(dateInfo[2]));
-
-        //设置当前周时的星期几
-        int settingWeek = Util.getFormatWeekNum(cal.get(Calendar.DAY_OF_WEEK));
-
 
         //现在的日期
         String[] dateInfo2 = Util.getCurrentDate().split("-");
@@ -151,6 +152,30 @@ public class ScheduleFragment extends BaseFragment {
 
         //间隔天数
         int spaceDay = (int) ((cal2.getTimeInMillis() - cal.getTimeInMillis()) / (1000 * 60 * 60 * 24));
+        return spaceDay;
+    }
+
+    /**
+     * 获取设置当前周时的星期几
+     */
+    private int getSettingWeek() {
+        String[] dateInfo = EduSchedule.getSettingCurrentWeekDate().split("-");
+        //设置当前周时的日期
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, Integer.valueOf(dateInfo[0]));
+        cal.set(Calendar.MONTH, Integer.valueOf(dateInfo[1]));
+        cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(dateInfo[2]));
+
+        int settingWeek = Util.getFormatWeekNum(cal.get(Calendar.DAY_OF_WEEK));
+        return settingWeek;
+    }
+
+    /**
+     * 获取当前日期与设置当前周时的日期的间隔周数
+     */
+    private int getSpaceWeek() {
+        int settingWeek = getSettingWeek();
+        int spaceDay = getSpaceDay();
         //间隔周数
         int spaceWeek = spaceDay / 7;
         if (spaceWeek > 0) {
@@ -163,11 +188,7 @@ public class ScheduleFragment extends BaseFragment {
                 spaceWeek++;
             }
         }
-
-        //设置时周数加间隔周数等于当前周数
-        EduSchedule.saveScheduleWeek(EduSchedule.getScheduleWeek() + spaceWeek);
-        EduSchedule.setCurrentWeekDate();
-        Logger.d("间隔的周数:" + spaceWeek);
+        return spaceWeek;
     }
 
     /**
@@ -195,6 +216,11 @@ public class ScheduleFragment extends BaseFragment {
                         break;
                     case R.id.action_timetable:
                         showSetTimetable();
+                        break;
+                    case R.id.action_refresh_schedule:
+                        EventTag.saveCurrentTag(EventTag.SWITCH_SCHEDULE);
+                        EduRxVolley.enterEducationHome();
+                        showWaitDialog();
                         break;
                 }
                 return true;
@@ -226,9 +252,6 @@ public class ScheduleFragment extends BaseFragment {
             }
         });
 
-        //手动回收
-        datas = null;
-
     }
 
 
@@ -242,6 +265,9 @@ public class ScheduleFragment extends BaseFragment {
 
         List<Course> courses = DataSupport.where(SQL_SWITCH_SCHEDULE_WITH_WEEK_WHERE, String.valueOf(week), String.valueOf(week), mAcademicYear, mTerm)
                 .find(Course.class);
+        if (courses.size() == 0) {
+            ToastUtil.showShort(getContext(), getString(R.string.this_week_not_course));
+        }
 
         Logger.d("初始化课表这里所有课程数：" + DataSupport.findAll(Course.class).size());
         Logger.d("初始化课表这里课程数：" + courses.size());
@@ -306,11 +332,10 @@ public class ScheduleFragment extends BaseFragment {
             }
         }
 
-        initWeek(dayHaveClass, week);
+        initWeek(dayHaveClass);
         initClassNum(numOfClass);
 
         mCourseLayout.addCourseViews(courseViews, dayHaveClass, numOfClass);
-
     }
 
 
@@ -318,25 +343,27 @@ public class ScheduleFragment extends BaseFragment {
      * 初始化星期数
      *
      * @param dayHaveClass 有课的天数，周六周日没课则隐藏
-     * @param selectedWeek 选择的周数
      */
-    private void initWeek(int dayHaveClass, int selectedWeek) {
+    private void initWeek(int dayHaveClass) {
+
         LinearLayout horzLayout = (LinearLayout) mScheduleHorzLayout.getChildAt(0);
         for (int i = 0; i < horzLayout.getChildCount(); i++) {
-            TextView tv = (TextView) horzLayout.getChildAt(i);
+            AppCompatTextView tv = (AppCompatTextView) horzLayout.getChildAt(i);
             if (i == 0) {
-                tv.setText(selectedWeek + week);
+                tv.setText(mSelectedWeek + week);
             } else {
                 tv.setText(week + EduSchedule.weekIntToString(i));
+                //星期六星期日没有课则隐藏
+                if (i > dayHaveClass) {
+                    tv.setVisibility(View.GONE);
+                } else {
+                    tv.setVisibility(View.VISIBLE);
+                }
             }
-            //星期六星期日没有课则隐藏
-            if (i > dayHaveClass) {
-                tv.setVisibility(View.GONE);
-            } else {
-                tv.setVisibility(View.VISIBLE);
-            }
+
         }
     }
+
 
     /**
      * 初始化节次
@@ -354,8 +381,8 @@ public class ScheduleFragment extends BaseFragment {
         }
         for (int i = 0; i < layout.getChildCount(); i++) {
             LinearLayout item = (LinearLayout) layout.getChildAt(i);
-            TextView classNum = (TextView) (item.getChildAt(0));
-            TextView when = (TextView) (item.getChildAt(1));
+            AppCompatTextView classNum = (AppCompatTextView) (item.getChildAt(0));
+            AppCompatTextView when = (AppCompatTextView) (item.getChildAt(1));
 
             classNum.setText(i + 1 + "");
             when.setText(time[i]);
@@ -379,6 +406,7 @@ public class ScheduleFragment extends BaseFragment {
                 dismissWaitDialog();
                 initSpinner();
                 initSchedule(EduSchedule.getScheduleWeek());
+                ToastUtil.showShort(getContext(), getString(R.string.update_schedule_success));
                 break;
             case Event.EDUCATION_SWITCH_SCHEDULE_FAIL:
                 dismissWaitDialog();
@@ -389,11 +417,13 @@ public class ScheduleFragment extends BaseFragment {
                 dismissWaitDialog();
                 initSpinner();
                 initSchedule(EduSchedule.getScheduleWeek());
-                SnackbarUtil.showSnackShort(mScheduleHorzLayout, getString(R.string.this_term_no_course));
+                ToastUtil.showShort(getContext(), getString(R.string.this_term_no_course));
                 break;
             case Event.NOTIFY_UPDATE:
                 Logger.d("收到 通知：" + Notification.getLatestNotifyCode());
-                mBadgeActionProvider.setTextInt(BadgeActionProvider.getUnreadCount());
+                if (mBadgeActionProvider != null) {
+                    mBadgeActionProvider.setTextInt(BadgeActionProvider.getUnreadCount());
+                }
                 break;
         }
     }
@@ -482,7 +512,7 @@ public class ScheduleFragment extends BaseFragment {
                 EduSchedule.setCurrentWeekDate();
                 initSpinner();
                 initSchedule(EduSchedule.getScheduleWeek());
-                Toast.makeText(getContext(), setSuccess, Toast.LENGTH_SHORT).show();
+                ToastUtil.showShort(getContext(),setSuccess);
             }
         });
 
@@ -543,7 +573,7 @@ public class ScheduleFragment extends BaseFragment {
                 List<Course> courses = DataSupport.where(SQL_SWITCH_REFRESH_SCHEDULE_WITH_CURRENT_TERM_WHERE, mAcademicYear, mTerm).find(Course.class);
                 //从数据库读取课表数据
                 if (courses.size() > 0) {
-                    EventBus.getDefault().post(new EventModel<Integer>(Event.EDUCATION_SWITCH_SCHEDULE_SUCCESS));
+                    Event.sendEmptyMessage(Event.EDUCATION_SWITCH_SCHEDULE_SUCCESS);
                 }
                 //从网络加载课表数据
                 else {
@@ -564,5 +594,8 @@ public class ScheduleFragment extends BaseFragment {
 
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }
